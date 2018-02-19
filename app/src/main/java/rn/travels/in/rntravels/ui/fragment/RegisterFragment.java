@@ -51,6 +51,7 @@ public class RegisterFragment extends BaseFragment {
 
         switch (v.getId()) {
             case R.id.registerUser:
+                ((RootActivity) getActivity()).loadFragment(Appconst.FragmentId.DASHBOARD, null, null);
                 break;
 
             case R.id.cancelRegister:

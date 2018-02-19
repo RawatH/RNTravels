@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+   >
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/pkgViewer"
+        android:id="@+id/pkgPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <android.support.v4.view.PagerTabStrip
+            android:id="@+id/title_strip"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:background="@color/primary_dark"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:textColor="@color/white" />
+    </android.support.v4.view.ViewPager>
 
 </LinearLayout>
