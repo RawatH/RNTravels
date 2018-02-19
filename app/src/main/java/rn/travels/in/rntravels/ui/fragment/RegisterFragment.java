@@ -28,36 +28,35 @@ public class RegisterFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.test, null);
+        View view = inflater.inflate(R.layout.fragment_register, container, false);
         init(view);
         return view;
     }
 
     private void init(View view) {
+        registerBtn = (Button) view.findViewById(R.id.registerUser);
+        cancelBtn = (Button) view.findViewById(R.id.cancelRegister);
 
-//        registerBtn = (Button) view.findViewById(R.id.registerUser);
-//        cancelBtn = (Button) view.findViewById(R.id.cancelRegister);
-//
-//        userName = (EditText) view.findViewById(R.id.regusername);
-//        email = (EditText) view.findViewById(R.id.regemail);
-//        phone = (EditText) view.findViewById(R.id.regphone);
-//
-//        registerBtn.setOnClickListener(this);
-//        cancelBtn.setOnClickListener(this);
+        userName = (EditText) view.findViewById(R.id.regusername);
+        email = (EditText) view.findViewById(R.id.regemail);
+        phone = (EditText) view.findViewById(R.id.regphone);
+
+        registerBtn.setOnClickListener(this);
+        cancelBtn.setOnClickListener(this);
 
     }
 
-//    @Override
-//    public void onClick(View v) {
-//
-//        switch (v.getId()) {
-//            case R.id.registerUser:
-//                break;
-//
-//            case R.id.cancelRegister:
-//                ((RootActivity) getActivity()).loadFragment(Appconst.FragmentId.LOGIN, null, null);
-//                break;
-//        }
-//
-//    }
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+            case R.id.registerUser:
+                break;
+
+            case R.id.cancelRegister:
+                ((RootActivity) getActivity()).loadFragment(Appconst.FragmentId.LOGIN, null, null);
+                break;
+        }
+
+    }
 }
