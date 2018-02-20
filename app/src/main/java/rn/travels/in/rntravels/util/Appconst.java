@@ -13,11 +13,12 @@ import rn.travels.in.rntravels.network.NetworkConst;
 
 public class Appconst {
     @Retention(RetentionPolicy.SOURCE)
-    @IntDef({FragmentId.SPLASH, FragmentId.LOGIN, FragmentId.REGISTER, FragmentId.DASHBOARD})
+    @IntDef({FragmentId.SPLASH, FragmentId.LOGIN, FragmentId.REGISTER, FragmentId.DASHBOARD , FragmentId.PKG_DETAIL})
     public @interface FragmentId {
         int SPLASH = 0;
         int LOGIN = 1;
         int REGISTER = 2;
         int DASHBOARD = 3;
+        int PKG_DETAIL = 4;
     }
 }

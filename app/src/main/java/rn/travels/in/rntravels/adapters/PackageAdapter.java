@@ -12,19 +12,22 @@ import java.util.ArrayList;
 
 import rn.travels.in.rntravels.R;
 import rn.travels.in.rntravels.models.PackageVO;
+import rn.travels.in.rntravels.util.Util;
 
 /**
  * Created by hrawat on 19-02-2018.
  */
 
-public class PackageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private ArrayList<PackageVO> dataList;
     private Context context;
+    private PagerCommunicator communicator;
 
-    public PackageListAdapter(ArrayList<PackageVO> dataList, Context context) {
+    public PackageAdapter(ArrayList<PackageVO> dataList, Context context , PagerCommunicator communicator) {
         this.dataList = dataList;
         this.context = context;
+        this.communicator = communicator;
     }
 
     @Override
@@ -37,17 +40,24 @@ public class PackageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
-        PackageVO packageVO = (PackageVO) dataList.get(position);
+        final PackageVO packageVO = (PackageVO) dataList.get(position);
         PkgViewHolder pkgViewHolder = (PkgViewHolder) holder;
-        pkgViewHolder.getPkgNameView().setText(packageVO.getName());
+        pkgViewHolder.getPkgNameView().setText(packageVO.getHeading());
         final int sdk = android.os.Build.VERSION.SDK_INT;
         if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
             pkgViewHolder.getPkgBanner().setBackgroundDrawable(context.getResources().getDrawable(R.drawable.sydney));
         } else {
             pkgViewHolder.getPkgBanner().setBackground(context.getResources().getDrawable(R.drawable.sydney));
         }
+        pkgViewHolder.getPkgBanner().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Util.t(context,"--"+position);
+                communicator.onPackageSelected(packageVO);
+            }
+        });
     }
 
 
@@ -74,5 +84,9 @@ public class PackageListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         public TextView getPkgNameView() {
             return pkgNameView;
         }
+    }
+
+    public interface PagerCommunicator{
+        void onPackageSelected(PackageVO packageVO);
     }
 }

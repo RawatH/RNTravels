@@ -6,9 +6,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import rn.travels.in.rntravels.R;
 import rn.travels.in.rntravels.ui.fragment.BaseFragment;
+import rn.travels.in.rntravels.ui.fragment.SplashFragment;
 import rn.travels.in.rntravels.util.Appconst;
 import rn.travels.in.rntravels.util.FragmentFactory;
 
@@ -19,11 +22,14 @@ import rn.travels.in.rntravels.util.FragmentFactory;
 public class RootActivity extends AppCompatActivity {
 
     private BaseFragment loadedFragment;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_root);
+        toolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(toolbar);
         loadFragment(Appconst.FragmentId.SPLASH, null, null);
 
         new Handler().postDelayed(new Runnable() {
@@ -31,7 +37,7 @@ public class RootActivity extends AppCompatActivity {
             public void run() {
                 loadFragment(Appconst.FragmentId.LOGIN, null, null);
             }
-        },2000);
+        }, 2000);
     }
 
     @Override
@@ -48,6 +54,8 @@ public class RootActivity extends AppCompatActivity {
 
         BaseFragment fragment = FragmentFactory.getInstance().getFrgById(fragmentId, bundle);
         if (fragment != null) {
+            loadedFragment = fragment;
+            setupToolbar();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.container, fragment);
@@ -56,18 +64,14 @@ public class RootActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
+    private void setupToolbar() {
+        if (loadedFragment instanceof SplashFragment) {
+            toolbar.setVisibility(View.GONE);
+        } else {
+            toolbar.setVisibility(View.VISIBLE);
+        }
+        toolbar.setTitle(loadedFragment.getTitle());
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 }

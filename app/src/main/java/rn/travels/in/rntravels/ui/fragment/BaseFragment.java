@@ -28,6 +28,10 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
         super.onCreate(savedInstanceState);
     }
 
+    public String getTitle(){
+        return "";
+    }
+
 
     @Override
     public void onClick(View v) {

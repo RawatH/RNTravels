@@ -6,18 +6,16 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import java.util.ArrayList;
-
-import rn.travels.in.rntravels.R;
 import rn.travels.in.rntravels.adapters.PackagePagerAdapter;
 import rn.travels.in.rntravels.models.PackageVO;
+import rn.travels.in.rntravels.util.Appconst;
+import rn.travels.in.rntravels.util.Util;
 
 /**
  * Created by demo on 16/02/18.
  */
 
-public class DashboardFragment extends BaseFragment {
+public class PackageDashboardFragment extends BaseFragment implements PackagePagerAdapter.PackageSelectionListener {
 
     private ViewPager pager;
     private PackagePagerAdapter packagePagerAdapter;
@@ -33,19 +31,20 @@ public class DashboardFragment extends BaseFragment {
     private void init(View view) {
         pager = (ViewPager) view.findViewById(R.id.pkgPager);
 
-        packagePagerAdapter = new PackagePagerAdapter(getContext(), getDummyPkgList());
+        packagePagerAdapter = new PackagePagerAdapter(getContext(), Util.getDummyList() , this);
         pager.setAdapter(packagePagerAdapter);
     }
 
-    private ArrayList<PackageVO> getDummyPkgList() {
-        ArrayList<PackageVO> list = new ArrayList<>();
-        PackageVO packageVO = new PackageVO();
-        packageVO.setName("Sydney.");
-        PackageVO packageVO2 = new PackageVO();
-        packageVO2.setName("Thailand.");
-        list.add(packageVO);
-        list.add(packageVO2);
-        return list;
+    @Override
+    public String getTitle() {
+        return "Packages";
     }
 
+
+    @Override
+    public void onPackageSelected(PackageVO packageVO) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("pkgObj" , packageVO);
+        activity.loadFragment(Appconst.FragmentId.PKG_DETAIL , bundle , null);
+    }
 }
