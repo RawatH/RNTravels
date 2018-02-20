@@ -6,6 +6,8 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import rn.travels.in.rntravels.R;
 import rn.travels.in.rntravels.adapters.PackagePagerAdapter;
 import rn.travels.in.rntravels.models.PackageVO;
 import rn.travels.in.rntravels.util.Appconst;
