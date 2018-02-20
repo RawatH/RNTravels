@@ -3,8 +3,9 @@ package rn.travels.in.rntravels.util;
 import android.os.Bundle;
 
 import rn.travels.in.rntravels.ui.fragment.BaseFragment;
-import rn.travels.in.rntravels.ui.fragment.DashboardFragment;
+import rn.travels.in.rntravels.ui.fragment.PackageDashboardFragment;
 import rn.travels.in.rntravels.ui.fragment.LoginFragment;
+import rn.travels.in.rntravels.ui.fragment.PkgDetailFragment;
 import rn.travels.in.rntravels.ui.fragment.RegisterFragment;
 import rn.travels.in.rntravels.ui.fragment.SplashFragment;
 
@@ -43,7 +44,10 @@ public class FragmentFactory {
                 fragment = new RegisterFragment();
                 break;
             case Appconst.FragmentId.DASHBOARD:
-                fragment = new DashboardFragment();
+                fragment = new PackageDashboardFragment();
+                break;
+            case Appconst.FragmentId.PKG_DETAIL:
+                fragment = new PkgDetailFragment();
                 break;
             default:
                 fragment = null;

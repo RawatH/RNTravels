@@ -1,12 +1,13 @@
 package rn.travels.in.rntravels.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by demo on 16/02/18.
  */
 
-public class DayVO {
+public class DayVO implements Serializable{
 
     private String title;
     private String date;

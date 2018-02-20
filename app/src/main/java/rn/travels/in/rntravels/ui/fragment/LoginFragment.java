@@ -40,6 +40,11 @@ public class LoginFragment extends BaseFragment {
     }
 
     @Override
+    public String getTitle() {
+        return "Login";
+    }
+
+    @Override
     public void onClick(View v) {
 
         switch (v.getId()){

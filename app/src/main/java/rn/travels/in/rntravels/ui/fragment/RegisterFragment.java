@@ -47,6 +47,11 @@ public class RegisterFragment extends BaseFragment {
     }
 
     @Override
+    public String getTitle() {
+        return "Register";
+    }
+
+    @Override
     public void onClick(View v) {
 
         switch (v.getId()) {
