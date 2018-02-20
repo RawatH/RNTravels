@@ -20,12 +20,12 @@ import rn.travels.in.rntravels.models.DayVO;
 
 public class PkgDetailAdapter extends BaseExpandableListAdapter {
 
-    private Context _context;
+    private Context context;
     private ArrayList<String> headerList;
-    private HashMap<String, ArrayList<DayVO>> dataList;
+    private HashMap<String, ArrayList<String>> dataList;
 
-    public PkgDetailAdapter(Context context, ArrayList<String> headerList, HashMap<String, ArrayList<DayVO>> dataList) {
-        this._context = context;
+    public PkgDetailAdapter(Context context, ArrayList<String> headerList, HashMap<String, ArrayList<String>> dataList) {
+        this.context = context;
         this.headerList = headerList;
         this.dataList = dataList;
     }
@@ -69,8 +69,7 @@ public class PkgDetailAdapter extends BaseExpandableListAdapter {
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         String headerTitle = (String) getGroup(groupPosition);
         if (convertView == null) {
-            LayoutInflater infalInflater = (LayoutInflater) this._context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater infalInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.list_group, null);
         }
 
@@ -87,7 +86,7 @@ public class PkgDetailAdapter extends BaseExpandableListAdapter {
         final String childText = (String) getChild(groupPosition, childPosition);
 
         if (convertView == null) {
-            LayoutInflater infalInflater = (LayoutInflater) this._context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater infalInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.pkg_detail_row_item, null);
         }
 

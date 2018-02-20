@@ -27,7 +27,7 @@ public class PkgDetailFragment extends BaseFragment {
     private ExpandableListAdapter listAdapter;
     private ExpandableListView expListView;
     private ArrayList<String> headerList;
-    private HashMap<String, ArrayList<DayVO>> dataList;
+    private HashMap<String, ArrayList<String>> dataList;
     private PackageVO packageVO;
 
     @Override
@@ -39,7 +39,7 @@ public class PkgDetailFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        packageVO = (PackageVO)getArguments().getSerializable("pkgObj");
+        packageVO = (PackageVO) getArguments().getSerializable("pkgObj");
     }
 
     @Nullable
@@ -59,5 +59,17 @@ public class PkgDetailFragment extends BaseFragment {
 
     private void prepareListData() {
 
+        headerList = new ArrayList<>();
+        dataList = new HashMap<>();
+
+        for (DayVO dayVO : packageVO.getDayList()) {
+            headerList.add(dayVO.getTitle());
+            dataList.put(dayVO.getTitle() , dayVO.getDaySnippetList());
+        }
+    }
+
+    @Override
+    public String getTitle() {
+        return "Details";
     }
 }
