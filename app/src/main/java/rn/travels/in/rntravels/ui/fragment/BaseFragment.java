@@ -15,17 +15,29 @@ import rn.travels.in.rntravels.ui.activity.RootActivity;
 public class BaseFragment extends Fragment implements View.OnClickListener {
 
     public RootActivity activity;
+    public FragListener listener;
 
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         activity = (RootActivity)context;
+        listener = (FragListener)context;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (this instanceof PkgDetailFragment) {
+            listener.toggleDrawerLock(false);
+        } else {
+            listener.toggleDrawerLock(true);
+        }
     }
 
     public String getTitle(){
@@ -36,5 +48,9 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
+    }
+
+    public interface FragListener {
+        void toggleDrawerLock(boolean lockState);
     }
 }
