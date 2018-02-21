@@ -27,8 +27,8 @@ public class RootActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_root);
-        toolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setContentView(R.layout.root_act);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         loadFragment(Appconst.FragmentId.SPLASH, null, null);
 
