@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -19,16 +20,18 @@ import rn.travels.in.rntravels.util.FragmentFactory;
  * Created by demo on 16/02/18.
  */
 
-public class RootActivity extends AppCompatActivity {
+public class RootActivity extends AppCompatActivity implements BaseFragment.FragListener {
 
     private BaseFragment loadedFragment;
     private Toolbar toolbar;
+    private DrawerLayout mDrawerLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.root_act);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         setSupportActionBar(toolbar);
         loadFragment(Appconst.FragmentId.SPLASH, null, null);
 
@@ -74,4 +77,9 @@ public class RootActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void toggleDrawerLock(boolean lockState) {
+        int lockMode = lockState == true ? DrawerLayout.LOCK_MODE_LOCKED_CLOSED : DrawerLayout.LOCK_MODE_UNLOCKED;
+        mDrawerLayout.setDrawerLockMode(lockMode);
+    }
 }
