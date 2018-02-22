@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RN Travels</string>
+    <string name="app_name">Demo</string>
     <string name="login_name">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>

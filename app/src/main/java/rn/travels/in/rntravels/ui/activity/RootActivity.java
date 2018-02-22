@@ -12,14 +12,20 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import rn.travels.in.rntravels.R;
 import rn.travels.in.rntravels.adapters.DrawerListAdapter;
 import rn.travels.in.rntravels.ui.fragment.BaseFragment;
+import rn.travels.in.rntravels.ui.fragment.PkgDetailFragment;
 import rn.travels.in.rntravels.ui.fragment.SplashFragment;
 import rn.travels.in.rntravels.util.Appconst;
 import rn.travels.in.rntravels.util.FragmentFactory;
+import rn.travels.in.rntravels.util.Util;
 
 /**
  * Created by demo on 16/02/18.
@@ -98,5 +104,34 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
     public void toggleDrawerLock(boolean lockState) {
         int lockMode = lockState == true ? DrawerLayout.LOCK_MODE_LOCKED_CLOSED : DrawerLayout.LOCK_MODE_UNLOCKED;
         mDrawerLayout.setDrawerLockMode(lockMode);
+    }
+
+    @Override
+    public void setupDrawerMenu() {
+        invalidateOptionsMenu();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if(loadedFragment instanceof PkgDetailFragment) {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.root_menu, menu);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_filter:
+                mDrawerLayout.openDrawer(Gravity.END);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 }
