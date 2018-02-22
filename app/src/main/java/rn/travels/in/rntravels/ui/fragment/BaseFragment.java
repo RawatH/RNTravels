@@ -33,6 +33,7 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
+        listener.setupDrawerMenu();
         if (this instanceof PkgDetailFragment) {
             listener.toggleDrawerLock(false);
         } else {
@@ -52,5 +53,6 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
 
     public interface FragListener {
         void toggleDrawerLock(boolean lockState);
+        void setupDrawerMenu();
     }
 }
