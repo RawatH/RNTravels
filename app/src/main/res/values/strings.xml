@@ -8,4 +8,15 @@
     <string name="cancel">Cancel</string>
     <string name="email">Email</string>
     <string name="phone">Phone</string>
+
+
+    <string-array name="drawer_list">
+        <item>Tickets</item>
+        <item>Itinerary</item>
+        <item>Emergency Contact</item>
+        <item>Miscellaneous</item>
+        <item>Helpline</item>>
+    </string-array>
+
+
 </resources>
