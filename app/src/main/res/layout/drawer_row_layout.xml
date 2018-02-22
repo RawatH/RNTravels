@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="60dp"
+    android:id="@+id/drawer_row_parent"
     >
 
     <ImageView
-        android:id="@+id/icon"
+        android:id="@+id/drawer_row_icon"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight=".3"
@@ -14,11 +15,11 @@
         />
 
     <TextView
-        android:id="@+id/text"
+        android:id="@+id/drawer_row_title"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight=".7"
-        android:textSize="25sp"
+        android:textSize="15sp"
         android:paddingLeft="10dp"
         android:textColor="@color/black"
         android:gravity="center_vertical"/>
