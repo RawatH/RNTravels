@@ -7,10 +7,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import rn.travels.in.rntravels.R;
+import rn.travels.in.rntravels.adapters.DrawerListAdapter;
 import rn.travels.in.rntravels.ui.fragment.BaseFragment;
 import rn.travels.in.rntravels.ui.fragment.SplashFragment;
 import rn.travels.in.rntravels.util.Appconst;
@@ -25,6 +30,8 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
     private BaseFragment loadedFragment;
     private Toolbar toolbar;
     private DrawerLayout mDrawerLayout;
+    private DrawerListAdapter drawerListAdapter;
+    private RecyclerView drawerList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,6 +40,16 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         setSupportActionBar(toolbar);
+
+        drawerList = (RecyclerView) findViewById(R.id.drawerList);
+
+        drawerListAdapter = new DrawerListAdapter(this);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        drawerList.setLayoutManager(mLayoutManager);
+        drawerList.setItemAnimator(new DefaultItemAnimator());
+        drawerList.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+        drawerList.setAdapter(drawerListAdapter);
+
         loadFragment(Appconst.FragmentId.SPLASH, null, null);
 
         new Handler().postDelayed(new Runnable() {

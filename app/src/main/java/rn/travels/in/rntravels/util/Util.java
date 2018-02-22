@@ -4,8 +4,12 @@ import android.content.Context;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
+import rn.travels.in.rntravels.R;
 import rn.travels.in.rntravels.models.DayVO;
+import rn.travels.in.rntravels.models.DrawerItemVO;
 import rn.travels.in.rntravels.models.PackageVO;
 
 /**
@@ -18,7 +22,7 @@ public class Util {
         Toast.makeText(ctx, msg, Toast.LENGTH_SHORT).show();
     }
 
-    public static ArrayList<PackageVO> getDummyList(){
+    public static ArrayList<PackageVO> getDummyList() {
         ArrayList<PackageVO> list = new ArrayList<>();
 
         PackageVO packageVO = new PackageVO();
@@ -42,7 +46,6 @@ public class Util {
         packageVO.setDayList(dayList);
 
 
-
         PackageVO packageVO2 = new PackageVO();
         packageVO2.setHeading("Heading");
         packageVO.setSubHeading("Sub - Heading");
@@ -57,5 +60,23 @@ public class Util {
         list.add(packageVO2);
         list.add(packageVO3);
         return list;
+    }
+
+    public static ArrayList<DrawerItemVO> getDrawerList(Context ctx) {
+        ArrayList<DrawerItemVO> list = new ArrayList<>();
+        List<String> titleList = Arrays.asList(ctx.getResources().getStringArray(R.array.drawer_list));
+        int icon[] = new int[titleList.size()];
+        icon[0] = R.drawable.ticket;
+        icon[1] = R.drawable.itinerary;
+        icon[2] = R.drawable.emergency_contact;
+        icon[3] = R.drawable.misc;
+        icon[4] = R.drawable.helpline;
+
+        for (int i = 0; i < titleList.size(); i++) {
+            list.add(new DrawerItemVO(titleList.get(i), icon[i]));
+        }
+
+        return list;
+
     }
 }
