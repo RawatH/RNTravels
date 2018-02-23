@@ -23,10 +23,12 @@ public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.Dr
 
     private Context ctx;
     private ArrayList<DrawerItemVO> dataList;
+    private DrawerListener listner;
 
-    public DrawerListAdapter(Context ctx) {
+    public DrawerListAdapter(Context ctx , DrawerListener listner) {
         this.ctx = ctx;
         dataList = Util.getDrawerList(ctx);
+        this.listner = listner;
     }
 
     @Override
@@ -43,7 +45,7 @@ public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.Dr
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Util.t(ctx , drawerItemVO.getText());
+               // listner.onDrawerItemSelected();
             }
         });
     }
@@ -65,5 +67,9 @@ public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.Dr
             icon = view.findViewById(R.id.drawer_row_icon);
             parent = view.findViewById(R.id.drawer_row_parent);
         }
+    }
+
+    public interface DrawerListener {
+        void onDrawerItemSelected(int fragId);
     }
 }
