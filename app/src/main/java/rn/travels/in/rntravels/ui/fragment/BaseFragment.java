@@ -16,11 +16,13 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
 
     public RootActivity activity;
     public FragListener listener;
+    public Context ctx;
 
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        ctx = context;
         activity = (RootActivity)context;
         listener = (FragListener)context;
     }

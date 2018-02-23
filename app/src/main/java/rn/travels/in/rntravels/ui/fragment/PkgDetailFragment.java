@@ -70,6 +70,6 @@ public class PkgDetailFragment extends BaseFragment {
 
     @Override
     public String getTitle() {
-        return "Details";
+        return "Itinerary";
     }
 }
