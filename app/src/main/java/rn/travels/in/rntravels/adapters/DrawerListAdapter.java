@@ -45,7 +45,7 @@ public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.Dr
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listner.onDrawerItemSelected();
+               // listner.onDrawerItemSelected();
             }
         });
     }
