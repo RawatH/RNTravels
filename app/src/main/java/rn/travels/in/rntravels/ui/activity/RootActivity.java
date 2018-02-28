@@ -21,6 +21,7 @@ import android.view.View;
 import rn.travels.in.rntravels.R;
 import rn.travels.in.rntravels.adapters.DrawerListAdapter;
 import rn.travels.in.rntravels.ui.fragment.BaseFragment;
+import rn.travels.in.rntravels.ui.fragment.DrawerFragment;
 import rn.travels.in.rntravels.ui.fragment.PkgDetailFragment;
 import rn.travels.in.rntravels.ui.fragment.SplashFragment;
 import rn.travels.in.rntravels.util.Appconst;
@@ -31,7 +32,7 @@ import rn.travels.in.rntravels.util.Util;
  * Created by demo on 16/02/18.
  */
 
-public class RootActivity extends AppCompatActivity implements BaseFragment.FragListener {
+public class RootActivity extends AppCompatActivity implements BaseFragment.FragListener , DrawerListAdapter.DrawerListener {
 
     private BaseFragment loadedFragment;
     private Toolbar toolbar;
@@ -49,7 +50,7 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
 
         drawerList = (RecyclerView) findViewById(R.id.drawerList);
 
-        drawerListAdapter = new DrawerListAdapter(this);
+        drawerListAdapter = new DrawerListAdapter(this,this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         drawerList.setLayoutManager(mLayoutManager);
         drawerList.setItemAnimator(new DefaultItemAnimator());
@@ -113,7 +114,7 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if(loadedFragment instanceof PkgDetailFragment) {
+        if(loadedFragment instanceof DrawerFragment) {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.root_menu, menu);
             return true;
@@ -133,5 +134,10 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
                 return super.onOptionsItemSelected(item);
 
         }
+    }
+
+    @Override
+    public void onDrawerItemSelected(int fragId) {
+        loadFragment(fragId ,null ,null);
     }
 }

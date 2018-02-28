@@ -12,7 +12,7 @@ import rn.travels.in.rntravels.R;
  * Created by demo on 23/02/18.
  */
 
-public class EmergencyFragment extends BaseFragment {
+public class EmergencyFragment extends DrawerFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

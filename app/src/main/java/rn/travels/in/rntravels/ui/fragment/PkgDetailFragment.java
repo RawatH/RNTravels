@@ -21,7 +21,7 @@ import rn.travels.in.rntravels.models.PackageVO;
  * Created by demo on 19/02/18.
  */
 
-public class PkgDetailFragment extends BaseFragment {
+public class PkgDetailFragment extends DrawerFragment {
 
     private Context context;
     private ExpandableListAdapter listAdapter;

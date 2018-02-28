@@ -38,14 +38,14 @@ public class DrawerListAdapter extends RecyclerView.Adapter<DrawerListAdapter.Dr
     }
 
     @Override
-    public void onBindViewHolder(DrawerListAdapter.DrawerHolder holder, int position) {
+    public void onBindViewHolder(final DrawerListAdapter.DrawerHolder holder, int position) {
         final DrawerItemVO drawerItemVO = dataList.get(position);
         holder.title.setText(drawerItemVO.getText());
         holder.icon.setImageResource(drawerItemVO.getDrawable());
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // listner.onDrawerItemSelected();
+                listner.onDrawerItemSelected(Util.getFragIdForDrawerItem(drawerItemVO.getDrawable()));
             }
         });
     }

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import rn.travels.in.rntravels.PackageManager;
 import rn.travels.in.rntravels.R;
 import rn.travels.in.rntravels.adapters.PackagePagerAdapter;
 import rn.travels.in.rntravels.models.PackageVO;
@@ -45,8 +46,8 @@ public class PackageDashboardFragment extends BaseFragment implements PackagePag
 
     @Override
     public void onPackageSelected(PackageVO packageVO) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("pkgObj" , packageVO);
-        activity.loadFragment(Appconst.FragmentId.PKG_DETAIL , bundle , null);
+        PackageManager.getInstance().setSelectedPackage(packageVO);
+
+        activity.loadFragment(Appconst.FragmentId.PKG_DETAIL , null , null);
     }
 }

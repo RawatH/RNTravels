@@ -79,4 +79,23 @@ public class Util {
         return list;
 
     }
+
+    public static int getFragIdForDrawerItem(int itemId) {
+
+        switch (itemId) {
+            case R.drawable.ticket:
+                return Appconst.FragmentId.TICKET_FRAG;
+            case R.drawable.itinerary:
+                return Appconst.FragmentId.PKG_DETAIL;
+            case R.drawable.emergency_contact:
+                return Appconst.FragmentId.EMERGENCY_FRAG;
+            case R.drawable.misc:
+                return Appconst.FragmentId.MISC_FRAG;
+            case R.drawable.helpline:
+                return Appconst.FragmentId.HELPLINE_FRAG;
+            default:
+                return -1;
+
+        }
+    }
 }
