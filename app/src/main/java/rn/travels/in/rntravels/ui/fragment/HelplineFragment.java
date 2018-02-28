@@ -12,7 +12,7 @@ import rn.travels.in.rntravels.R;
  * Created by demo on 22/02/18.
  */
 
-public class HelplineFragment extends BaseFragment {
+public class HelplineFragment extends DrawerFragment {
 
     @Nullable
     @Override

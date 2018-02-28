@@ -12,7 +12,7 @@ import rn.travels.in.rntravels.R;
  * Created by demo on 23/02/18.
  */
 
-public class MiscFragment extends BaseFragment {
+public class MiscFragment extends DrawerFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

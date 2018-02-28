@@ -12,7 +12,7 @@ import rn.travels.in.rntravels.R;
  * Created by demo on 22/02/18.
  */
 
-public class TicketFragment extends BaseFragment {
+public class TicketFragment extends DrawerFragment {
 
     @Nullable
     @Override
