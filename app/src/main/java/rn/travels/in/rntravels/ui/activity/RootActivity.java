@@ -85,6 +85,7 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
             setupToolbar();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
             fragmentTransaction.replace(R.id.container, fragment);
             fragmentTransaction.commit();
         }
@@ -105,6 +106,9 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
     public void toggleDrawerLock(boolean lockState) {
         int lockMode = lockState == true ? DrawerLayout.LOCK_MODE_LOCKED_CLOSED : DrawerLayout.LOCK_MODE_UNLOCKED;
         mDrawerLayout.setDrawerLockMode(lockMode);
+        if(mDrawerLayout.isDrawerOpen(Gravity.END)){
+            mDrawerLayout.closeDrawer(Gravity.END);
+        }
     }
 
     @Override

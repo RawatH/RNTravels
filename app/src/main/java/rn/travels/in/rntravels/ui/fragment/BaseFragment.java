@@ -36,7 +36,7 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
     public void onResume() {
         super.onResume();
         listener.setupDrawerMenu();
-        if (this instanceof PkgDetailFragment) {
+        if (this instanceof DrawerFragment) {
             listener.toggleDrawerLock(false);
         } else {
             listener.toggleDrawerLock(true);
