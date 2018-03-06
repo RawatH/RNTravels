@@ -7,7 +7,9 @@
         android:id="@+id/detailLst"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:groupIndicator="@null" />
+        android:groupIndicator="@null"
+        android:childDivider="@android:color/transparent"
+        android:divider="@android:color/transparent"/>
 
 
 </FrameLayout>

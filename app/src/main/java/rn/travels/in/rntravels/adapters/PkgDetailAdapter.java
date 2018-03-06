@@ -67,15 +67,20 @@ public class PkgDetailAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+        GroupHolder holder;
         String headerTitle = (String) getGroup(groupPosition);
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.list_group, null);
+            holder = new GroupHolder(convertView);
+            convertView.setTag(holder);
+        } else {
+            holder = (GroupHolder) convertView.getTag();
         }
 
-        TextView lblListHeader = (TextView) convertView.findViewById(R.id.lblListHeader);
-        lblListHeader.setTypeface(null, Typeface.BOLD);
-        lblListHeader.setText(headerTitle);
+
+        holder.groupTextLabel.setTypeface(null, Typeface.BOLD);
+        holder.groupTextLabel.setText(headerTitle);
 
         return convertView;
     }
@@ -83,20 +88,41 @@ public class PkgDetailAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
 
+        ChildHolder holder;
         final String childText = (String) getChild(groupPosition, childPosition);
 
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.pkg_detail_row_item, null);
+            holder = new ChildHolder(convertView);
+            convertView.setTag(holder);
+        } else {
+            holder = (ChildHolder) convertView.getTag();
         }
 
-        TextView txtListChild = (TextView) convertView.findViewById(R.id.lblListItem);
-        txtListChild.setText(childText);
+
+        holder.childText.setText(childText);
         return convertView;
     }
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return false;
+    }
+
+    static class GroupHolder {
+        TextView groupTextLabel;
+
+        public GroupHolder(View view) {
+            groupTextLabel = view.findViewById(R.id.lblListHeader);
+        }
+    }
+
+    static class ChildHolder {
+        TextView childText;
+
+        public ChildHolder(View view) {
+            childText = view.findViewById(R.id.lblListItem);
+        }
     }
 }
