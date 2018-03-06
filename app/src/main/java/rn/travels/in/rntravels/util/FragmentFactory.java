@@ -74,6 +74,10 @@ public class FragmentFactory {
 
         }
 
+        if(fragment != null){
+            fragment.setFragId(fragmentId);
+        }
+
         if (fragment != null && bundle != null) {
             fragment.setArguments(bundle);
         }

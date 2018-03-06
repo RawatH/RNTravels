@@ -1,6 +1,7 @@
 package rn.travels.in.rntravels.util;
 
 import android.support.annotation.IntDef;
+import android.support.annotation.StringDef;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -27,5 +28,28 @@ public class Appconst {
         int EMERGENCY_FRAG = 6;
         int MISC_FRAG = 7;
         int HELPLINE_FRAG = 8;
+    }
+
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({JKey.NAME,
+            JKey.FLIGHT_DETAIL,
+            JKey.TICKET_NUM,
+            JKey.AIRLINE,
+            JKey.ENDORSEMENT,
+            JKey.STATUS
+    })
+    public @interface JKey {
+        //TicketVO
+        String NAME = "name";
+        String FLIGHT_DETAIL = "flightDetail";
+        String TICKET_NUM = "ticketNumber";
+        String AIRLINE = "airline";
+        String ENDORSEMENT = "endorsments";
+        String STATUS = "status";
+
+        //AgentVO
+        String ADDRESS = "address";
+        String EMAIL = "email";
+        String PHONE = "phone";
     }
 }

@@ -3,7 +3,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary"
+    android:background="@color/white"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -67,7 +67,7 @@
             android:layout_weight=".5"
             android:elevation="6dp"
             android:text="@string/register"
-            android:textColor="@android:color/white"
+            android:textColor="@color/primary_dark"
             android:textStyle="bold"
             android:theme="@style/PrimaryFlatButton" />
 
@@ -79,7 +79,7 @@
             android:layout_weight=".5"
             android:elevation="6dp"
             android:text="@string/cancel"
-            android:textColor="@android:color/white"
+            android:textColor="@color/primary_dark"
             android:textStyle="bold"
             android:theme="@style/PrimaryFlatButton" />
     </LinearLayout>
