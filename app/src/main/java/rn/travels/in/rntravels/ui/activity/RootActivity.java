@@ -83,7 +83,7 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
 
         if(loadedFragment != null && loadedFragment.getFragId() == fragment.getFragId()){
             closeDrawer();
-            return;
+            return;//Test
         }
 
         if (fragment != null) {
