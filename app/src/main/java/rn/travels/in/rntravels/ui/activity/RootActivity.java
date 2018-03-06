@@ -32,7 +32,7 @@ import rn.travels.in.rntravels.util.Util;
  * Created by demo on 16/02/18.
  */
 
-public class RootActivity extends AppCompatActivity implements BaseFragment.FragListener , DrawerListAdapter.DrawerListener {
+public class RootActivity extends AppCompatActivity implements BaseFragment.FragListener, DrawerListAdapter.DrawerListener {
 
     private BaseFragment loadedFragment;
     private Toolbar toolbar;
@@ -50,7 +50,7 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
 
         drawerList = (RecyclerView) findViewById(R.id.drawerList);
 
-        drawerListAdapter = new DrawerListAdapter(this,this);
+        drawerListAdapter = new DrawerListAdapter(this, this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         drawerList.setLayoutManager(mLayoutManager);
         drawerList.setItemAnimator(new DefaultItemAnimator());
@@ -80,6 +80,12 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
     public void loadFragment(int fragmentId, Bundle bundle, String tag) {
 
         BaseFragment fragment = FragmentFactory.getInstance().getFrgById(fragmentId, bundle);
+
+        if(loadedFragment != null && loadedFragment.getFragId() == fragment.getFragId()){
+            closeDrawer();
+            return;
+        }
+
         if (fragment != null) {
             loadedFragment = fragment;
             setupToolbar();
@@ -89,6 +95,7 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
             fragmentTransaction.replace(R.id.container, fragment);
             fragmentTransaction.commit();
         }
+
 
     }
 
@@ -102,13 +109,17 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
     }
 
 
+    private void closeDrawer() {
+        if (mDrawerLayout.isDrawerOpen(Gravity.END)) {
+            mDrawerLayout.closeDrawer(Gravity.END);
+        }
+    }
+
     @Override
     public void toggleDrawerLock(boolean lockState) {
         int lockMode = lockState == true ? DrawerLayout.LOCK_MODE_LOCKED_CLOSED : DrawerLayout.LOCK_MODE_UNLOCKED;
         mDrawerLayout.setDrawerLockMode(lockMode);
-        if(mDrawerLayout.isDrawerOpen(Gravity.END)){
-            mDrawerLayout.closeDrawer(Gravity.END);
-        }
+        closeDrawer();
     }
 
     @Override
@@ -118,11 +129,11 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if(loadedFragment instanceof DrawerFragment) {
+        if (loadedFragment instanceof DrawerFragment) {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.root_menu, menu);
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -142,6 +153,6 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
 
     @Override
     public void onDrawerItemSelected(int fragId) {
-        loadFragment(fragId ,null ,null);
+        loadFragment(fragId, null, null);
     }
 }

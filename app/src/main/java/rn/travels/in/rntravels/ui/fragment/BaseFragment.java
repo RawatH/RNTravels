@@ -17,6 +17,7 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
     public RootActivity activity;
     public FragListener listener;
     public Context ctx;
+    private int fragId;
 
 
     @Override
@@ -47,6 +48,13 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
         return "";
     }
 
+    public int getFragId() {
+        return fragId;
+    }
+
+    public void setFragId(int fragId) {
+        this.fragId = fragId;
+    }
 
     @Override
     public void onClick(View v) {
