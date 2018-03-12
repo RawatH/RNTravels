@@ -44,11 +44,11 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.root_act);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        toolbar = findViewById(R.id.toolbar);
+        mDrawerLayout =  findViewById(R.id.drawer_layout);
         setSupportActionBar(toolbar);
 
-        drawerList = (RecyclerView) findViewById(R.id.drawerList);
+        drawerList =  findViewById(R.id.drawerList);
 
         drawerListAdapter = new DrawerListAdapter(this, this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Demo</string>
+    <string name="app_name">RN - Tour &amp; Travels (desk)</string>
     <string name="login_name">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
@@ -8,7 +8,9 @@
     <string name="cancel">Cancel</string>
     <string name="email">Email</string>
     <string name="phone">Phone</string>
-
+    <string name="sign_in_txt">Sign in to RN</string>
+    <string name="fb_login">Login with Facebook</string>
+    <string name="sign_up">Not a RN user? Sign up</string>
 
     <string-array name="drawer_list">
         <item>Tickets</item>
