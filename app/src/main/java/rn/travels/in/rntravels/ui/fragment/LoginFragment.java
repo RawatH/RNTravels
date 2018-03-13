@@ -2,23 +2,25 @@ package rn.travels.in.rntravels.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import rn.travels.in.rntravels.R;
-import rn.travels.in.rntravels.ui.activity.RootActivity;
 import rn.travels.in.rntravels.util.Appconst;
 
 /**
  * Created by demo on 17/02/18.
  */
 
-public class LoginFragment extends BaseFragment {
+public class LoginFragment extends NoToolbarFragment {
 
-    private Button loginBtn;
-    private Button signupBtn;
+    private FloatingActionButton loginBtn;
+    private Button fbLoginBtn;
+    private TextView signupBtn;
 
 
     @Nullable
@@ -31,11 +33,13 @@ public class LoginFragment extends BaseFragment {
 
     private void init(View view) {
 
-        loginBtn = (Button)view.findViewById(R.id.login);
-        signupBtn = (Button)view.findViewById(R.id.register);
+        loginBtn = view.findViewById(R.id.login);
+        signupBtn = view.findViewById(R.id.signup);
+        fbLoginBtn = view.findViewById(R.id.fbLogin);
 
         loginBtn.setOnClickListener(this);
         signupBtn.setOnClickListener(this);
+        fbLoginBtn.setOnClickListener(this);
 
     }
 
@@ -51,8 +55,11 @@ public class LoginFragment extends BaseFragment {
             case R.id.login:
                 break;
 
-            case R.id.register:
+            case R.id.signup:
                 activity.loadFragment(Appconst.FragmentId.REGISTER , null , null);
+                break;
+
+            case R.id.fbLogin:
                 break;
         }
 

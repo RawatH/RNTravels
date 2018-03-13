@@ -22,6 +22,7 @@ import rn.travels.in.rntravels.R;
 import rn.travels.in.rntravels.adapters.DrawerListAdapter;
 import rn.travels.in.rntravels.ui.fragment.BaseFragment;
 import rn.travels.in.rntravels.ui.fragment.DrawerFragment;
+import rn.travels.in.rntravels.ui.fragment.NoToolbarFragment;
 import rn.travels.in.rntravels.ui.fragment.PkgDetailFragment;
 import rn.travels.in.rntravels.ui.fragment.SplashFragment;
 import rn.travels.in.rntravels.util.Appconst;
@@ -100,7 +101,7 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
     }
 
     private void setupToolbar() {
-        if (loadedFragment instanceof SplashFragment) {
+        if (loadedFragment instanceof NoToolbarFragment) {
             toolbar.setVisibility(View.GONE);
         } else {
             toolbar.setVisibility(View.VISIBLE);

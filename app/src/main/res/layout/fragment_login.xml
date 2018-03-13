@@ -9,8 +9,10 @@
 
     <ImageView
         android:id="@+id/loginLogo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="10dp"
         android:elevation="6dp"
         app:srcCompat="@drawable/banner_a" />
 
@@ -21,8 +23,7 @@
         android:padding="10dp"
         android:text="@string/sign_in_txt"
         android:textColor="@color/primary_dark"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textSize="15sp" />
 
     <EditText
         android:id="@+id/username"
@@ -30,8 +31,9 @@
         android:layout_height="@dimen/editHeight"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/top_rounded_rect"
-        android:elevation="6dp"
+        android:elevation="2dp"
         android:hint="@string/login_name"
         android:paddingLeft="10dp"
         android:textColor="@color/primary_text"
@@ -45,7 +47,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/bottom_round_rect"
-        android:elevation="6dp"
+        android:elevation="2dp"
         android:hint="@string/password"
         android:inputType="textPassword"
         android:paddingLeft="10dp"
@@ -59,33 +61,18 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
+        android:gravity="center"
         android:orientation="vertical">
 
-        <Button
+        <android.support.design.widget.FloatingActionButton
             android:id="@+id/login"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_margin="10dp"
-            android:layout_weight=".5"
-            android:background="@color/primary"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
             android:elevation="6dp"
-            android:text="@string/login"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:theme="@style/PrimaryFlatButton" />
+            app:srcCompat="@drawable/ic_arrow_right" />
 
-        <Button
-            android:id="@+id/register"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_margin="10dp"
-            android:layout_weight=".5"
-            android:background="@color/primary"
-            android:elevation="6dp"
-            android:text="@string/signup"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:theme="@style/PrimaryFlatButton" />
 
         <Button
             android:id="@+id/fbLogin"
@@ -96,17 +83,19 @@
             android:background="@color/primary"
             android:elevation="6dp"
             android:text="@string/fb_login"
+            android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textStyle="bold"
             android:theme="@style/PrimaryFlatButton" />
 
         <TextView
             android:id="@+id/signup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/fb_login"
+            android:layout_marginTop="20dp"
             android:gravity="center"
-            android:textSize="20sp"/>
+            android:text="@string/sign_up"
+            android:textSize="20sp"
+            android:padding="20dp"/>
     </LinearLayout>
 
 

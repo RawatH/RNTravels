@@ -10,7 +10,9 @@
     <string name="phone">Phone</string>
     <string name="sign_in_txt">Sign in to RN</string>
     <string name="fb_login">Login with Facebook</string>
-    <string name="sign_up">Not a RN user? Sign up</string>
+    <string name="sign_up"> Not a RN user?  Sign up</string>
+    <string name="firstname">Firstname</string>
+    <string name="lastname">Lastname</string>
 
     <string-array name="drawer_list">
         <item>Tickets</item>

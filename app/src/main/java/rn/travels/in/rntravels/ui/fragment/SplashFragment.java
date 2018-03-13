@@ -12,7 +12,7 @@ import rn.travels.in.rntravels.R;
  * Created by demo on 16/02/18.
  */
 
-public class SplashFragment extends BaseFragment {
+public class SplashFragment extends NoToolbarFragment {
 
     @Nullable
     @Override

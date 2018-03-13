@@ -2,6 +2,7 @@ package rn.travels.in.rntravels.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +19,7 @@ import rn.travels.in.rntravels.util.Appconst;
 
 public class RegisterFragment extends BaseFragment {
 
-    private Button registerBtn;
-    private Button cancelBtn;
+    private FloatingActionButton registerBtn;
     private EditText userName;
     private EditText email;
     private EditText phone;
@@ -34,15 +34,14 @@ public class RegisterFragment extends BaseFragment {
     }
 
     private void init(View view) {
-        registerBtn = (Button) view.findViewById(R.id.registerUser);
-        cancelBtn = (Button) view.findViewById(R.id.cancelRegister);
+        registerBtn =  view.findViewById(R.id.registerUser);
 
-        userName = (EditText) view.findViewById(R.id.regusername);
-        email = (EditText) view.findViewById(R.id.regemail);
-        phone = (EditText) view.findViewById(R.id.regphone);
+        userName =  view.findViewById(R.id.regusername);
+        email =  view.findViewById(R.id.regemail);
+        phone =  view.findViewById(R.id.regphone);
 
         registerBtn.setOnClickListener(this);
-        cancelBtn.setOnClickListener(this);
+
 
     }
 
@@ -59,9 +58,6 @@ public class RegisterFragment extends BaseFragment {
                 ((RootActivity) getActivity()).loadFragment(Appconst.FragmentId.DASHBOARD, null, null);
                 break;
 
-            case R.id.cancelRegister:
-                ((RootActivity) getActivity()).loadFragment(Appconst.FragmentId.LOGIN, null, null);
-                break;
         }
 
     }
