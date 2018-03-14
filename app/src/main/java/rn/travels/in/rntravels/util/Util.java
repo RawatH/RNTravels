@@ -66,11 +66,14 @@ public class Util {
         ArrayList<DrawerItemVO> list = new ArrayList<>();
         List<String> titleList = Arrays.asList(ctx.getResources().getStringArray(R.array.drawer_list));
         int icon[] = new int[titleList.size()];
-        icon[0] = R.drawable.ticket;
-        icon[1] = R.drawable.itinerary;
-        icon[2] = R.drawable.emergency_contact;
-        icon[3] = R.drawable.misc;
-        icon[4] = R.drawable.helpline;
+        icon[0] = R.drawable.trip;
+        icon[1] = R.drawable.emergency_contact;
+        icon[2] = R.drawable.helpline;
+        icon[3] = R.drawable.contact_info;
+        icon[4] = R.drawable.ic_alert;
+        icon[5] = R.drawable.ic_security_black_24dp;
+        icon[6] = R.drawable.ic_profile;
+        icon[7] = R.drawable.ic_profile;
 
         for (int i = 0; i < titleList.size(); i++) {
             list.add(new DrawerItemVO(titleList.get(i), icon[i]));
@@ -91,7 +94,11 @@ public class Util {
                 return Appconst.FragmentId.EMERGENCY_FRAG;
             case R.drawable.misc:
                 return Appconst.FragmentId.MISC_FRAG;
-            case R.drawable.helpline:
+            case R.drawable.ic_alert:
+                return Appconst.FragmentId.HELPLINE_FRAG;
+            case R.drawable.ic_security_black_24dp:
+                return Appconst.FragmentId.HELPLINE_FRAG;
+            case R.drawable.ic_profile:
                 return Appconst.FragmentId.HELPLINE_FRAG;
             default:
                 return -1;

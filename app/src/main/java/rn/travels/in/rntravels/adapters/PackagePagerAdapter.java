@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import java.util.ArrayList;
 
@@ -36,8 +37,9 @@ public class PackagePagerAdapter extends PagerAdapter implements PackageAdapter.
 
     private void prepareDataSet() {
         headerList = new ArrayList<>();
-        headerList.add("On Going");
-        headerList.add("Visited");
+        headerList.add("Active");
+        headerList.add("Past");
+        headerList.add("Following");
     }
 
     @NonNull
@@ -45,13 +47,13 @@ public class PackagePagerAdapter extends PagerAdapter implements PackageAdapter.
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.pkg_display_layout, container, false);
-        init(view, position);
+        init(view);
         container.addView(view);
         view.setTag("View" + position);
         return view;
     }
 
-    private void init(View view, int position) {
+    private void init(View view) {
         RecyclerView packageList = view.findViewById(R.id.catalogList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         packageList.setLayoutManager(layoutManager);
@@ -71,7 +73,7 @@ public class PackagePagerAdapter extends PagerAdapter implements PackageAdapter.
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView((CardView) object);
+        container.removeView((ViewGroup) object);
     }
 
     @Override

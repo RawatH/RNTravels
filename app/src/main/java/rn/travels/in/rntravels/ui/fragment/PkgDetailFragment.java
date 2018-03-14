@@ -51,7 +51,7 @@ public class PkgDetailFragment extends DrawerFragment {
     }
 
     private void init(View view) {
-        expListView = (ExpandableListView) view.findViewById(R.id.detailLst);
+        expListView =  view.findViewById(R.id.detailLst);
         prepareListData();
         listAdapter = new PkgDetailAdapter(context, headerList, dataList);
         expListView.setAdapter(listAdapter);

@@ -7,7 +7,7 @@
     <string name="register">Register</string>
     <string name="cancel">Cancel</string>
     <string name="email">Email</string>
-    <string name="phone">Phone</string>
+    <string name="travel_id">Travel Id</string>
     <string name="sign_in_txt">Sign in to RN</string>
     <string name="fb_login">Login with Facebook</string>
     <string name="sign_up"> Not a RN user?  Sign up</string>
@@ -15,11 +15,15 @@
     <string name="lastname">Lastname</string>
 
     <string-array name="drawer_list">
-        <item>Tickets</item>
-        <item>Itinerary</item>
+        <item>Trips</item>
         <item>Emergency Contact</item>
-        <item>Miscellaneous</item>
-        <item>Helpline</item>>
+        <item>Helpline Number</item>
+        <item>Contact Info</item>
+        <item>Notification</item>
+        <item>Password</item>
+        <item>Profile</item>
+        <item>Logout</item>
+
     </string-array>
 
 

@@ -22,7 +22,7 @@ public class RegisterFragment extends BaseFragment {
     private FloatingActionButton registerBtn;
     private EditText userName;
     private EditText email;
-    private EditText phone;
+    private EditText travelId;
 
 
     @Nullable
@@ -38,7 +38,7 @@ public class RegisterFragment extends BaseFragment {
 
         userName =  view.findViewById(R.id.regusername);
         email =  view.findViewById(R.id.regemail);
-        phone =  view.findViewById(R.id.regphone);
+        travelId =  view.findViewById(R.id.regTravelId);
 
         registerBtn.setOnClickListener(this);
 

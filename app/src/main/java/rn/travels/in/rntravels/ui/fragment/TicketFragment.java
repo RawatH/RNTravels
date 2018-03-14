@@ -23,7 +23,7 @@ public class TicketFragment extends DrawerFragment {
 
     @Override
     public String getTitle() {
-        return "Tickets";
+        return "Ticket Details";
     }
 }
 

@@ -8,6 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:orientation="vertical">
 
         <TextView
@@ -16,8 +18,11 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:autoLink="phone"
+            android:drawableLeft="@drawable/ic_phone"
             android:fontFamily="sans-serif"
             android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             android:text="9999999999"
             android:textColor="@color/black"
             android:textSize="20sp" />
@@ -28,8 +33,11 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:autoLink="phone"
+            android:drawableLeft="@drawable/ic_phone"
             android:fontFamily="sans-serif"
             android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             android:text="9999999999"
             android:textColor="@color/black"
             android:textSize="20sp" />
@@ -40,8 +48,11 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:autoLink="email"
+            android:drawableLeft="@drawable/ic_emai"
             android:fontFamily="sans-serif"
             android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             android:text="rn@rntravels.in"
             android:textColor="@color/black"
             android:textSize="20sp" />
@@ -54,9 +65,12 @@
             android:autoLink="phone"
             android:fontFamily="sans-serif"
             android:gravity="center"
-            android:text="Skypewww.rntravels.in"
+            android:text="Skype"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:drawableLeft="@drawable/skype"/>
     </LinearLayout>
 
 

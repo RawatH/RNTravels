@@ -24,7 +24,7 @@ public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private Context context;
     private PagerCommunicator communicator;
 
-    public PackageAdapter(ArrayList<PackageVO> dataList, Context context , PagerCommunicator communicator) {
+    public PackageAdapter(ArrayList<PackageVO> dataList, Context context, PagerCommunicator communicator) {
         this.dataList = dataList;
         this.context = context;
         this.communicator = communicator;
@@ -42,7 +42,7 @@ public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
-        final PackageVO packageVO = (PackageVO) dataList.get(position);
+        final PackageVO packageVO = dataList.get(position);
         PkgViewHolder pkgViewHolder = (PkgViewHolder) holder;
         pkgViewHolder.getPkgNameView().setText(packageVO.getHeading());
         final int sdk = android.os.Build.VERSION.SDK_INT;
@@ -54,7 +54,7 @@ public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         pkgViewHolder.getPkgBanner().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Util.t(context,"--"+position);
+                Util.t(context, "--" + position);
                 communicator.onPackageSelected(packageVO);
             }
         });
@@ -86,7 +86,7 @@ public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-    public interface PagerCommunicator{
+    public interface PagerCommunicator {
         void onPackageSelected(PackageVO packageVO);
     }
 }

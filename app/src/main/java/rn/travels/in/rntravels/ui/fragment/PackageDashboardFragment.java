@@ -18,7 +18,7 @@ import rn.travels.in.rntravels.util.Util;
  * Created by demo on 16/02/18.
  */
 
-public class PackageDashboardFragment extends BaseFragment implements PackagePagerAdapter.PackageSelectionListener {
+public class PackageDashboardFragment extends DrawerFragment implements PackagePagerAdapter.PackageSelectionListener {
 
     private ViewPager pager;
     private PackagePagerAdapter packagePagerAdapter;
@@ -32,7 +32,7 @@ public class PackageDashboardFragment extends BaseFragment implements PackagePag
     }
 
     private void init(View view) {
-        pager = (ViewPager) view.findViewById(R.id.pkgPager);
+        pager =  view.findViewById(R.id.pkgPager);
 
         packagePagerAdapter = new PackagePagerAdapter(getContext(), Util.getDummyList() , this);
         pager.setAdapter(packagePagerAdapter);
@@ -40,7 +40,7 @@ public class PackageDashboardFragment extends BaseFragment implements PackagePag
 
     @Override
     public String getTitle() {
-        return "Packages";
+        return "RN Desk";
     }
 
 
