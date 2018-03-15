@@ -9,6 +9,7 @@ import rn.travels.in.rntravels.ui.fragment.HelplineFragment;
 import rn.travels.in.rntravels.ui.fragment.MiscFragment;
 import rn.travels.in.rntravels.ui.fragment.PackageDashboardFragment;
 import rn.travels.in.rntravels.ui.fragment.LoginFragment;
+import rn.travels.in.rntravels.ui.fragment.PackageOptionFragment;
 import rn.travels.in.rntravels.ui.fragment.PkgDetailFragment;
 import rn.travels.in.rntravels.ui.fragment.RegisterFragment;
 import rn.travels.in.rntravels.ui.fragment.SplashFragment;
@@ -67,6 +68,9 @@ public class FragmentFactory {
                 break;
             case Appconst.FragmentId.MISC_FRAG:
                 fragment = new MiscFragment();
+                break;
+            case Appconst.FragmentId.PKG_OPTION_FRAG:
+                fragment = new PackageOptionFragment();
                 break;
             default:
                 fragment = null;

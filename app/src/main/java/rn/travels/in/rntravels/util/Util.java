@@ -26,8 +26,8 @@ public class Util {
         ArrayList<PackageVO> list = new ArrayList<>();
 
         PackageVO packageVO = new PackageVO();
-        packageVO.setHeading("Heading");
-        packageVO.setSubHeading("Sub - Heading");
+        packageVO.setHeading("Sydney");
+        packageVO.setSubHeading("10 March - 15 March");
 
         ArrayList<DayVO> dayList = new ArrayList<>();
         DayVO dayVO = new DayVO();
@@ -46,19 +46,9 @@ public class Util {
         packageVO.setDayList(dayList);
 
 
-        PackageVO packageVO2 = new PackageVO();
-        packageVO2.setHeading("Heading");
-        packageVO.setSubHeading("Sub - Heading");
-        packageVO2.setDayList(dayList);
-
-        PackageVO packageVO3 = new PackageVO();
-        packageVO3.setHeading("Heading");
-        packageVO.setSubHeading("Sub- Heading");
-        packageVO3.setDayList(dayList);
 
         list.add(packageVO);
-        list.add(packageVO2);
-        list.add(packageVO3);
+
         return list;
     }
 
@@ -68,12 +58,12 @@ public class Util {
         int icon[] = new int[titleList.size()];
         icon[0] = R.drawable.trip;
         icon[1] = R.drawable.emergency_contact;
-        icon[2] = R.drawable.helpline;
+        icon[2] = R.drawable.ic_helpline;
         icon[3] = R.drawable.contact_info;
-        icon[4] = R.drawable.ic_alert;
+        icon[4] = R.drawable.ic_alert_blue;
         icon[5] = R.drawable.ic_security_black_24dp;
         icon[6] = R.drawable.ic_profile;
-        icon[7] = R.drawable.ic_profile;
+        icon[7] = R.drawable.ic_logout;
 
         for (int i = 0; i < titleList.size(); i++) {
             list.add(new DrawerItemVO(titleList.get(i), icon[i]));

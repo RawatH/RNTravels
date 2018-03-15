@@ -47,7 +47,6 @@ public class PackageDashboardFragment extends DrawerFragment implements PackageP
     @Override
     public void onPackageSelected(PackageVO packageVO) {
         PackageManager.getInstance().setSelectedPackage(packageVO);
-
-        activity.loadFragment(Appconst.FragmentId.PKG_DETAIL , null , null);
+        activity.loadFragment(Appconst.FragmentId.PKG_OPTION_FRAG , null , null);
     }
 }

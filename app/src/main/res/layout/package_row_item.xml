@@ -42,7 +42,7 @@
             android:fontFamily="sans-serif-light"
             android:gravity="top"
             android:paddingLeft="10dp"
-            android:text="5 days and 4 nights "
+            android:text="12 March - 22 March"
             android:textColor="@color/white"
             android:textSize="15sp" />
     </LinearLayout>

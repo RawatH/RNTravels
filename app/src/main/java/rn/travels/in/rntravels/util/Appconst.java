@@ -17,7 +17,8 @@ public class Appconst {
     @IntDef({FragmentId.SPLASH, FragmentId.LOGIN, FragmentId.REGISTER,
             FragmentId.DASHBOARD, FragmentId.PKG_DETAIL,
             FragmentId.TICKET_FRAG, FragmentId.EMERGENCY_FRAG,
-            FragmentId.MISC_FRAG, FragmentId.HELPLINE_FRAG})
+            FragmentId.MISC_FRAG, FragmentId.HELPLINE_FRAG,
+    FragmentId.PKG_OPTION_FRAG})
     public @interface FragmentId {
         int SPLASH = 0;
         int LOGIN = 1;
@@ -28,6 +29,7 @@ public class Appconst {
         int EMERGENCY_FRAG = 6;
         int MISC_FRAG = 7;
         int HELPLINE_FRAG = 8;
+        int PKG_OPTION_FRAG = 9;
     }
 
     @Retention(RetentionPolicy.SOURCE)

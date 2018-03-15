@@ -20,6 +20,7 @@ import android.view.View;
 
 import rn.travels.in.rntravels.R;
 import rn.travels.in.rntravels.adapters.DrawerListAdapter;
+import rn.travels.in.rntravels.ui.fragment.BackFragment;
 import rn.travels.in.rntravels.ui.fragment.BaseFragment;
 import rn.travels.in.rntravels.ui.fragment.DrawerFragment;
 import rn.travels.in.rntravels.ui.fragment.NoToolbarFragment;
@@ -46,10 +47,11 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
         super.onCreate(savedInstanceState);
         setContentView(R.layout.root_act);
         toolbar = findViewById(R.id.toolbar);
-        mDrawerLayout =  findViewById(R.id.drawer_layout);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
         setSupportActionBar(toolbar);
 
-        drawerList =  findViewById(R.id.drawerList);
+        drawerList = findViewById(R.id.drawerList);
 
         drawerListAdapter = new DrawerListAdapter(this, this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -82,7 +84,7 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
 
         BaseFragment fragment = FragmentFactory.getInstance().getFrgById(fragmentId, bundle);
 
-        if(loadedFragment != null && loadedFragment.getFragId() == fragment.getFragId()){
+        if (loadedFragment != null && loadedFragment.getFragId() == fragment.getFragId()) {
             closeDrawer();
             return;//Test
         }
@@ -95,6 +97,12 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
             fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
             fragmentTransaction.replace(R.id.container, fragment);
             fragmentTransaction.commit();
+        }
+
+        if (fragment instanceof BackFragment) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            ;
         }
 
 
@@ -145,6 +153,10 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
         switch (item.getItemId()) {
             case R.id.action_filter:
                 mDrawerLayout.openDrawer(Gravity.END);
+                return true;
+
+            case android.R.id.home:
+                Util.t(this, "Back");
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
