@@ -57,13 +57,12 @@ public class Util {
         List<String> titleList = Arrays.asList(ctx.getResources().getStringArray(R.array.drawer_list));
         int icon[] = new int[titleList.size()];
         icon[0] = R.drawable.trip;
-        icon[1] = R.drawable.emergency_contact;
-        icon[2] = R.drawable.ic_helpline;
-        icon[3] = R.drawable.contact_info;
-        icon[4] = R.drawable.ic_alert_blue;
-        icon[5] = R.drawable.ic_security_black_24dp;
-        icon[6] = R.drawable.ic_profile;
-        icon[7] = R.drawable.ic_logout;
+        icon[1] = R.drawable.ic_helpline;
+        icon[2] = R.drawable.contact_info;
+        icon[3] = R.drawable.ic_alert_blue;
+        icon[4] = R.drawable.ic_password;
+        icon[5] = R.drawable.ic_profile;
+        icon[6] = R.drawable.ic_logout;
 
         for (int i = 0; i < titleList.size(); i++) {
             list.add(new DrawerItemVO(titleList.get(i), icon[i]));
@@ -76,19 +75,11 @@ public class Util {
     public static int getFragIdForDrawerItem(int itemId) {
 
         switch (itemId) {
-            case R.drawable.ticket:
-                return Appconst.FragmentId.TICKET_FRAG;
-            case R.drawable.itinerary:
-                return Appconst.FragmentId.PKG_DETAIL;
+            case  R.drawable.trip:
+                return Appconst.FragmentId.DASHBOARD;
             case R.drawable.emergency_contact:
                 return Appconst.FragmentId.EMERGENCY_FRAG;
-            case R.drawable.misc:
-                return Appconst.FragmentId.MISC_FRAG;
-            case R.drawable.ic_alert:
-                return Appconst.FragmentId.HELPLINE_FRAG;
-            case R.drawable.ic_security_black_24dp:
-                return Appconst.FragmentId.HELPLINE_FRAG;
-            case R.drawable.ic_profile:
+            case R.drawable.ic_helpline:
                 return Appconst.FragmentId.HELPLINE_FRAG;
             default:
                 return -1;

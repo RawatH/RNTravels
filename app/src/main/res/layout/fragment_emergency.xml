@@ -23,7 +23,7 @@
             android:gravity="center"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="9999999999"
+            android:text="+91-9811033368"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
@@ -38,7 +38,7 @@
             android:gravity="center"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="9999999999"
+            android:text="+91-011-41633368"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
@@ -53,7 +53,7 @@
             android:gravity="center"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="rn@rntravels.in"
+            android:text="info@rntravels.in"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
@@ -63,14 +63,29 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:autoLink="phone"
+            android:drawableLeft="@drawable/skype"
             android:fontFamily="sans-serif"
             android:gravity="center"
-            android:text="Skype"
-            android:textColor="@color/black"
-            android:textSize="20sp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:drawableLeft="@drawable/skype"/>
+            android:text="Skype"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:autoLink="phone"
+            android:fontFamily="sans-serif"
+            android:drawableLeft="@drawable/ic_location"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="@string/address"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
     </LinearLayout>
 
 

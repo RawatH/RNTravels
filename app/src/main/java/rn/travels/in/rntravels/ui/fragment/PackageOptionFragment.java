@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import rn.travels.in.rntravels.R;
+import rn.travels.in.rntravels.util.Appconst;
 import rn.travels.in.rntravels.util.Util;
 
 /**
@@ -59,16 +60,16 @@ public class PackageOptionFragment extends BackFragment implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.helpline:
-                Util.t(ctx, "Helpline");
+                activity.loadFragment(Appconst.FragmentId.HELPLINE_FRAG, null, null);
                 break;
             case R.id.itenary:
-                Util.t(ctx, "Itenary");
+                activity.loadFragment(Appconst.FragmentId.PKG_DETAIL, null, null);
                 break;
             case R.id.tickets:
-                Util.t(ctx, "Tickets");
+                activity.loadFragment(Appconst.FragmentId.TICKET_FRAG, null, null);
                 break;
             case R.id.emergency:
-                Util.t(ctx, "Emergency");
+                activity.loadFragment(Appconst.FragmentId.EMERGENCY_FRAG, null, null);
                 break;
             case R.id.feedback:
                 Util.t(ctx, "Feedback");

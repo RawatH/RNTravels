@@ -17,7 +17,7 @@ import rn.travels.in.rntravels.util.Appconst;
  * Created by demo on 17/02/18.
  */
 
-public class RegisterFragment extends BaseFragment {
+public class RegisterFragment extends NoToolbarFragment {
 
     private FloatingActionButton registerBtn;
     private EditText userName;
@@ -35,13 +35,11 @@ public class RegisterFragment extends BaseFragment {
 
     private void init(View view) {
         registerBtn =  view.findViewById(R.id.registerUser);
-
         userName =  view.findViewById(R.id.regusername);
         email =  view.findViewById(R.id.regemail);
         travelId =  view.findViewById(R.id.regTravelId);
 
         registerBtn.setOnClickListener(this);
-
 
     }
 

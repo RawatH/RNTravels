@@ -33,7 +33,6 @@ public class PackageDashboardFragment extends DrawerFragment implements PackageP
 
     private void init(View view) {
         pager =  view.findViewById(R.id.pkgPager);
-
         packagePagerAdapter = new PackagePagerAdapter(getContext(), Util.getDummyList() , this);
         pager.setAdapter(packagePagerAdapter);
     }

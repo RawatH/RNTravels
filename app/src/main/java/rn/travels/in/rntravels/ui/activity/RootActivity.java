@@ -86,7 +86,7 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
 
         if (loadedFragment != null && loadedFragment.getFragId() == fragment.getFragId()) {
             closeDrawer();
-            return;//Test
+            return;
         }
 
         if (fragment != null) {
@@ -99,13 +99,6 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
             fragmentTransaction.commit();
         }
 
-        if (fragment instanceof BackFragment) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-            ;
-        }
-
-
     }
 
     private void setupToolbar() {
@@ -113,6 +106,13 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
             toolbar.setVisibility(View.GONE);
         } else {
             toolbar.setVisibility(View.VISIBLE);
+            if (loadedFragment instanceof BackFragment) {
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                getSupportActionBar().setDisplayShowHomeEnabled(true);
+            }else{
+                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                getSupportActionBar().setDisplayShowHomeEnabled(false);
+            }
         }
         toolbar.setTitle(loadedFragment.getTitle());
     }
@@ -166,6 +166,10 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
 
     @Override
     public void onDrawerItemSelected(int fragId) {
-        loadFragment(fragId, null, null);
+        if(fragId == -1){
+            Util.t(this, "Not yet implemented");
+        }else {
+            loadFragment(fragId, null, null);
+        }
     }
 }

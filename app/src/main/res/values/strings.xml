@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RN - Tour &amp; Travels (desk)</string>
+    <string name="app_name">RN Tours &amp; Travels (Desk)</string>
     <string name="login_name">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
@@ -8,16 +8,18 @@
     <string name="cancel">Cancel</string>
     <string name="email">Email</string>
     <string name="travel_id">Travel Id</string>
-    <string name="sign_in_txt">Sign in to RN</string>
+    <string name="sign_in_txt">Sign in to RN Tours &amp; Travels PVT. LTD.</string>
     <string name="fb_login">Login with Facebook</string>
     <string name="sign_up"> Not a RN user?  Sign up</string>
-    <string name="firstname">Firstname</string>
-    <string name="lastname">Lastname</string>
+    <string name="firstname">First Name</string>
+    <string name="lastname">Last Name</string>
+    <string name="active">ACTIVE</string>
+    <string name="past">PAST</string>
+    <string name="following">FOLLOWING</string>
+    <string name="address">Corporate Office : \n 1205 ,12th Floor,\n Hemkunt Chambers ,89 \n Nehru Place , New Delhi , India - 110019 </string>
 
     <string-array name="drawer_list">
         <item>Trips</item>
-        <item>Emergency Contact</item>
-        <item>Helpline Number</item>
         <item>Contact Info</item>
         <item>Notification</item>
         <item>Password</item>
