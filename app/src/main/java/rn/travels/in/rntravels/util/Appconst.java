@@ -18,7 +18,7 @@ public class Appconst {
             FragmentId.DASHBOARD, FragmentId.PKG_DETAIL,
             FragmentId.TICKET_FRAG, FragmentId.EMERGENCY_FRAG,
             FragmentId.MISC_FRAG, FragmentId.HELPLINE_FRAG,
-    FragmentId.PKG_OPTION_FRAG})
+            FragmentId.PKG_OPTION_FRAG})
     public @interface FragmentId {
         int SPLASH = 0;
         int LOGIN = 1;
@@ -54,4 +54,15 @@ public class Appconst {
         String EMAIL = "email";
         String PHONE = "phone";
     }
+
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({BSTag.ROOT, BSTag.PKG_OPTION, BSTag.TICKET, BSTag.PKG_DETAIL
+    })
+    public @interface BSTag {
+        String ROOT = "root";
+        String PKG_OPTION = "pkg_option";
+        String PKG_DETAIL = "pkg_detail";
+        String TICKET = "ticket";
+    }
+
 }

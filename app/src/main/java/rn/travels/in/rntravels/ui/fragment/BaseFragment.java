@@ -18,6 +18,7 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
     public FragListener listener;
     public Context ctx;
     private int fragId;
+    private String backStackTag;
 
 
     @Override
@@ -59,6 +60,15 @@ public class BaseFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
+    }
+
+
+    public String getBackStackTag() {
+        return backStackTag;
+    }
+
+    public void setBackStackTag(String backStackTag) {
+        this.backStackTag = backStackTag;
     }
 
     public interface FragListener {

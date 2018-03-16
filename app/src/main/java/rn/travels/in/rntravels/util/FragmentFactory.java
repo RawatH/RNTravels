@@ -51,14 +51,17 @@ public class FragmentFactory {
                 break;
             case Appconst.FragmentId.DASHBOARD:
                 fragment = new PackageDashboardFragment();
+                fragment.setBackStackTag(Appconst.BSTag.ROOT);
                 break;
             case Appconst.FragmentId.PKG_DETAIL:
                 fragment = new PkgDetailFragment();
+                fragment.setBackStackTag(Appconst.BSTag.PKG_DETAIL);
                 bundle = new Bundle();
                 bundle.putSerializable("pkgObj" , PackageManager.getInstance().getSelectedPackage());
                 break;
             case Appconst.FragmentId.TICKET_FRAG:
                 fragment = new TicketFragment();
+                fragment.setBackStackTag(Appconst.BSTag.TICKET);
                 break;
             case Appconst.FragmentId.EMERGENCY_FRAG:
                 fragment = new EmergencyFragment();
@@ -71,6 +74,7 @@ public class FragmentFactory {
                 break;
             case Appconst.FragmentId.PKG_OPTION_FRAG:
                 fragment = new PackageOptionFragment();
+                fragment.setBackStackTag(Appconst.BSTag.PKG_OPTION);
                 break;
             default:
                 fragment = null;

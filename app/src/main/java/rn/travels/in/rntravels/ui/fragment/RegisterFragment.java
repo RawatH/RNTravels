@@ -17,7 +17,7 @@ import rn.travels.in.rntravels.util.Appconst;
  * Created by demo on 17/02/18.
  */
 
-public class RegisterFragment extends NoToolbarFragment {
+public class RegisterFragment extends BaseFragment {
 
     private FloatingActionButton registerBtn;
     private EditText userName;

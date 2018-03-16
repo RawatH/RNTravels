@@ -3,6 +3,7 @@ package rn.travels.in.rntravels.ui.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -94,9 +95,22 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
             setupToolbar();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left);
+            fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left , R.anim.enter_from_left,R.anim.exit_to_right);
             fragmentTransaction.replace(R.id.container, fragment);
+            if (loadedFragment.getBackStackTag() != null) {
+                fragmentTransaction.addToBackStack(loadedFragment.getBackStackTag());
+            }
             fragmentTransaction.commit();
+        }
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+            super.onBackPressed();
+        } else {
+            finish();
         }
 
     }
@@ -109,7 +123,7 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
             if (loadedFragment instanceof BackFragment) {
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 getSupportActionBar().setDisplayShowHomeEnabled(true);
-            }else{
+            } else {
                 getSupportActionBar().setDisplayHomeAsUpEnabled(false);
                 getSupportActionBar().setDisplayShowHomeEnabled(false);
             }
@@ -156,7 +170,7 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
                 return true;
 
             case android.R.id.home:
-                Util.t(this, "Back");
+                onBackPressed();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -166,9 +180,9 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
 
     @Override
     public void onDrawerItemSelected(int fragId) {
-        if(fragId == -1){
+        if (fragId == -1) {
             Util.t(this, "Not yet implemented");
-        }else {
+        } else {
             loadFragment(fragId, null, null);
         }
     }

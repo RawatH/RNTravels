@@ -1,9 +1,12 @@
 package rn.travels.in.rntravels.ui.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -22,6 +25,7 @@ public class PackageDashboardFragment extends DrawerFragment implements PackageP
 
     private ViewPager pager;
     private PackagePagerAdapter packagePagerAdapter;
+    private BottomNavigationView bottomNavigationView;
 
     @Nullable
     @Override
@@ -32,8 +36,24 @@ public class PackageDashboardFragment extends DrawerFragment implements PackageP
     }
 
     private void init(View view) {
-        pager =  view.findViewById(R.id.pkgPager);
-        packagePagerAdapter = new PackagePagerAdapter(getContext(), Util.getDummyList() , this);
+        bottomNavigationView = view.findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.active:
+
+                            case R.id.past:
+
+                            case R.id.following:
+
+                        }
+                        return true;
+                    }
+                });
+        pager = view.findViewById(R.id.pkgPager);
+        packagePagerAdapter = new PackagePagerAdapter(getContext(), Util.getDummyList(), this);
         pager.setAdapter(packagePagerAdapter);
     }
 
@@ -46,6 +66,6 @@ public class PackageDashboardFragment extends DrawerFragment implements PackageP
     @Override
     public void onPackageSelected(PackageVO packageVO) {
         PackageManager.getInstance().setSelectedPackage(packageVO);
-        activity.loadFragment(Appconst.FragmentId.PKG_OPTION_FRAG , null , null);
+        activity.loadFragment(Appconst.FragmentId.PKG_OPTION_FRAG, null, null);
     }
 }
