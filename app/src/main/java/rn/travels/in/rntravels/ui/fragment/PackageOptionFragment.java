@@ -69,7 +69,7 @@ public class PackageOptionFragment extends BackFragment implements View.OnClickL
                 activity.loadFragment(Appconst.FragmentId.TICKET_FRAG, null, null);
                 break;
             case R.id.emergency:
-                activity.loadFragment(Appconst.FragmentId.EMERGENCY_FRAG, null, null);
+                activity.loadFragment(Appconst.FragmentId.RN_INFO_FRAG, null, null);
                 break;
             case R.id.feedback:
                 Util.t(ctx, "Feedback");

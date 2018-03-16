@@ -76,7 +76,7 @@ public class Util {
             case R.drawable.trip:
                 return Appconst.FragmentId.DASHBOARD;
             case R.drawable.ic_contact_info:
-                return Appconst.FragmentId.EMERGENCY_FRAG;
+                return Appconst.FragmentId.RN_INFO_FRAG;
             case R.drawable.ic_alert_blue:
                 return Appconst.FragmentId.HELPLINE_FRAG;
             case R.drawable.ic_profile:

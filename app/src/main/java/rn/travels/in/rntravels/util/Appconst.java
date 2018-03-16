@@ -6,8 +6,6 @@ import android.support.annotation.StringDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import rn.travels.in.rntravels.network.NetworkConst;
-
 /**
  * Created by demo on 17/02/18.
  */
@@ -16,7 +14,7 @@ public class Appconst {
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({FragmentId.SPLASH, FragmentId.LOGIN, FragmentId.REGISTER,
             FragmentId.DASHBOARD, FragmentId.PKG_DETAIL,
-            FragmentId.TICKET_FRAG, FragmentId.EMERGENCY_FRAG,
+            FragmentId.TICKET_FRAG, FragmentId.RN_INFO_FRAG,
             FragmentId.MISC_FRAG, FragmentId.HELPLINE_FRAG,
             FragmentId.PKG_OPTION_FRAG})
     public @interface FragmentId {
@@ -26,7 +24,7 @@ public class Appconst {
         int DASHBOARD = 3;
         int PKG_DETAIL = 4;
         int TICKET_FRAG = 5;
-        int EMERGENCY_FRAG = 6;
+        int RN_INFO_FRAG = 6;
         int MISC_FRAG = 7;
         int HELPLINE_FRAG = 8;
         int PKG_OPTION_FRAG = 9;
@@ -56,14 +54,14 @@ public class Appconst {
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    @StringDef({BSTag.ROOT, BSTag.PKG_OPTION, BSTag.TICKET, BSTag.PKG_DETAIL , BSTag.HELPLINE
+    @StringDef({BSTag.ROOT, BSTag.PKG_OPTION, BSTag.TICKET, BSTag.PKG_DETAIL , BSTag.RN_INFO
     })
     public @interface BSTag {
         String ROOT = "root";
         String PKG_OPTION = "pkg_option";
         String PKG_DETAIL = "pkg_detail";
         String TICKET = "ticket";
-        String HELPLINE = "helpline";
+        String RN_INFO = "rn_info";
     }
 
 }

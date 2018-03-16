@@ -95,8 +95,12 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
             setupToolbar();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left , R.anim.enter_from_left,R.anim.exit_to_right);
-            fragmentTransaction.replace(R.id.container, fragment);
+            fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
+            if (loadedFragment.getBackStackTag() == null) {
+                fragmentTransaction.replace(R.id.container, fragment);
+            } else {
+                fragmentTransaction.replace(R.id.container, fragment , loadedFragment.getBackStackTag());
+            }
             if (loadedFragment.getBackStackTag() != null) {
                 fragmentTransaction.addToBackStack(loadedFragment.getBackStackTag());
             }
@@ -107,8 +111,12 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
 
     @Override
     public void onBackPressed() {
-        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+        int count = getSupportFragmentManager().getBackStackEntryCount();
+        if (count > 1) {
             super.onBackPressed();
+            FragmentManager.BackStackEntry backStackEntry = getSupportFragmentManager().getBackStackEntryAt(getSupportFragmentManager().getBackStackEntryCount()-1);
+            loadedFragment = (BaseFragment) getSupportFragmentManager().findFragmentByTag(backStackEntry.getName());
+            setupToolbar();
         } else {
             finish();
         }

@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import rn.travels.in.rntravels.PackageManager;
 import rn.travels.in.rntravels.ui.fragment.BaseFragment;
-import rn.travels.in.rntravels.ui.fragment.EmergencyFragment;
+import rn.travels.in.rntravels.ui.fragment.RNInfoFragment;
 import rn.travels.in.rntravels.ui.fragment.HelplineFragment;
 import rn.travels.in.rntravels.ui.fragment.MiscFragment;
 import rn.travels.in.rntravels.ui.fragment.PackageDashboardFragment;
@@ -63,8 +63,9 @@ public class FragmentFactory {
                 fragment = new TicketFragment();
                 fragment.setBackStackTag(Appconst.BSTag.TICKET);
                 break;
-            case Appconst.FragmentId.EMERGENCY_FRAG:
-                fragment = new EmergencyFragment();
+            case Appconst.FragmentId.RN_INFO_FRAG:
+                fragment = new RNInfoFragment();
+                fragment.setBackStackTag(Appconst.BSTag.RN_INFO);
                 break;
             case Appconst.FragmentId.HELPLINE_FRAG:
                 fragment = new HelplineFragment();
