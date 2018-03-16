@@ -17,6 +17,10 @@
     <string name="past">PAST</string>
     <string name="following">FOLLOWING</string>
     <string name="address">Corporate Office : \n 1205 ,12th Floor,\n Hemkunt Chambers ,89 \n Nehru Place , New Delhi , India - 110019 </string>
+    <string name="itinerary">Itinerary</string>
+    <string name="ticket_details">Ticket Details</string>
+    <string name="rn_helpline">RN Helpline</string>
+    <string name="emergency_contact">Emergency Contact</string>
 
     <string-array name="drawer_list">
         <item>Trips</item>

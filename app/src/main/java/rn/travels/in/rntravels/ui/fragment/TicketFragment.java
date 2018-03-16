@@ -15,7 +15,7 @@ import rn.travels.in.rntravels.util.Appconst;
 
 public class TicketFragment extends BackFragment {
 
-    @Nullable
+    @org.jetbrains.annotations.Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_ticket, container, false);

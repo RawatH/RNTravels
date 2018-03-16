@@ -21,7 +21,7 @@ import rn.travels.in.rntravels.util.Util;
  * Created by demo on 16/02/18.
  */
 
-public class PackageDashboardFragment extends DrawerFragment implements PackagePagerAdapter.PackageSelectionListener {
+public class PackageDashboardFragment extends DrawerFragment implements ViewPager.OnPageChangeListener , PackagePagerAdapter.PackageSelectionListener {
 
     private ViewPager pager;
     private PackagePagerAdapter packagePagerAdapter;
@@ -43,11 +43,16 @@ public class PackageDashboardFragment extends DrawerFragment implements PackageP
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.active:
+                                pager.setCurrentItem(0);
+                                break;
 
                             case R.id.past:
+                                pager.setCurrentItem(1);
+                                break;
 
                             case R.id.following:
-
+                                pager.setCurrentItem(2);
+                                break;
                         }
                         return true;
                     }
@@ -55,6 +60,7 @@ public class PackageDashboardFragment extends DrawerFragment implements PackageP
         pager = view.findViewById(R.id.pkgPager);
         packagePagerAdapter = new PackagePagerAdapter(getContext(), Util.getDummyList(), this);
         pager.setAdapter(packagePagerAdapter);
+        pager.addOnPageChangeListener(this);
     }
 
     @Override
@@ -67,5 +73,22 @@ public class PackageDashboardFragment extends DrawerFragment implements PackageP
     public void onPackageSelected(PackageVO packageVO) {
         PackageManager.getInstance().setSelectedPackage(packageVO);
         activity.loadFragment(Appconst.FragmentId.PKG_OPTION_FRAG, null, null);
+    }
+
+    //Page selection listener
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+     bottomNavigationView.setSelectedItemId(Util.getIdByPosition(position));
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 }

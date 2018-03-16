@@ -46,7 +46,6 @@ public class Util {
         packageVO.setDayList(dayList);
 
 
-
         list.add(packageVO);
 
         return list;
@@ -74,10 +73,10 @@ public class Util {
     public static int getFragIdForDrawerItem(int itemId) {
 
         switch (itemId) {
-            case  R.drawable.trip:
+            case R.drawable.trip:
                 return Appconst.FragmentId.DASHBOARD;
             case R.drawable.ic_contact_info:
-                return Appconst.FragmentId.HELPLINE_FRAG;
+                return Appconst.FragmentId.EMERGENCY_FRAG;
             case R.drawable.ic_alert_blue:
                 return Appconst.FragmentId.HELPLINE_FRAG;
             case R.drawable.ic_profile:
@@ -86,6 +85,16 @@ public class Util {
             default:
                 return -1;
 
+        }
+    }
+
+    public static int getIdByPosition(int position) {
+        if (position == 0) {
+            return R.id.active;
+        } else if (position == 1) {
+            return R.id.past;
+        } else {
+            return R.id.following;
         }
     }
 }

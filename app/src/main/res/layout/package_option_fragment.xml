@@ -39,10 +39,10 @@
                 android:background="@drawable/circle_bg"
                 android:elevation="5dp"
                 android:gravity="center"
-                android:text="Itenary"
+                android:onClick="clickEvent"
+                android:text="@string/itinerary"
                 android:textColor="@color/white"
-                android:textSize="20sp"
-                android:onClick="clickEvent"/>
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tickets"
@@ -54,10 +54,10 @@
                 android:background="@drawable/circle_bg"
                 android:elevation="5dp"
                 android:gravity="center"
-                android:text="Tickets"
+                android:onClick="clickEvent"
+                android:text="@string/ticket_details"
                 android:textColor="@color/white"
-                android:textSize="20sp"
-                android:onClick="clickEvent"/>
+                android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -75,10 +75,10 @@
                 android:background="@drawable/circle_bg"
                 android:elevation="5dp"
                 android:gravity="center"
-                android:text="Helpline"
+                android:onClick="clickEvent"
+                android:text="@string/rn_helpline"
                 android:textColor="@color/white"
-                android:textSize="20sp"
-                android:onClick="clickEvent"/>
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/emergency"
@@ -90,26 +90,26 @@
                 android:background="@drawable/circle_bg"
                 android:elevation="5dp"
                 android:gravity="center"
-                android:text="Emergency"
+                android:onClick="clickEvent"
+                android:text="@string/emergency_contact"
                 android:textColor="@color/white"
-                android:textSize="20sp"
-                android:onClick="clickEvent"/>
+                android:textSize="18sp" />
         </LinearLayout>
 
 
         <TextView
             android:id="@+id/feedback"
-            android:layout_width="300dp"
-            android:layout_height="80dp"
-            android:layout_marginTop="5dp"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/rounded_rect_bg"
             android:elevation="5dp"
             android:gravity="center"
-            android:padding="20dp"
+            android:onClick="clickEvent"
+            android:padding="5dp"
             android:text="Leave a feedback"
             android:textColor="@color/white"
-            android:textSize="20sp"
-            android:onClick="clickEvent"/>
+            android:textSize="18sp" />
 
     </LinearLayout>
 

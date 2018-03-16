@@ -11,13 +11,12 @@
     <TextView
         android:id="@+id/lblListHeader"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:background="@color/primary_dark"
         android:paddingLeft="20dp"
         android:gravity="center_vertical"
-        android:textSize="20dp"
-        android:text="Day 1"
-        android:textStyle="bold"
+        android:textSize="20sp"
+        android:text="Day 1 "
         android:textColor="@color/white" />
 
     <ImageView
