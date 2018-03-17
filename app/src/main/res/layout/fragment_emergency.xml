@@ -1,92 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:autoLink="phone"
-            android:drawableLeft="@drawable/ic_phone"
-            android:fontFamily="sans-serif"
-            android:gravity="center"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:text="+91-9811033368"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:autoLink="phone"
-            android:drawableLeft="@drawable/ic_phone"
-            android:fontFamily="sans-serif"
-            android:gravity="center"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:text="+91-011-41633368"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:autoLink="email"
-            android:drawableLeft="@drawable/ic_emai"
-            android:fontFamily="sans-serif"
-            android:gravity="center"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:text="info@rntravels.in"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:autoLink="phone"
-            android:drawableLeft="@drawable/skype"
-            android:fontFamily="sans-serif"
-            android:gravity="center"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:text="Skype"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:autoLink="phone"
-            android:fontFamily="sans-serif"
-            android:drawableLeft="@drawable/ic_location"
-            android:gravity="center"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:text="@string/address"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-    </LinearLayout>
+    android:layout_gravity="center"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:gravity="center"
+    android:orientation="vertical">
 
 
-</android.support.v7.widget.CardView>
+    <TextView
+        style="@style/rn_help_header_style"
+        android:drawableLeft="@drawable/ic_phone"
+        android:text="@string/mobile" />
+
+    <TextView
+        style="@style/rn_help_value_style"
+        android:autoLink="phone"
+        android:text="@string/rn_mobile" />
+
+    <TextView
+        style="@style/rn_help_header_style"
+        android:drawableLeft="@drawable/ic_phone"
+        android:text="@string/landline" />
+
+    <TextView
+        style="@style/rn_help_value_style"
+        android:autoLink="phone"
+        android:text="@string/rn_landline" />
+
+    <TextView
+        style="@style/rn_help_header_style"
+        android:drawableLeft="@drawable/ic_emai"
+        android:text="@string/email" />
+
+    <TextView
+        style="@style/rn_help_value_style"
+        android:autoLink="email"
+        android:text="@string/rn_email_id" />
+
+
+    <TextView
+        style="@style/rn_help_header_style"
+        android:drawableLeft="@drawable/ic_location"
+        android:text="@string/corporate_off" />
+
+    <TextView
+        style="@style/rn_help_value_style"
+        android:autoLink="email"
+        android:text="@string/rn_corporate_address" />
+</LinearLayout>
+
+
