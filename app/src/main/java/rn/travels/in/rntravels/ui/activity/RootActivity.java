@@ -3,7 +3,6 @@ package rn.travels.in.rntravels.ui.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -25,8 +24,6 @@ import rn.travels.in.rntravels.ui.fragment.BackFragment;
 import rn.travels.in.rntravels.ui.fragment.BaseFragment;
 import rn.travels.in.rntravels.ui.fragment.DrawerFragment;
 import rn.travels.in.rntravels.ui.fragment.NoToolbarFragment;
-import rn.travels.in.rntravels.ui.fragment.PkgDetailFragment;
-import rn.travels.in.rntravels.ui.fragment.SplashFragment;
 import rn.travels.in.rntravels.util.Appconst;
 import rn.travels.in.rntravels.util.FragmentFactory;
 import rn.travels.in.rntravels.util.Util;
@@ -191,7 +188,13 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
         if (fragId == -1) {
             Util.t(this, "Not yet implemented");
         } else {
-            loadFragment(fragId, null, null);
+            if(fragId == Appconst.FragmentId.DASHBOARD){
+                getSupportFragmentManager().popBackStack(Appconst.BSTag.ROOT,0);
+                loadedFragment = (BaseFragment) getSupportFragmentManager().findFragmentByTag(Appconst.BSTag.ROOT);
+                setupToolbar();
+            }else {
+                loadFragment(fragId, null, null);
+            }
         }
     }
 }
