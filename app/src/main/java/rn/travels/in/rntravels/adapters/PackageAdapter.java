@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -46,11 +47,9 @@ public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         PkgViewHolder pkgViewHolder = (PkgViewHolder) holder;
         pkgViewHolder.getPkgNameView().setText(packageVO.getHeading());
         final int sdk = android.os.Build.VERSION.SDK_INT;
-        if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-            pkgViewHolder.getPkgBanner().setBackgroundDrawable(context.getResources().getDrawable(R.drawable.sydney));
-        } else {
-            pkgViewHolder.getPkgBanner().setBackground(context.getResources().getDrawable(R.drawable.sydney));
-        }
+        int resID = context.getResources().getIdentifier(packageVO.getBannerImage(), "drawable",  context.getPackageName());
+        pkgViewHolder.getPkgBanner().setImageResource(resID);
+        pkgViewHolder.getPkgSubHeading().setText(packageVO.getSubHeading());
         pkgViewHolder.getPkgBanner().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,21 +67,27 @@ public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     public static class PkgViewHolder extends RecyclerView.ViewHolder {
 
-        private LinearLayout pkgBanner;
+        private ImageView pkgBanner;
         private TextView pkgNameView;
+        private TextView pkgSubHeading;
 
         public PkgViewHolder(View view) {
             super(view);
-            pkgBanner = (LinearLayout) view.findViewById(R.id.packageBanner);
-            pkgNameView = (TextView) view.findViewById(R.id.packageName);
+            pkgBanner =  view.findViewById(R.id.packageBanner);
+            pkgNameView =  view.findViewById(R.id.packageName);
+            pkgSubHeading = view.findViewById(R.id.packageSubheading);
         }
 
-        public LinearLayout getPkgBanner() {
+        public ImageView getPkgBanner() {
             return pkgBanner;
         }
 
         public TextView getPkgNameView() {
             return pkgNameView;
+        }
+
+        public TextView getPkgSubHeading() {
+            return pkgSubHeading;
         }
     }
 

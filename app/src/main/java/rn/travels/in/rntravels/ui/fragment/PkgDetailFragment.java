@@ -3,6 +3,7 @@ package rn.travels.in.rntravels.ui.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,7 @@ import rn.travels.in.rntravels.models.PackageVO;
  * Created by demo on 19/02/18.
  */
 
-public class PkgDetailFragment extends DrawerFragment {
+public class PkgDetailFragment extends BackFragment {
 
     private Context context;
     private ExpandableListAdapter listAdapter;

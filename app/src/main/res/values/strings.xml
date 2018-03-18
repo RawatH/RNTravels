@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">RN Tours &amp; Travels (Desk)</string>
-    <string name="login_name">Username</string>
+    <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="signup">New User</string>
@@ -16,7 +16,8 @@
     <string name="active">ACTIVE</string>
     <string name="past">PAST</string>
     <string name="following">FOLLOWING</string>
-    <string name="rn_corporate_address">1205 ,12th Floor,\n Hemkunt Chambers ,89 \n Nehru Place , New Delhi , India - 110019 </string>
+
+    <string name="rn_corporate_address">F-11, A/K-316, First Floor,\nMB Road, Lado Sarai,\nNew Delhi -110030, INDIA</string>
     <string name="itinerary">Itinerary</string>
     <string name="ticket_details">Ticket Details</string>
     <string name="rn_helpline">RN Helpline</string>
@@ -24,9 +25,21 @@
     <string name="mobile">Mobile</string>
     <string name="landline">Landline</string>
     <string name="rn_email_id">info@rntravels.in</string>
-    <string name="rn_landline">+91-011-41633368</string>
+    <string name="rn_landline">+91-011-41633368\n+91-011-41733368</string>
     <string name="rn_mobile">+91-9811033368</string>
     <string name="corporate_off">Corporate Office</string>
+    <string name="ticket">Ticket</string>
+    <string name="feedback">Leave a feedback</string>
+    <string name="website">Website</string>
+    <string name="web_url">WWW.RNTRAVELS.IN\nWWW.WORLDWINETRAILS.COM</string>
+    <string name="notification">Notification Setting</string>
+    <string name="chnagePassword">Change Password</string>
+    <string name="oldPassword">Old Password</string>
+    <string name="newPassword">New Password</string>
+    <string name="confirmPassword">Confirm Password</string>
+    <string name="tour_contact_person">Tour Contact Person</string>
+    <string name="cab_contact_person">Cab Contact Person</string>
+    <string name="leave_feedback">Write your feedback</string>
 
     <string-array name="drawer_list">
         <item>Trips</item>

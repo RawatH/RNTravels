@@ -22,38 +22,25 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/primary_dark">
-
-                    <ImageView
-                        android:id="@+id/ticketType"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight=".2"
-                        app:srcCompat="@drawable/ic_flight_takeoff" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".8"
-                        android:gravity="center_vertical"
-                        android:padding="10dp"
-                        android:text="Ticket"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        />
-
-
-                </LinearLayout>
+                    android:background="@color/primary_dark"
+                    android:drawableLeft="@drawable/ic_flight_takeoff"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:padding="5dp"
+                    android:text="@string/ticket"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:orientation="vertical"
-                    android:paddingBottom="5dp">
+                    android:paddingBottom="5dp"
+                    android:background="@color/light_grey">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -63,11 +50,10 @@
                         android:paddingLeft="10dp"
                         android:text="Airline"
                         android:textColor="@color/primary_dark"
-                        android:textSize="18sp"
-                         />
+                        android:textSize="15sp" />
 
                     <TextView
-                        android:id="@+id/ticketAirline"
+                        android:id="@+id/ticketAirlin"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -75,7 +61,7 @@
                         android:paddingLeft="10dp"
                         android:text="Vistara"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -93,8 +79,7 @@
                         android:paddingLeft="10dp"
                         android:text="Flight Number"
                         android:textColor="@color/primary_dark"
-                        android:textSize="18sp"
-                        />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/ticketFlightNumber"
@@ -105,7 +90,7 @@
                         android:paddingLeft="10dp"
                         android:text="AI9280"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -113,6 +98,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:orientation="vertical"
+                    android:background="@color/light_grey"
                     android:paddingBottom="5dp">
 
                     <TextView
@@ -124,8 +110,7 @@
                         android:paddingLeft="10dp"
                         android:text="Departure"
                         android:textColor="@color/primary_dark"
-                        android:textSize="18sp"
-                         />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -135,7 +120,7 @@
                         android:paddingLeft="10dp"
                         android:text="10 March 2018 , 10.00 AM"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -154,8 +139,7 @@
                         android:paddingLeft="10dp"
                         android:text="Confirmation Number"
                         android:textColor="@color/primary_dark"
-                        android:textSize="18sp"
-                         />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/ticketConfirmationNumber"
@@ -166,7 +150,7 @@
                         android:paddingLeft="10dp"
                         android:text="1769164525401"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
                 </LinearLayout>
 
 
@@ -175,6 +159,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:orientation="vertical"
+                    android:background="@color/light_grey"
                     android:paddingBottom="5dp">
 
                     <TextView
@@ -185,8 +170,7 @@
                         android:paddingLeft="10dp"
                         android:text="Note"
                         android:textColor="@color/primary_dark"
-                        android:textSize="18sp"
-                         />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/ticketNote"
@@ -197,7 +181,7 @@
                         android:paddingLeft="10dp"
                         android:text="Please reach 1 hr prior to departure."
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
                 </LinearLayout>
 
 
@@ -215,36 +199,24 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/primary_dark">
-
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight=".2"
-                        app:srcCompat="@drawable/ic_flight_land" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".8"
-                        android:gravity="center_vertical"
-                        android:padding="10dp"
-                        android:text="Ticket"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-
-                </LinearLayout>
+                    android:background="@color/primary_dark"
+                    android:drawableLeft="@drawable/ic_flight_land"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:padding="5dp"
+                    android:text="@string/ticket"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:orientation="vertical"
+                    android:background="@color/light_grey"
                     android:paddingBottom="5dp">
 
                     <TextView
@@ -255,8 +227,7 @@
                         android:paddingLeft="10dp"
                         android:text="Airline"
                         android:textColor="@color/primary_dark"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -266,7 +237,7 @@
                         android:paddingLeft="10dp"
                         android:text="Vistara"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -284,8 +255,7 @@
                         android:paddingLeft="10dp"
                         android:text="Flight Number"
                         android:textColor="@color/primary_dark"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -295,7 +265,7 @@
                         android:paddingLeft="10dp"
                         android:text="AI9280"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -303,10 +273,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:orientation="vertical"
+                    android:background="@color/light_grey"
                     android:paddingBottom="5dp">
 
                     <TextView
-
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -314,8 +284,7 @@
                         android:paddingLeft="10dp"
                         android:text="Departure"
                         android:textColor="@color/primary_dark"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -323,9 +292,9 @@
                         android:autoLink="phone"
                         android:fontFamily="sans-serif"
                         android:paddingLeft="10dp"
-                        android:text="14 March 2018 , 12.00 PM"
+                        android:text="10 March 2018 , 10.00 AM"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -344,8 +313,7 @@
                         android:paddingLeft="10dp"
                         android:text="Confirmation Number"
                         android:textColor="@color/primary_dark"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -355,7 +323,7 @@
                         android:paddingLeft="10dp"
                         android:text="1769164525401"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
                 </LinearLayout>
 
 
@@ -364,6 +332,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:orientation="vertical"
+                    android:background="@color/light_grey"
                     android:paddingBottom="5dp">
 
                     <TextView
@@ -374,8 +343,7 @@
                         android:paddingLeft="10dp"
                         android:text="Note"
                         android:textColor="@color/primary_dark"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textSize="15sp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -385,7 +353,7 @@
                         android:paddingLeft="10dp"
                         android:text="Please reach 1 hr prior to departure."
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
                 </LinearLayout>
 
 

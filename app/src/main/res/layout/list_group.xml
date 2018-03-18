@@ -1,29 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
     android:orientation="horizontal"
-    android:padding="8dp"
-    android:background="@color/white">
+    android:padding="8dp">
 
-
-    <TextView
-        android:id="@+id/lblListHeader"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/primary_dark"
-        android:paddingLeft="20dp"
-        android:gravity="center_vertical"
-        android:textSize="20sp"
-        android:text="Day 1 "
-        android:textColor="@color/white" />
+        android:layout_height="60dp">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_weight=".8"
+            android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right|center_vertical"
-        android:layout_marginRight="20dp"
-        app:srcCompat="@drawable/ic_expand_more" />
+            <TextView
+                android:id="@+id/day_header_title"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".4"
+                android:background="@color/primary_dark"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:text="Day 1"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/day_header_subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".6"
+                android:background="@color/primary_dark"
+                android:gravity="center_vertical"
+                android:paddingBottom="2dp"
+                android:paddingLeft="20dp"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Day in Opera House"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/expandImg"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_weight=".2"
+            android:layout_gravity="right|center_vertical"
+            android:padding="20dp"
+            android:background="@color/primary_dark"
+            app:srcCompat="@drawable/ic_expand_more" />
+
+    </LinearLayout>
+
 
 </FrameLayout>

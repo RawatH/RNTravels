@@ -22,27 +22,24 @@ public class Util {
         Toast.makeText(ctx, msg, Toast.LENGTH_SHORT).show();
     }
 
-    public static ArrayList<PackageVO> getDummyList() {
+    public static ArrayList<PackageVO> getActiveDummyList() {
         ArrayList<PackageVO> list = new ArrayList<>();
 
         PackageVO packageVO = new PackageVO();
-        packageVO.setHeading("Sydney");
+        packageVO.setHeading("Sydney (Australia)");
+        packageVO.setBannerImage("sydney");
         packageVO.setSubHeading("10 March - 15 March");
 
         ArrayList<DayVO> dayList = new ArrayList<>();
         DayVO dayVO = new DayVO();
-        dayVO.setTitle("Day 1");
+        dayVO.setTitle("A day out at Opera House");
         ArrayList<String> daySnippetList = new ArrayList<>();
-        daySnippetList.add("10 AM to 12PM will go Opera house");
-        daySnippetList.add("12 PM to 1PM will go XYZ");
-        daySnippetList.add("1 PM to 2PM will have lunch at ABC restaurent");
+        daySnippetList.add("10 AM to 12 PM : Opera house");
+        daySnippetList.add("12 PM to 01 PM : Bondi beach");
+        daySnippetList.add("01 PM to 02 PM : Lunch at Bondi beach.");
         dayVO.setDaySnippetList(daySnippetList);
         dayList.add(dayVO);
 
-        DayVO dayVO1 = new DayVO();
-        dayVO1.setTitle("Day 2");
-        dayVO1.setDaySnippetList(daySnippetList);
-        dayList.add(dayVO1);
         packageVO.setDayList(dayList);
 
 
@@ -50,6 +47,32 @@ public class Util {
 
         return list;
     }
+
+    public static ArrayList<PackageVO> getPastDummyList() {
+        ArrayList<PackageVO> list = new ArrayList<>();
+
+        PackageVO packageVO = new PackageVO();
+        packageVO.setBannerImage("kashmir");
+        packageVO.setHeading("Kashmir (India)");
+        packageVO.setSubHeading("10 Jan - 15 Jan");
+
+        ArrayList<DayVO> dayList = new ArrayList<>();
+        DayVO dayVO = new DayVO();
+        dayVO.setTitle("Enjoy Dal Lake");
+        ArrayList<String> daySnippetList = new ArrayList<>();
+        daySnippetList.add("10 AM to 12PM : Dal lake");
+        daySnippetList.add("01 PM to 02PM : Lunch at KAWA restaurent");
+        dayVO.setDaySnippetList(daySnippetList);
+        dayList.add(dayVO);
+
+        packageVO.setDayList(dayList);
+
+
+        list.add(packageVO);
+
+        return list;
+    }
+
 
     public static ArrayList<DrawerItemVO> getDrawerList(Context ctx) {
         ArrayList<DrawerItemVO> list = new ArrayList<>();
@@ -78,10 +101,12 @@ public class Util {
             case R.drawable.ic_contact_info:
                 return Appconst.FragmentId.RN_INFO_FRAG;
             case R.drawable.ic_alert_blue:
-                return Appconst.FragmentId.HELPLINE_FRAG;
-            case R.drawable.ic_profile:
-            case R.drawable.ic_logout:
+                return Appconst.FragmentId.NOTIFICATION_FRAG;
             case R.drawable.ic_password:
+                return Appconst.FragmentId.PASSWORD_FRAG;
+            case R.drawable.ic_profile:
+                return Appconst.FragmentId.PROFILE_FRG;
+            case R.drawable.ic_logout:
             default:
                 return -1;
 

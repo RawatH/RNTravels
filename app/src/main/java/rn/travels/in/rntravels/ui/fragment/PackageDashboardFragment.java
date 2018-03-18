@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
 import rn.travels.in.rntravels.PackageManager;
 import rn.travels.in.rntravels.R;
 import rn.travels.in.rntravels.adapters.PackagePagerAdapter;
@@ -58,7 +57,7 @@ public class PackageDashboardFragment extends DrawerFragment implements ViewPage
                     }
                 });
         pager = view.findViewById(R.id.pkgPager);
-        packagePagerAdapter = new PackagePagerAdapter(getContext(), Util.getDummyList(), this);
+        packagePagerAdapter = new PackagePagerAdapter(getContext(), Util.getActiveDummyList(), this);
         pager.setAdapter(packagePagerAdapter);
         pager.addOnPageChangeListener(this);
     }

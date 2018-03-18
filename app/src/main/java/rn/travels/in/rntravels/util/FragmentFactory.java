@@ -4,6 +4,9 @@ import android.os.Bundle;
 
 import rn.travels.in.rntravels.PackageManager;
 import rn.travels.in.rntravels.ui.fragment.BaseFragment;
+import rn.travels.in.rntravels.ui.fragment.NotificationFragment;
+import rn.travels.in.rntravels.ui.fragment.PasswordFragment;
+import rn.travels.in.rntravels.ui.fragment.ProfileFragment;
 import rn.travels.in.rntravels.ui.fragment.RNInfoFragment;
 import rn.travels.in.rntravels.ui.fragment.HelplineFragment;
 import rn.travels.in.rntravels.ui.fragment.MiscFragment;
@@ -14,6 +17,7 @@ import rn.travels.in.rntravels.ui.fragment.PkgDetailFragment;
 import rn.travels.in.rntravels.ui.fragment.RegisterFragment;
 import rn.travels.in.rntravels.ui.fragment.SplashFragment;
 import rn.travels.in.rntravels.ui.fragment.TicketFragment;
+import rn.travels.in.rntravels.ui.fragment.TourHelpContactFragment;
 
 /**
  * Created by demo on 17/02/18.
@@ -53,11 +57,11 @@ public class FragmentFactory {
                 fragment = new PackageDashboardFragment();
                 fragment.setBackStackTag(Appconst.BSTag.ROOT);
                 break;
-            case Appconst.FragmentId.PKG_DETAIL:
+            case Appconst.FragmentId.ITINEARY_DETAIL_FRAG:
                 fragment = new PkgDetailFragment();
-                fragment.setBackStackTag(Appconst.BSTag.PKG_DETAIL);
+                fragment.setBackStackTag(Appconst.BSTag.ITINEARY_DETAIL);
                 bundle = new Bundle();
-                bundle.putSerializable("pkgObj" , PackageManager.getInstance().getSelectedPackage());
+                bundle.putSerializable("pkgObj", PackageManager.getInstance().getSelectedPackage());
                 break;
             case Appconst.FragmentId.TICKET_FRAG:
                 fragment = new TicketFragment();
@@ -77,13 +81,29 @@ public class FragmentFactory {
                 fragment = new PackageOptionFragment();
                 fragment.setBackStackTag(Appconst.BSTag.PKG_OPTION);
                 break;
+            case Appconst.FragmentId.NOTIFICATION_FRAG:
+                fragment = new NotificationFragment();
+                fragment.setBackStackTag(Appconst.BSTag.NOTIFICATION);
+                break;
+            case Appconst.FragmentId.PASSWORD_FRAG:
+                fragment = new PasswordFragment();
+                fragment.setBackStackTag(Appconst.BSTag.PASSWORD);
+                break;
+            case Appconst.FragmentId.PROFILE_FRG:
+                fragment = new ProfileFragment();
+                fragment.setBackStackTag(Appconst.BSTag.PROFILE);
+                break;
+            case Appconst.FragmentId.TOUR_HELP_FRG:
+                fragment = new TourHelpContactFragment();
+                fragment.setBackStackTag(Appconst.BSTag.TOUR_HELP);
+                break;
             default:
                 fragment = null;
                 break;
 
         }
 
-        if(fragment != null){
+        if (fragment != null) {
             fragment.setFragId(fragmentId);
         }
 

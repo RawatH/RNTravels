@@ -20,6 +20,7 @@
         android:id="@+id/fname_input_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColorHint="@color/accent"
         android:background="@drawable/top_rounded_rect">
 
         <EditText
@@ -40,6 +41,7 @@
         android:id="@+id/lname_input_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColorHint="@color/accent"
         android:background="@drawable/top_rounded_rect">
 
         <EditText
@@ -60,6 +62,7 @@
         android:id="@+id/username_input_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColorHint="@color/accent"
         android:background="@drawable/top_rounded_rect">
 
 
@@ -70,7 +73,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="5dp"
-            android:hint="@string/login_name"
+            android:hint="@string/username"
             android:paddingLeft="10dp"
             android:textColor="@color/primary_text"
             android:textColorHint="@color/secondary_text" />
@@ -79,6 +82,7 @@
     <android.support.design.widget.TextInputLayout
         android:id="@+id/email_input_layout"
         android:layout_width="match_parent"
+        android:textColorHint="@color/accent"
         android:layout_height="wrap_content"
         android:background="@drawable/top_rounded_rect">
 
@@ -100,6 +104,7 @@
         android:id="@+id/travelid_input_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColorHint="@color/accent"
         android:background="@drawable/top_rounded_rect">
 
         <EditText

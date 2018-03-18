@@ -1,21 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:layout_margin="15dp">
+    android:layout_height="wrap_content"
+    android:layout_margin="15dp"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:background="@color/light_grey">
+
+    <ImageView
+        android:id="@+id/itinerary_img"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/kashmir" />
 
     <TextView
-        android:id="@+id/lblListItem"
+        android:id="@+id/itinerary_txt"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="left|center_vertical"
-        android:paddingBottom="5dp"
-        android:paddingLeft="20dp"
-        android:paddingTop="5dp"
-        android:gravity="center"
-        android:textSize="17sp" />
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="Demo"
+        android:textColor="@color/black"
+        android:paddingLeft="10dp"
+        android:fontFamily="sans-serif-condensed"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:textSize="15sp" />
 
-
-
-</android.support.v7.widget.CardView>
+</LinearLayout>

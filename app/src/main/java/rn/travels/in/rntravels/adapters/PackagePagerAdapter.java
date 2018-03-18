@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import rn.travels.in.rntravels.R;
 import rn.travels.in.rntravels.models.PackageVO;
+import rn.travels.in.rntravels.util.Util;
 
 /**
  * Created by hrawat on 19-02-2018.
@@ -47,16 +48,27 @@ public class PackagePagerAdapter extends PagerAdapter implements PackageAdapter.
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.pkg_display_layout, container, false);
-        init(view);
+        init(view , position);
         container.addView(view);
         view.setTag("View" + position);
         return view;
     }
 
-    private void init(View view) {
+    private void init(View view , int position) {
         RecyclerView packageList = view.findViewById(R.id.catalogList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         packageList.setLayoutManager(layoutManager);
+        switch (position){
+            case 0:
+                this.packageList = Util.getActiveDummyList();
+                break;
+            case 1:
+                this.packageList = Util.getPastDummyList();
+                break;
+            case 2:
+                this.packageList = new ArrayList<>();
+                break;
+        }
         PackageAdapter adapter = new PackageAdapter(this.packageList, context ,this);
         packageList.setAdapter(adapter);
     }

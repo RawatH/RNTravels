@@ -9,20 +9,19 @@ import android.view.ViewGroup;
 import rn.travels.in.rntravels.R;
 
 /**
- * Created by demo on 23/02/18.
+ * Created by demo on 18/03/18.
  */
 
-public class RNInfoFragment extends BackFragment {
-
+public class PasswordFragment extends BackFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_rn_info, container, false);
+        View view = inflater.inflate(R.layout.fragment_password, container, false);
         return view;
     }
 
     @Override
     public String getTitle() {
-        return "Contact Info";
+        return "Change Password";
     }
 }

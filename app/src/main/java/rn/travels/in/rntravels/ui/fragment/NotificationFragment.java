@@ -9,20 +9,20 @@ import android.view.ViewGroup;
 import rn.travels.in.rntravels.R;
 
 /**
- * Created by demo on 23/02/18.
+ * Created by demo on 17/03/18.
  */
 
-public class RNInfoFragment extends BackFragment {
+public class NotificationFragment  extends BackFragment {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_rn_info, container, false);
+        View view = inflater.inflate(R.layout.fragment_notification, container, false);
         return view;
     }
 
     @Override
     public String getTitle() {
-        return "Contact Info";
+        return "Notification Setting";
     }
 }

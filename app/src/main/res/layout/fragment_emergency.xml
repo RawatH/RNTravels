@@ -2,53 +2,38 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
-    android:gravity="center"
     android:orientation="vertical">
 
-
-    <TextView
-        style="@style/rn_help_header_style"
-        android:drawableLeft="@drawable/ic_phone"
-        android:text="@string/mobile" />
-
-    <TextView
-        style="@style/rn_help_value_style"
-        android:autoLink="phone"
-        android:text="@string/rn_mobile" />
-
-    <TextView
-        style="@style/rn_help_header_style"
-        android:drawableLeft="@drawable/ic_phone"
-        android:text="@string/landline" />
-
-    <TextView
-        style="@style/rn_help_value_style"
-        android:autoLink="phone"
-        android:text="@string/rn_landline" />
-
-    <TextView
-        style="@style/rn_help_header_style"
-        android:drawableLeft="@drawable/ic_emai"
-        android:text="@string/email" />
-
-    <TextView
-        style="@style/rn_help_value_style"
-        android:autoLink="email"
-        android:text="@string/rn_email_id" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:gravity="center"
+        android:orientation="vertical">
 
 
-    <TextView
-        style="@style/rn_help_header_style"
-        android:drawableLeft="@drawable/ic_location"
-        android:text="@string/corporate_off" />
+        <TextView
+            style="@style/rn_help_header_style"
+            android:drawableLeft="@drawable/ic_user"
+            android:text="@string/tour_contact_person" />
 
-    <TextView
-        style="@style/rn_help_value_style"
-        android:autoLink="email"
-        android:text="@string/rn_corporate_address" />
+        <TextView
+            style="@style/rn_help_value_style"
+            android:autoLink="phone"
+            android:text="Mr. Joseph    +91 - 9560833229 " />
+
+        <TextView
+            style="@style/rn_help_header_style"
+            android:drawableLeft="@drawable/ic_cab"
+            android:text="@string/cab_contact_person" />
+
+        <TextView
+            style="@style/rn_help_value_style"
+            android:autoLink="phone"
+            android:text="Mr. Jai       +91 - 9234567801 " />
+
+
+    </LinearLayout>
 </LinearLayout>
-
-

@@ -6,13 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import rn.travels.in.rntravels.R;
-import rn.travels.in.rntravels.models.DayVO;
 
 /**
  * Created by demo on 20/02/18.
@@ -78,8 +78,6 @@ public class PkgDetailAdapter extends BaseExpandableListAdapter {
             holder = (GroupHolder) convertView.getTag();
         }
 
-
-        holder.groupTextLabel.setTypeface(null, Typeface.BOLD);
         holder.groupTextLabel.setText(headerTitle);
 
         return convertView;
@@ -102,6 +100,9 @@ public class PkgDetailAdapter extends BaseExpandableListAdapter {
 
 
         holder.childText.setText(childText);
+        if(childPosition > 0){
+            holder.itineraryImg.setVisibility(View.GONE);
+        }
         return convertView;
     }
 
@@ -112,17 +113,22 @@ public class PkgDetailAdapter extends BaseExpandableListAdapter {
 
     static class GroupHolder {
         TextView groupTextLabel;
+        TextView groupTextSubtitle;
+        ImageView expandableImg;
 
         public GroupHolder(View view) {
-            groupTextLabel = view.findViewById(R.id.lblListHeader);
+            groupTextLabel = view.findViewById(R.id.day_header_title);
+            groupTextLabel = view.findViewById(R.id.day_header_subtitle);
+            expandableImg = view.findViewById(R.id.expandImg);
         }
     }
 
     static class ChildHolder {
         TextView childText;
-
+        ImageView itineraryImg;
         public ChildHolder(View view) {
-            childText = view.findViewById(R.id.lblListItem);
+            childText = view.findViewById(R.id.itinerary_txt);
+            itineraryImg = view.findViewById(R.id.itinerary_img);
         }
     }
 }

@@ -12,7 +12,7 @@ public class DayVO implements Serializable{
     private String title;
     private String date;
     private ArrayList<String> daySnippetList;
-    private String photo;
+    private String dayPhoto;
 
     public String getTitle() {
         return title;
@@ -38,12 +38,12 @@ public class DayVO implements Serializable{
         this.daySnippetList = daySnippetList;
     }
 
-    public String getPhoto() {
-        return photo;
+    public String getDayPhoto() {
+        return dayPhoto;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    public void setDayPhoto(String dayPhoto) {
+        this.dayPhoto = dayPhoto;
     }
 
     @Override
@@ -52,7 +52,7 @@ public class DayVO implements Serializable{
                 "title='" + title + '\'' +
                 ", date='" + date + '\'' +
                 ", daySnippetList=" + daySnippetList +
-                ", photo='" + photo + '\'' +
+                ", dayPhoto='" + dayPhoto + '\'' +
                 '}';
     }
 }

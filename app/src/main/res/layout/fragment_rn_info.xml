@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <TextView
+            style="@style/rn_help_header_style"
+            android:drawableLeft="@drawable/ic_phone"
+            android:text="@string/mobile" />
+
+        <TextView
+            style="@style/rn_help_value_style"
+            android:autoLink="phone"
+            android:text="@string/rn_mobile" />
+
+        <TextView
+            style="@style/rn_help_header_style"
+            android:drawableLeft="@drawable/ic_phone"
+            android:text="@string/landline" />
+
+        <TextView
+            style="@style/rn_help_value_style"
+            android:autoLink="phone"
+            android:text="@string/rn_landline" />
+
+        <TextView
+            style="@style/rn_help_header_style"
+            android:drawableLeft="@drawable/ic_emai"
+            android:text="@string/email" />
+
+        <TextView
+            style="@style/rn_help_value_style"
+            android:autoLink="email"
+            android:text="@string/rn_email_id" />
+
+
+        <TextView
+            style="@style/rn_help_header_style"
+            android:drawableLeft="@drawable/ic_location"
+            android:text="@string/corporate_off" />
+
+        <TextView
+            style="@style/rn_help_value_style"
+            android:text="@string/rn_corporate_address" />
+
+        <TextView
+            style="@style/rn_help_header_style"
+            android:drawableLeft="@drawable/ic_web"
+            android:text="@string/website" />
+
+        <TextView
+            android:id="@+id/web"
+            style="@style/rn_help_value_style"
+            android:autoLink="web"
+            android:text="@string/web_url" />
+    </LinearLayout>
+
+</ScrollView>

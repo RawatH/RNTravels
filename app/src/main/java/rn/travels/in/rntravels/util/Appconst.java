@@ -13,21 +13,28 @@ import java.lang.annotation.RetentionPolicy;
 public class Appconst {
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({FragmentId.SPLASH, FragmentId.LOGIN, FragmentId.REGISTER,
-            FragmentId.DASHBOARD, FragmentId.PKG_DETAIL,
+            FragmentId.DASHBOARD, FragmentId.ITINEARY_DETAIL_FRAG,
             FragmentId.TICKET_FRAG, FragmentId.RN_INFO_FRAG,
             FragmentId.MISC_FRAG, FragmentId.HELPLINE_FRAG,
-            FragmentId.PKG_OPTION_FRAG})
+            FragmentId.PKG_OPTION_FRAG, FragmentId.NOTIFICATION_FRAG,
+            FragmentId.PASSWORD_FRAG, FragmentId.PROFILE_FRG,
+            FragmentId.TOUR_HELP_FRG, FragmentId.FEEDBACK_FRG})
     public @interface FragmentId {
         int SPLASH = 0;
         int LOGIN = 1;
         int REGISTER = 2;
         int DASHBOARD = 3;
-        int PKG_DETAIL = 4;
+        int ITINEARY_DETAIL_FRAG = 4;
         int TICKET_FRAG = 5;
         int RN_INFO_FRAG = 6;
         int MISC_FRAG = 7;
         int HELPLINE_FRAG = 8;
         int PKG_OPTION_FRAG = 9;
+        int NOTIFICATION_FRAG = 10;
+        int PASSWORD_FRAG = 11;
+        int PROFILE_FRG = 12;
+        int TOUR_HELP_FRG = 14;
+        int FEEDBACK_FRG = 15;
     }
 
     @Retention(RetentionPolicy.SOURCE)
@@ -54,14 +61,23 @@ public class Appconst {
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    @StringDef({BSTag.ROOT, BSTag.PKG_OPTION, BSTag.TICKET, BSTag.PKG_DETAIL , BSTag.RN_INFO
+    @StringDef({BSTag.ROOT, BSTag.PKG_OPTION,
+            BSTag.TICKET, BSTag.ITINEARY_DETAIL,
+            BSTag.RN_INFO, BSTag.NOTIFICATION,
+            BSTag.PROFILE, BSTag.TOUR_HELP,
+            BSTag.FEEDBACK
     })
     public @interface BSTag {
         String ROOT = "root";
         String PKG_OPTION = "pkg_option";
-        String PKG_DETAIL = "pkg_detail";
+        String ITINEARY_DETAIL = "itinerary_detail";
         String TICKET = "ticket";
         String RN_INFO = "rn_info";
+        String NOTIFICATION = "notification";
+        String PASSWORD = "password";
+        String PROFILE = "profile";
+        String TOUR_HELP = "tour_help";
+        String FEEDBACK = "feedback";
     }
 
 }

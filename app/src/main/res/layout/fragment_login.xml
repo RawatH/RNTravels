@@ -28,6 +28,7 @@
         android:id="@+id/username_input_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColorHint="@color/accent"
         android:background="@drawable/top_rounded_rect">
 
         <EditText
@@ -37,7 +38,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
-            android:hint="@string/login_name"
+            android:hint="@string/username"
             android:paddingLeft="10dp"
             android:textColor="@color/primary_text"
             android:textColorHint="@color/secondary_text" />
@@ -47,6 +48,7 @@
         android:id="@+id/password_input_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColorHint="@color/accent"
         android:background="@drawable/bottom_round_rect">
 
         <EditText
