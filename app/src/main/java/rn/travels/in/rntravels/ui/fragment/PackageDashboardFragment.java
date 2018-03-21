@@ -48,7 +48,6 @@ public class PackageDashboardFragment extends DrawerFragment implements ViewPage
                             case R.id.past:
                                 pager.setCurrentItem(1);
                                 break;
-
                             case R.id.following:
                                 pager.setCurrentItem(2);
                                 break;

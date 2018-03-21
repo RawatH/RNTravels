@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:minWidth="1000dp"
-    android:minHeight="450dp"
+    android:minHeight="250dp"
     android:orientation="vertical">
 
     <android.support.design.widget.TextInputLayout
@@ -35,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_margin="20dp"
-        android:background="@drawable/bg_blue"
+        android:background="@color/primary_dark"
         android:fontFamily="sans-serif-condensed"
         android:text="@string/feedback"
         android:textColor="@color/white" />

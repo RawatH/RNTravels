@@ -40,6 +40,7 @@
     <string name="tour_contact_person">Tour Contact Person</string>
     <string name="cab_contact_person">Cab Contact Person</string>
     <string name="leave_feedback">Write your feedback</string>
+    <string name="boardingPass">Boarding Pass</string>
 
     <string-array name="drawer_list">
         <item>Trips</item>
@@ -47,6 +48,8 @@
         <item>Notification</item>
         <item>Password</item>
         <item>Profile</item>
+        <item>Forex Rates</item>
+        <item>Google Translate</item>
         <item>Logout</item>
 
     </string-array>

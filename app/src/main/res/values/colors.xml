@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#09508E</color>
-    <color name="primary_dark">#09508E</color>
+
+    <color name="primary">#000</color>
+    <color name="primary_dark">#000</color>
     <color name="primary_light">#BBDEFB</color>
-    <color name="accent">#09508E
-
-
-    </color>
+    <color name="accent">#000</color>
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#757575</color>
     <color name="icons">#FFFFFF</color>
     <color name="divider">#BDBDBD</color>
-
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="light_grey">#D3D3D3</color>
-
 
 </resources>

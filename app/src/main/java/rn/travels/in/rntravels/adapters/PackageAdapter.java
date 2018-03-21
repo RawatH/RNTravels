@@ -53,7 +53,6 @@ public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         pkgViewHolder.getPkgBanner().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Util.t(context, "--" + position);
                 communicator.onPackageSelected(packageVO);
             }
         });

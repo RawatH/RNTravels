@@ -11,7 +11,6 @@ import rn.travels.in.rntravels.PackageManager;
 import rn.travels.in.rntravels.R;
 import rn.travels.in.rntravels.models.PackageVO;
 import rn.travels.in.rntravels.util.Appconst;
-import rn.travels.in.rntravels.util.Util;
 
 /**
  * Created by demo on 14/03/18.
@@ -27,6 +26,7 @@ public class PackageOptionFragment extends BackFragment implements View.OnClickL
     private TextView tickets;
     private TextView helpline;
     private TextView emergency;
+    private TextView boardingPass;
     private PackageVO selectedPkgVO;
 
 
@@ -53,12 +53,14 @@ public class PackageOptionFragment extends BackFragment implements View.OnClickL
         tickets = view.findViewById(R.id.tickets);
         helpline = view.findViewById(R.id.helpline);
         emergency = view.findViewById(R.id.emergency);
+        boardingPass = view.findViewById(R.id.boardingPass);
 
         itenary.setOnClickListener(this);
         tickets.setOnClickListener(this);
         helpline.setOnClickListener(this);
         emergency.setOnClickListener(this);
         feedback.setOnClickListener(this);
+        boardingPass.setOnClickListener(this);
 
     }
 
@@ -70,6 +72,7 @@ public class PackageOptionFragment extends BackFragment implements View.OnClickL
 
     @Override
     public void onClick(View v) {
+        Bundle bundle = new Bundle();
         switch (v.getId()) {
             case R.id.helpline:
                 activity.loadFragment(Appconst.FragmentId.RN_INFO_FRAG, null, null);
@@ -78,7 +81,10 @@ public class PackageOptionFragment extends BackFragment implements View.OnClickL
                 activity.loadFragment(Appconst.FragmentId.ITINEARY_DETAIL_FRAG, null, null);
                 break;
             case R.id.tickets:
-                activity.loadFragment(Appconst.FragmentId.TICKET_FRAG, null, null);
+                bundle.putString("title","Ticket Details");
+                bundle.putString("pdfName","ticket_detail.pdf");
+                activity.loadFragment(Appconst.FragmentId.PDF_FRG, bundle, null);
+//                activity.loadFragment(Appconst.FragmentId.TICKET_FRAG, null, null);
                 break;
             case R.id.emergency:
                 activity.loadFragment(Appconst.FragmentId.TOUR_HELP_FRG, null, null);
@@ -86,6 +92,11 @@ public class PackageOptionFragment extends BackFragment implements View.OnClickL
             case R.id.feedback:
                 FeedbackFragment feedbackFragment = new FeedbackFragment();
                 feedbackFragment.show(getActivity().getSupportFragmentManager(), "feedback");
+                break;
+            case R.id.boardingPass:
+                bundle.putString("title","Boarding Pass");
+                bundle.putString("pdfName","boarding_pass.pdf");
+                activity.loadFragment(Appconst.FragmentId.PDF_FRG, bundle, null);
                 break;
         }
     }

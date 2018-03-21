@@ -83,7 +83,9 @@ public class Util {
         icon[2] = R.drawable.ic_alert_blue;
         icon[3] = R.drawable.ic_password;
         icon[4] = R.drawable.ic_profile;
-        icon[5] = R.drawable.ic_logout;
+        icon[5] = R.drawable.ic_forex_rate;
+        icon[6] = R.drawable.ic_g_translate;
+        icon[7] = R.drawable.ic_logout;
 
         for (int i = 0; i < titleList.size(); i++) {
             list.add(new DrawerItemVO(titleList.get(i), icon[i]));
@@ -106,6 +108,8 @@ public class Util {
                 return Appconst.FragmentId.PASSWORD_FRAG;
             case R.drawable.ic_profile:
                 return Appconst.FragmentId.PROFILE_FRG;
+            case R.drawable.ic_g_translate:
+            case R.drawable.ic_forex_rate:
             case R.drawable.ic_logout:
             default:
                 return -1;

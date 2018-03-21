@@ -5,6 +5,7 @@ import android.os.Bundle;
 import rn.travels.in.rntravels.PackageManager;
 import rn.travels.in.rntravels.ui.fragment.BaseFragment;
 import rn.travels.in.rntravels.ui.fragment.NotificationFragment;
+import rn.travels.in.rntravels.ui.fragment.PDFFragment;
 import rn.travels.in.rntravels.ui.fragment.PasswordFragment;
 import rn.travels.in.rntravels.ui.fragment.ProfileFragment;
 import rn.travels.in.rntravels.ui.fragment.RNInfoFragment;
@@ -96,6 +97,10 @@ public class FragmentFactory {
             case Appconst.FragmentId.TOUR_HELP_FRG:
                 fragment = new TourHelpContactFragment();
                 fragment.setBackStackTag(Appconst.BSTag.TOUR_HELP);
+                break;
+            case Appconst.FragmentId.PDF_FRG:
+                fragment = new PDFFragment();
+                fragment.setBackStackTag(Appconst.BSTag.PDF);
                 break;
             default:
                 fragment = null;

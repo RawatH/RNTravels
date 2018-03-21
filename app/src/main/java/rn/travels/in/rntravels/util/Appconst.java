@@ -18,7 +18,7 @@ public class Appconst {
             FragmentId.MISC_FRAG, FragmentId.HELPLINE_FRAG,
             FragmentId.PKG_OPTION_FRAG, FragmentId.NOTIFICATION_FRAG,
             FragmentId.PASSWORD_FRAG, FragmentId.PROFILE_FRG,
-            FragmentId.TOUR_HELP_FRG, FragmentId.FEEDBACK_FRG})
+            FragmentId.TOUR_HELP_FRG, FragmentId.FEEDBACK_FRG , FragmentId.PDF_FRG})
     public @interface FragmentId {
         int SPLASH = 0;
         int LOGIN = 1;
@@ -35,6 +35,7 @@ public class Appconst {
         int PROFILE_FRG = 12;
         int TOUR_HELP_FRG = 14;
         int FEEDBACK_FRG = 15;
+        int PDF_FRG = 16;
     }
 
     @Retention(RetentionPolicy.SOURCE)
@@ -65,7 +66,7 @@ public class Appconst {
             BSTag.TICKET, BSTag.ITINEARY_DETAIL,
             BSTag.RN_INFO, BSTag.NOTIFICATION,
             BSTag.PROFILE, BSTag.TOUR_HELP,
-            BSTag.FEEDBACK
+            BSTag.FEEDBACK , BSTag.PDF
     })
     public @interface BSTag {
         String ROOT = "root";
@@ -78,6 +79,8 @@ public class Appconst {
         String PROFILE = "profile";
         String TOUR_HELP = "tour_help";
         String FEEDBACK = "feedback";
+        String PDF = "pdf";
+
     }
 
 }
