@@ -39,4 +39,6 @@ dependencies {
     compile 'com.google.android.gms:play-services-base:11.0.1'
     compile 'com.google.android.gms:play-services-basement:11.0.1'
     compile 'com.google.android.gms:play-services-tasks:11.0.1'
+    //PDF
+    compile 'com.github.barteksc:android-pdf-viewer:2.7.0'
 }
