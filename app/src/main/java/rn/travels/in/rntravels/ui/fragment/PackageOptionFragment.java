@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import rn.travels.in.rntravels.PackageManager;
@@ -21,12 +22,12 @@ public class PackageOptionFragment extends BackFragment implements View.OnClickL
     private TextView pkgOptionTitle;
     private TextView pkgoptionSubTitle;
     private TextView travelId;
-    private TextView feedback;
-    private TextView itenary;
-    private TextView tickets;
-    private TextView helpline;
-    private TextView emergency;
-    private TextView boardingPass;
+    private Button feedback;
+    private Button itenary;
+    private Button tickets;
+    private Button helpline;
+    private Button emergency;
+    private Button boardingPass;
     private PackageVO selectedPkgVO;
 
 
