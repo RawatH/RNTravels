@@ -40,10 +40,10 @@ public class PackageOptionFragment extends BackFragment implements View.OnClickL
     }
 
     private void init(View view) {
-        selectedPkgVO = PackageManager.getInstance().getSelectedPackage();
 
-        pkgOptionTitle = view.findViewById(R.id.pkgOptionTitle);
-        pkgOptionTitle.setText(this.selectedPkgVO.getHeading());
+
+//        pkgOptionTitle = view.findViewById(R.id.pkgOptionTitle);
+//        pkgOptionTitle.setText(this.selectedPkgVO.getHeading());
 
         pkgoptionSubTitle = view.findViewById(R.id.pkgSubtitle);
         pkgoptionSubTitle.setText(this.selectedPkgVO.getSubHeading());
@@ -67,7 +67,8 @@ public class PackageOptionFragment extends BackFragment implements View.OnClickL
 
     @Override
     public String getTitle() {
-        return "Package Options";
+        selectedPkgVO = PackageManager.getInstance().getSelectedPackage();
+        return selectedPkgVO.getHeading();
     }
 
 

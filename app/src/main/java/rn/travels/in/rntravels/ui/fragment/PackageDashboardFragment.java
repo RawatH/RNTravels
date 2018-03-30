@@ -63,7 +63,7 @@ public class PackageDashboardFragment extends DrawerFragment implements ViewPage
 
     @Override
     public String getTitle() {
-        return "RN Desk";
+        return "My Travel Desk";
     }
 
 

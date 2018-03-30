@@ -12,6 +12,7 @@
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="light_grey">#D3D3D3</color>
-    <color name="theme_color">#01abce</color>
+    <color name="theme_color">#323c46</color>
+    <color name="option_rect_color">#A6323c46</color>
 
 </resources>
