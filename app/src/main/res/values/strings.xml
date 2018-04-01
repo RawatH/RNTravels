@@ -18,8 +18,9 @@
     <string name="following">FOLLOWING</string>
 
     <string name="rn_corporate_address">F-11, A/K-316, First Floor,\nMB Road, Lado Sarai,\nNew Delhi -110030, INDIA</string>
-    <string name="itinerary">Itinerary</string>
-    <string name="ticket_details">Ticket Details</string>
+    <string name="itinerary">Trip Itinerary</string>
+    <string name="hotel_voucher">Travel Vouchers</string>
+    <string name="ticket_details">Flight Tickets</string>
     <string name="rn_helpline">RN Helpline</string>
     <string name="emergency_contact">Emergency Contact</string>
     <string name="mobile">Mobile</string>
@@ -53,6 +54,10 @@
         <item>Logout</item>
 
     </string-array>
+
+    <string name="title_login">Login</string>
+    <string name="title_register">Register</string>
+    <string name="cab_detail">Cab Details</string>
 
 
 </resources>

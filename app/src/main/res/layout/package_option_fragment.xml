@@ -1,69 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/pkg_option_bg"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:weightSum="1">
+    android:layout_height="match_parent">
 
-   <!-- <TextView
-        android:id="@+id/pkgOptionTitle"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".2"
-        android:background="@color/primary_dark"
-        android:fontFamily="sans-serif"
-        android:gravity="center|bottom"
-        android:padding="5dp"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:text="Heading"/>-->
-
-    <TextView
-        android:id="@+id/pkgSubtitle"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight=".1"
-        android:padding="5dp"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/date_round_bg"
-        android:layout_marginTop="2dp"
-        android:fontFamily="sans-serif-condensed"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:textSize="15sp"
-        android:text="Sub - Heading"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".9"
+        android:layout_height="match_parent"
+        android:background="@drawable/b"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="2dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight=".5"
-            android:gravity="center"
-           >
+            android:gravity="center">
 
             <Button
-                android:id="@+id/itenary"
+                android:id="@+id/hotel_voucher"
                 android:layout_width="@dimen/pkgRectWidth"
                 android:layout_height="@dimen/pkgRectWidth"
-                android:layout_centerInParent="true"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/rounded_rect"
-                android:drawableTop="@drawable/pkg_option_itinerary"
+                android:drawableTop="@drawable/ic_hotel_voucher"
                 android:elevation="5dp"
                 android:fontFamily="sans-serif-condensed"
                 android:onClick="clickEvent"
                 android:paddingTop="@dimen/pkgDrawablePadding"
-                android:text="@string/itinerary"
-                android:textColor="@color/white"
+                android:text="@string/hotel_voucher"
                 android:textAllCaps="false"
+                android:textColor="@color/white"
                 android:textSize="15sp" />
 
             <Button
@@ -73,14 +41,14 @@
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/rounded_rect"
-                android:drawableTop="@drawable/pk_option_ticket"
+                android:drawableTop="@drawable/ic_ticket_50"
                 android:elevation="5dp"
                 android:fontFamily="sans-serif-condensed"
                 android:onClick="clickEvent"
                 android:paddingTop="@dimen/pkgDrawablePadding"
                 android:text="@string/ticket_details"
-                android:textColor="@color/white"
                 android:textAllCaps="false"
+                android:textColor="@color/white"
                 android:textSize="15sp" />
 
 
@@ -90,42 +58,83 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight=".5"
-            android:gravity="center"
-            >
+            android:gravity="center">
 
             <Button
-                android:id="@+id/helpline"
+                android:id="@+id/itenary"
                 android:layout_width="@dimen/pkgRectWidth"
                 android:layout_height="@dimen/pkgRectWidth"
-                android:layout_centerInParent="true"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/rounded_rect"
-                android:drawableTop="@drawable/pkg_option_helpline"
+                android:drawableTop="@drawable/ic_itenary_50"
                 android:elevation="5dp"
                 android:fontFamily="sans-serif-condensed"
                 android:onClick="clickEvent"
                 android:paddingTop="@dimen/pkgDrawablePadding"
-                android:text="@string/rn_helpline"
-                android:textColor="@color/white"
+                android:text="@string/itinerary"
                 android:textAllCaps="false"
+                android:textColor="@color/white"
                 android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/boardingPass"
+                android:layout_width="@dimen/pkgRectWidth"
+                android:layout_height="@dimen/pkgRectWidth"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/rounded_rect"
+                android:drawableTop="@drawable/ic_boarding_50"
+                android:elevation="5dp"
+                android:fontFamily="sans-serif-condensed"
+                android:onClick="clickEvent"
+                android:paddingTop="@dimen/pkgDrawablePadding"
+                android:text="@string/boardingPass"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".5"
+            android:gravity="center">
 
             <Button
                 android:id="@+id/emergency"
                 android:layout_width="@dimen/pkgRectWidth"
                 android:layout_height="@dimen/pkgRectWidth"
                 android:layout_centerInParent="true"
-                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@drawable/rounded_rect"
-                android:drawableTop="@drawable/pkg_option_emergency"
+                android:drawableTop="@drawable/ic_emergency_50"
                 android:elevation="5dp"
                 android:fontFamily="sans-serif-condensed"
                 android:onClick="clickEvent"
                 android:paddingTop="@dimen/pkgDrawablePadding"
                 android:text="@string/emergency_contact"
-                android:textColor="@color/white"
                 android:textAllCaps="false"
+                android:textColor="@color/white"
                 android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/helpline"
+                android:layout_width="@dimen/pkgRectWidth"
+                android:layout_height="@dimen/pkgRectWidth"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/rounded_rect"
+                android:drawableTop="@drawable/ic_helpline_50"
+                android:elevation="5dp"
+                android:fontFamily="sans-serif-condensed"
+                android:onClick="clickEvent"
+                android:paddingTop="@dimen/pkgDrawablePadding"
+                android:text="@string/rn_helpline"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
 
         </LinearLayout>
 
@@ -138,42 +147,24 @@
 
             <Button
                 android:id="@+id/feedback"
-                android:layout_width="@dimen/pkgRectWidth"
-                android:layout_height="@dimen/pkgRectWidth"
-                android:layout_centerInParent="true"
-                android:layout_marginRight="10dp"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:minWidth="100dp"
                 android:background="@drawable/rounded_rect"
-                android:drawableTop="@drawable/pkg_option_feedback"
+                android:drawableLeft="@drawable/ic_feedback_50"
                 android:elevation="5dp"
                 android:fontFamily="sans-serif-condensed"
                 android:onClick="clickEvent"
                 android:paddingTop="@dimen/pkgDrawablePadding"
                 android:text="@string/feedback"
-                android:textColor="@color/white"
                 android:textAllCaps="false"
+                android:textColor="@color/white"
                 android:textSize="15sp" />
 
-            <Button
-                android:id="@+id/boardingPass"
-                android:layout_width="@dimen/pkgRectWidth"
-                android:layout_height="@dimen/pkgRectWidth"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="10dp"
-                android:textAllCaps="false"
-                android:background="@drawable/rounded_rect"
-                android:drawableTop="@drawable/pkg_option_bording_pass"
-                android:elevation="5dp"
-                android:fontFamily="sans-serif-condensed"
-                android:onClick="clickEvent"
-                android:paddingTop="@dimen/pkgDrawablePadding"
-                android:text="@string/boardingPass"
-                android:textColor="@color/white"
-                android:textSize="15sp" />
 
         </LinearLayout>
 
 
     </LinearLayout>
-
-
 </LinearLayout>

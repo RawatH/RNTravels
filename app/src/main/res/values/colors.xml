@@ -15,4 +15,6 @@
     <color name="theme_color">#323c46</color>
     <color name="option_rect_color">#A6323c46</color>
 
+    <color name="icon_color">@color/white</color>
+
 </resources>

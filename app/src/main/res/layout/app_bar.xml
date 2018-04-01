@@ -7,5 +7,7 @@
     android:background="@color/primary_dark"
     android:elevation="6dp"
     app:titleTextColor="@color/white"
+    app:subtitleTextColor="@color/white"
+    app:subtitleTextAppearance="@style/ToolbarSubtitleAppearance"
     android:layout_gravity="top"/>
 

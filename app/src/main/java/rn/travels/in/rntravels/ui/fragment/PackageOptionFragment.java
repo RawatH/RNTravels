@@ -41,13 +41,6 @@ public class PackageOptionFragment extends BackFragment implements View.OnClickL
 
     private void init(View view) {
 
-
-//        pkgOptionTitle = view.findViewById(R.id.pkgOptionTitle);
-//        pkgOptionTitle.setText(this.selectedPkgVO.getHeading());
-
-        pkgoptionSubTitle = view.findViewById(R.id.pkgSubtitle);
-        pkgoptionSubTitle.setText(this.selectedPkgVO.getSubHeading());
-
         travelId = view.findViewById(R.id.signup);
         feedback = view.findViewById(R.id.feedback);
         itenary = view.findViewById(R.id.itenary);
@@ -71,6 +64,10 @@ public class PackageOptionFragment extends BackFragment implements View.OnClickL
         return selectedPkgVO.getHeading();
     }
 
+    @Override
+    public String getSubTitle() {
+        return selectedPkgVO.getSubHeading();
+    }
 
     @Override
     public void onClick(View v) {

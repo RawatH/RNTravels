@@ -24,6 +24,10 @@ public class RegisterFragment extends BaseFragment {
     private EditText email;
     private EditText travelId;
 
+    @Override
+    public String getTitle() {
+        return "Register";
+    }
 
     @Nullable
     @Override
@@ -34,19 +38,13 @@ public class RegisterFragment extends BaseFragment {
     }
 
     private void init(View view) {
-        registerBtn =  view.findViewById(R.id.registerUser);
-        userName =  view.findViewById(R.id.regusername);
-        email =  view.findViewById(R.id.regemail);
-        travelId =  view.findViewById(R.id.regTravelId);
-
+        registerBtn = view.findViewById(R.id.registerUser);
+        userName = view.findViewById(R.id.regusername);
+        email = view.findViewById(R.id.regemail);
+        travelId = view.findViewById(R.id.regTravelId);
         registerBtn.setOnClickListener(this);
-
     }
 
-    @Override
-    public String getTitle() {
-        return "Register";
-    }
 
     @Override
     public void onClick(View v) {

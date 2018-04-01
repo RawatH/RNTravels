@@ -58,14 +58,14 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
         drawerList.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         drawerList.setAdapter(drawerListAdapter);
 
-        loadFragment(Appconst.FragmentId.SPLASH, null, null);
+//        loadFragment(Appconst.FragmentId.SPLASH, null, null);
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 loadFragment(Appconst.FragmentId.LOGIN, null, null);
             }
-        }, 2000);
+        }, 1000);
     }
 
     @Override
@@ -134,6 +134,9 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
             }
         }
         toolbar.setTitle(loadedFragment.getTitle());
+        if(loadedFragment.getSubTitle() != null) {
+            toolbar.setSubtitle(loadedFragment.getSubTitle());
+        }
     }
 
 
