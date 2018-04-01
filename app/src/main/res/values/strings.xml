@@ -59,5 +59,11 @@
     <string name="title_register">Register</string>
     <string name="cab_detail">Cab Details</string>
 
+    <string name="facebook_app_id">411263559336773</string>
+    <string name="fb_login_protocol_scheme">fb411263559336773</string>
+    <!--import com.facebook.FacebookSdk;
+    import com.facebook.appevents.AppEventsLogger;-->
+
+
 
 </resources>

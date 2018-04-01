@@ -91,18 +91,13 @@
             app:srcCompat="@drawable/ic_arrow_right" />
 
 
-        <Button
-            android:id="@+id/fbLogin"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_margin="10dp"
-            android:layout_weight=".5"
-            android:background="@color/primary"
-            android:elevation="6dp"
-            android:text="@string/fb_login"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:theme="@style/PrimaryFlatButton" />
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/fblogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp" />
 
         <TextView
             android:id="@+id/signup"
