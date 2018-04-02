@@ -120,6 +120,8 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
 
     }
 
+
+
     private void setupToolbar() {
         if (loadedFragment instanceof NoToolbarFragment) {
             toolbar.setVisibility(View.GONE);

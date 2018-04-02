@@ -1,8 +1,10 @@
 package rn.travels.in.rntravels.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +14,13 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+
+import org.json.JSONObject;
 
 import java.util.Arrays;
 
@@ -64,49 +70,65 @@ public class LoginFragment extends NoToolbarFragment {
         fbLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Util.t(getContext(),"Login success");
+                Log.d("login_fb","Login success");
                 // App code
             }
 
             @Override
             public void onCancel() {
                 // App code
-                Util.t(getContext(),"Login cancel");
+                Log.d("login_fb","Login cancel");
             }
 
             @Override
             public void onError(FacebookException exception) {
-                Util.t(getContext(),"Login error");
+                Log.d("login_fb","Login error");
                 // App code
             }
         });
-
-
-        callbackManager = CallbackManager.Factory.create();
 
         LoginManager.getInstance().registerCallback(callbackManager,
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
-                        Util.t(getContext(),"LoginManager success");
                         // App code
+                        Log.d("login_fb","LoginManager login result");
+                        GraphRequest request = GraphRequest.newMeRequest(
+                                loginResult.getAccessToken(),
+                                new GraphRequest.GraphJSONObjectCallback() {
+
+                                    @Override
+                                    public void onCompleted(JSONObject object, GraphResponse response) {
+                                        Log.d("login_fb", response.toString());
+                                    }
+                                });
+                        Bundle parameters = new Bundle();
+                        parameters.putString("fields", "id,name,email,gender, birthday");
+                        request.setParameters(parameters);
+                        request.executeAsync();
                     }
 
                     @Override
                     public void onCancel() {
-                        Util.t(getContext(),"LoginManager cancel");
                         // App code
+                        Log.d("login_fb","LoginManager cancel");
                     }
 
                     @Override
                     public void onError(FacebookException exception) {
-                        Util.t(getContext(),"LoginManager exception");
                         // App code
+                        Log.d("login_fb","LoginManager exception");
                     }
                 });
 
+
         loginBtn.setOnClickListener(this);
 
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
