@@ -53,7 +53,6 @@ public class RegisterFragment extends BaseFragment {
             case R.id.registerUser:
                 ((RootActivity) getActivity()).loadFragment(Appconst.FragmentId.DASHBOARD, null, null);
                 break;
-
         }
 
     }

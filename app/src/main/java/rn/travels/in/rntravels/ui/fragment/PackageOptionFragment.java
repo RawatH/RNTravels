@@ -28,6 +28,7 @@ public class PackageOptionFragment extends BackFragment implements View.OnClickL
     private Button helpline;
     private Button emergency;
     private Button boardingPass;
+    private Button travelVoucher;
     private PackageVO selectedPkgVO;
 
 
@@ -48,6 +49,7 @@ public class PackageOptionFragment extends BackFragment implements View.OnClickL
         helpline = view.findViewById(R.id.helpline);
         emergency = view.findViewById(R.id.emergency);
         boardingPass = view.findViewById(R.id.boardingPass);
+        travelVoucher = view.findViewById(R.id.travel_voucher);
 
         itenary.setOnClickListener(this);
         tickets.setOnClickListener(this);
@@ -55,6 +57,7 @@ public class PackageOptionFragment extends BackFragment implements View.OnClickL
         emergency.setOnClickListener(this);
         feedback.setOnClickListener(this);
         boardingPass.setOnClickListener(this);
+        travelVoucher.setOnClickListener(this);
 
     }
 
@@ -80,10 +83,10 @@ public class PackageOptionFragment extends BackFragment implements View.OnClickL
                 activity.loadFragment(Appconst.FragmentId.ITINEARY_DETAIL_FRAG, null, null);
                 break;
             case R.id.tickets:
+            case R.id.travel_voucher:
                 bundle.putString("title","Ticket Details");
                 bundle.putString("pdfName","ticket_detail.pdf");
                 activity.loadFragment(Appconst.FragmentId.PDF_FRG, bundle, null);
-//                activity.loadFragment(Appconst.FragmentId.TICKET_FRAG, null, null);
                 break;
             case R.id.emergency:
                 activity.loadFragment(Appconst.FragmentId.TOUR_HELP_FRG, null, null);

@@ -58,7 +58,7 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
         drawerList.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         drawerList.setAdapter(drawerListAdapter);
 
-//        loadFragment(Appconst.FragmentId.SPLASH, null, null);
+        loadFragment(Appconst.FragmentId.SPLASH, null, null);
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -92,7 +92,9 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
             setupToolbar();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
+            if(!(loadedFragment.getFragId() == Appconst.FragmentId.SPLASH)) {
+                fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
+            }
             if (loadedFragment.getBackStackTag() == null) {
                 fragmentTransaction.replace(R.id.container, fragment);
             } else {

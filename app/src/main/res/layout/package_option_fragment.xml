@@ -19,7 +19,7 @@
             android:gravity="center">
 
             <Button
-                android:id="@+id/hotel_voucher"
+                android:id="@+id/travel_voucher"
                 android:layout_width="@dimen/pkgRectWidth"
                 android:layout_height="@dimen/pkgRectWidth"
                 android:layout_marginRight="10dp"

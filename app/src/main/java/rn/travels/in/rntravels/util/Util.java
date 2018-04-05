@@ -1,7 +1,12 @@
 package rn.travels.in.rntravels.util;
 
 import android.content.Context;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,6 +22,19 @@ import rn.travels.in.rntravels.models.PackageVO;
  */
 
 public class Util {
+
+    public static void loadImageToView(ImageView view, Context ctx, String imgName) {
+        Glide.with(ctx).load(getImage(imgName , ctx)).into(view);
+
+
+    }
+
+    private static int getImage(String imageName, Context ctx) {
+
+        int drawableResourceId = ctx.getResources().getIdentifier(imageName, "drawable", ctx.getPackageName());
+
+        return drawableResourceId;
+    }
 
     public static void t(Context ctx, String msg) {
         Toast.makeText(ctx, msg, Toast.LENGTH_SHORT).show();
