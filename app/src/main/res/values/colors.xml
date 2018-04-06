@@ -16,5 +16,6 @@
     <color name="option_rect_color">#A6323c46</color>
 
     <color name="icon_color">@color/white</color>
+    <color name="semi_trans_white">#A6ffffff</color>
 
 </resources>

@@ -38,7 +38,8 @@
         android:layout_margin="20dp"
         android:background="@color/primary_dark"
         android:fontFamily="sans-serif-condensed"
-        android:text="@string/feedback"
+        android:text="@string/submit"
+        android:textAllCaps="false"
         android:textColor="@color/white" />
 
 </LinearLayout>

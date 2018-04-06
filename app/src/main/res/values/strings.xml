@@ -21,7 +21,7 @@
     <string name="itinerary">Trip Itinerary</string>
     <string name="hotel_voucher">Travel Vouchers</string>
     <string name="ticket_details">Flight Tickets</string>
-    <string name="rn_helpline">RN Helpline</string>
+    <string name="rn_helpline">Contact us</string>
     <string name="emergency_contact">Emergency Contact</string>
     <string name="mobile">Mobile</string>
     <string name="landline">Landline</string>
@@ -61,6 +61,7 @@
 
     <string name="facebook_app_id">411263559336773</string>
     <string name="fb_login_protocol_scheme">fb411263559336773</string>
+    <string name="submit">Submit</string>
     <!--import com.facebook.FacebookSdk;
     import com.facebook.appevents.AppEventsLogger;-->
 

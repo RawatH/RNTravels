@@ -4,7 +4,7 @@
 
 
 
-    <solid android:color="#A6ffffff" />
+    <solid android:color="@color/semi_trans_white" />
 
 
 </shape>
