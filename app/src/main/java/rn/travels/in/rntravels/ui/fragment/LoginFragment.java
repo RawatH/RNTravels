@@ -23,8 +23,13 @@ import com.facebook.login.widget.LoginButton;
 import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import rn.travels.in.rntravels.R;
+import rn.travels.in.rntravels.models.ResponseVO;
 import rn.travels.in.rntravels.util.Appconst;
 import rn.travels.in.rntravels.util.Util;
 
@@ -141,6 +146,9 @@ public class LoginFragment extends NoToolbarFragment {
 
         switch (v.getId()){
             case R.id.login:
+                Call<ResponseVO> call=apiService.getRNContactDetail();
+                call.enqueue(LoginFragment.this);
+
                 break;
 
             case R.id.signup:
@@ -151,5 +159,18 @@ public class LoginFragment extends NoToolbarFragment {
                 break;
         }
 
+    }
+
+    @Override
+    public void onResponse(Call call, Response response) {
+        super.onResponse(call, response);
+        ResponseVO responseVO = (ResponseVO) response.body();
+        List responseList = responseVO.getResponse();
+        responseList.get(0);
+    }
+
+    @Override
+    public void onFailure(Call call, Throwable t) {
+        super.onFailure(call, t);
     }
 }
