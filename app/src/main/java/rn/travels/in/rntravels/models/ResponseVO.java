@@ -1,5 +1,6 @@
 package rn.travels.in.rntravels.models;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -11,6 +12,7 @@ public class ResponseVO {
     private boolean responseStatus;
     private String msg;
     private JSONObject response;
+    private JSONArray responseArr;
 
     public ResponseVO(JSONObject jsonObject) {
         try {
@@ -18,8 +20,16 @@ public class ResponseVO {
             this.msg = jsonObject.getString("msg");
             this.response = jsonObject.getJSONObject("response");
         } catch (JSONException e) {
-            e.printStackTrace();
+            try {
+                this.responseArr = jsonObject.getJSONArray("response");
+            } catch (JSONException e1) {
+                e1.printStackTrace();
+            }
         }
+    }
+
+    public JSONArray getResponseArr() {
+        return responseArr;
     }
 
     public boolean isResponseValid() {

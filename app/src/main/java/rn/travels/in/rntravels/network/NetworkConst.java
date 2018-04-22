@@ -19,13 +19,15 @@ public class NetworkConst {
             Endpoints.GET_PKGS,
             Endpoints.REGSITER,
             Endpoints.PSWD_RESET,
-            Endpoints.LOGIN})
+            Endpoints.LOGIN,
+            Endpoints.PROFILE})
     public @interface Endpoints {
         String RN_CONTACT_DETAIL = "/getRnContactDetails";
         String GET_PKGS = "/getAllPackages";
         String REGSITER = "/registerClient";
         String PSWD_RESET = "/passwordReset";
         String LOGIN = "/loginClient";
+        String PROFILE = "/getClientDetails";
     }
 
     @Retention(RetentionPolicy.SOURCE)
@@ -42,7 +44,8 @@ public class NetworkConst {
             ReqTag.REGISTER,
             ReqTag.RN_CONTACT_DETAIL,
             ReqTag.PKG_DETAIL,
-            ReqTag.PSWD_RESET
+            ReqTag.PSWD_RESET,
+            ReqTag.PROFILE
     })
     public @interface ReqTag {
 
@@ -51,6 +54,7 @@ public class NetworkConst {
         int RN_CONTACT_DETAIL = 2;
         int PKG_DETAIL = 3;
         int PSWD_RESET = 4;
+        int PROFILE = 5;
 
 
     }

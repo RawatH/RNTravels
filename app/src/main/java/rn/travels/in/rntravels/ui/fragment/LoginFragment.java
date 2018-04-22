@@ -4,10 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -43,6 +46,8 @@ public class LoginFragment extends NoToolbarFragment {
     private FloatingActionButton loginBtn;
     private LoginButton fbLoginButton;
     private TextView signupBtn;
+    private EditText userName;
+    private EditText password;
 
     private static final String EMAIL = "email";
     private CallbackManager callbackManager;
@@ -59,6 +64,9 @@ public class LoginFragment extends NoToolbarFragment {
     }
 
     private void init(View view) {
+
+        userName = view.findViewById(R.id.username);
+        password = view.findViewById(R.id.password);
 
         loginBtn = view.findViewById(R.id.login);
         loginBtn.setOnClickListener(this);
@@ -147,29 +155,25 @@ public class LoginFragment extends NoToolbarFragment {
 
         switch (v.getId()) {
             case R.id.login:
-                JSONObject paramObj = new JSONObject();
+                if(validateData()) {
+                    JSONObject paramObj = new JSONObject();
+                    try {
+                        paramObj.put("user_name", userName.getText().toString().trim());
+                        paramObj.put("password", password.getText().toString().trim());
 
-                try {
-
-                    paramObj.put("email", "s1a@b.com");
-                    paramObj.put("fb_id", "s111");
-                    paramObj.put("first_name", "s1fname");
-                    paramObj.put("last_name", "s1lname");
-                    paramObj.put("number", "s1111");
-                    paramObj.put("password", "s12222");
-                    paramObj.put("user_name", "s1user");
-                    paramObj.put("travel_id", "s1333");
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    new NRequestor.RequestBuilder()
+                            .setReqType(Request.Method.POST)
+                            .setUrl(Util.getUrlFor(NetworkConst.ReqTag.LOGIN))
+                            .setListener(this)
+                            .setReqParams(paramObj)
+                            .setReqTag(NetworkConst.ReqTag.LOGIN)
+                            .build()
+                            .sendRequest();
+                    pd.show();
                 }
-                new NRequestor.RequestBuilder()
-                        .setReqType(Request.Method.POST)
-                        .setUrl(Util.getUrlFor(NetworkConst.ReqTag.REGISTER))
-                        .setListener(this)
-                        .setReqParams(paramObj)
-                        .setReqTag(NetworkConst.ReqTag.REGISTER)
-                        .build()
-                        .sendRequest();
 
                 break;
 
@@ -185,11 +189,32 @@ public class LoginFragment extends NoToolbarFragment {
 
     @Override
     public void onSuccessResponse(ResponseVO responseVO) {
-        super.onSuccessResponse(responseVO);
+        pd.dismiss();
+        if(responseVO.isResponseValid()){
+            activity.loadFragment(Appconst.FragmentId.DASHBOARD, null, null);
+        }else{
+            Util.t(ctx,responseVO.getMsg());
+        }
     }
 
     @Override
     public void onErrorResponse(VolleyError error) {
         super.onErrorResponse(error);
+        pd.dismiss();
+    }
+
+    public boolean validateData() {
+        boolean flag = true;
+        if (TextUtils.isEmpty(userName.getText().toString().trim())) {
+            Util.t(ctx,"Please enter username.");
+            return false;
+        }
+
+        if (TextUtils.isEmpty(password.getText().toString().trim())) {
+            Util.t(ctx,"Please enter password.");
+            return false;
+        }
+
+        return flag;
     }
 }

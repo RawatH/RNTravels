@@ -1,13 +1,18 @@
 package rn.travels.in.rntravels.ui.fragment;
 
+import android.app.ProgressDialog;
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import android.widget.ProgressBar;
+
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 
+import rn.travels.in.rntravels.database.RNDatabase;
 import rn.travels.in.rntravels.models.ResponseVO;
 import rn.travels.in.rntravels.network.NetworkListener;
 import rn.travels.in.rntravels.ui.activity.RootActivity;
@@ -23,6 +28,8 @@ public class BaseFragment extends Fragment implements View.OnClickListener, Netw
     public Context ctx;
     private int fragId;
     private String backStackTag;
+    private RNDatabase db;
+    public ProgressDialog pd;
 
     @Override
     public void onAttach(Context context) {
@@ -30,6 +37,9 @@ public class BaseFragment extends Fragment implements View.OnClickListener, Netw
         ctx = context;
         activity = (RootActivity)context;
         listener = (FragListener)context;
+        db = Room.databaseBuilder(ctx, RNDatabase.class, "rnDb").build();
+        pd = new ProgressDialog(ctx);
+        pd.setMessage("Loading...");
     }
 
     @Override

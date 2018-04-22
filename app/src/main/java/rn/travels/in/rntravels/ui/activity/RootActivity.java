@@ -99,10 +99,9 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
                 fragmentTransaction.replace(R.id.container, fragment);
             } else {
                 fragmentTransaction.replace(R.id.container, fragment , loadedFragment.getBackStackTag());
-            }
-            if (loadedFragment.getBackStackTag() != null) {
                 fragmentTransaction.addToBackStack(loadedFragment.getBackStackTag());
             }
+
             fragmentTransaction.commit();
         }
 

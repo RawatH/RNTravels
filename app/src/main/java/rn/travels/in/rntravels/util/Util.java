@@ -155,6 +155,22 @@ public class Util {
             case NetworkConst.ReqTag.REGISTER:
                 url += NetworkConst.Endpoints.REGSITER;
                 break;
+
+            case NetworkConst.ReqTag.RN_CONTACT_DETAIL:
+                url += NetworkConst.Endpoints.RN_CONTACT_DETAIL;
+                break;
+
+            case NetworkConst.ReqTag.PSWD_RESET:
+                url += NetworkConst.Endpoints.PSWD_RESET;
+                break;
+
+            case NetworkConst.ReqTag.PKG_DETAIL:
+                url += NetworkConst.Endpoints.GET_PKGS;
+                break;
+
+            case NetworkConst.ReqTag.PROFILE:
+                url += NetworkConst.Endpoints.PROFILE;
+                break;
         }
 
         return url;

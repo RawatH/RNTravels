@@ -1,10 +1,14 @@
 package rn.travels.in.rntravels.network;
 
+import android.util.Log;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -27,6 +31,7 @@ public class NRequestor {
     private int reqTag;
     private JSONObject reqParams;
     private RNApp rnApp;
+    private static final String TAG = "nreq";
 
     private NRequestor() {
 
@@ -49,24 +54,23 @@ public class NRequestor {
 
     public void sendRequest() {
 
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(INSTANCE.reqType,
-                INSTANCE.reqUrl, null,
-                new Response.Listener<JSONObject>() {
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        INSTANCE.listener.onSuccessResponse(new ResponseVO(response));
-                    }
-                }, new Response.ErrorListener() {
-
+        StringRequest request = new StringRequest(INSTANCE.reqType, INSTANCE.reqUrl , new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    INSTANCE.listener.onSuccessResponse(new ResponseVO(new JSONObject(response)));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                INSTANCE.listener.onErrorResponse(error);
+                INSTANCE.listener.onErrorResponse(error);  
             }
-        }) {
-
+        }){
             @Override
-            public byte[] getBody() {
+            protected Map<String,String> getParams(){
                 Map<String, String> params = new HashMap<String, String>();
                 if (INSTANCE.reqParams != null) {
                     Iterator<String> itr = INSTANCE.reqParams.keys();
@@ -75,22 +79,20 @@ public class NRequestor {
                         params.put(k, INSTANCE.reqParams.optString(k));
                     }
                 }
-                return new JSONObject(params).toString().getBytes();
-            }
-
-
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String,String> params = new HashMap<String, String>();
-                params.put("Content-Type","application/x-www-form-urlencoded");
                 return params;
             }
 
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> headers = new HashMap<String, String>();
+                headers.put("Content-Type","application/x-www-form-urlencoded");
+                return headers;
+            }
         };
 
-        // Adding request to request queue
-
-        INSTANCE.rnApp.addToRequestQueue(jsonObjReq, String.valueOf(INSTANCE.reqTag));
+//        // Adding request to request queue
+//
+        INSTANCE.rnApp.addToRequestQueue(request, String.valueOf(INSTANCE.reqTag));
 
     }
 

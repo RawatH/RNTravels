@@ -19,6 +19,8 @@ import rn.travels.in.rntravels.R;
 import rn.travels.in.rntravels.models.ResponseVO;
 import rn.travels.in.rntravels.network.NRequestor;
 import rn.travels.in.rntravels.network.NetworkConst;
+import rn.travels.in.rntravels.ui.activity.RootActivity;
+import rn.travels.in.rntravels.util.Appconst;
 import rn.travels.in.rntravels.util.Util;
 
 /**
@@ -33,6 +35,9 @@ public class RegisterFragment extends BaseFragment {
     private EditText userName;
     private EditText email;
     private EditText travelId;
+    private EditText phonenumber;
+    private EditText password;
+    private EditText confPassword;
 
 
     @Override
@@ -55,6 +60,9 @@ public class RegisterFragment extends BaseFragment {
         firstName = view.findViewById(R.id.firstName);
         lastName = view.findViewById(R.id.lastName);
         travelId = view.findViewById(R.id.regTravelId);
+        phonenumber = view.findViewById(R.id.phoneNumber);
+        password = view.findViewById(R.id.password);
+        confPassword = view.findViewById(R.id.confPassword);
         registerBtn.setOnClickListener(this);
     }
 
@@ -72,11 +80,11 @@ public class RegisterFragment extends BaseFragment {
                         paramObj.put("first_name", firstName.getText().toString().trim());
                         paramObj.put("last_name", lastName.getText().toString().trim());
 
-                        paramObj.put("fb_id", "s111");
-                        paramObj.put("number", "s1111");
-                        paramObj.put("password", "s12222");
-                        paramObj.put("user_name", "s1user");
-                        paramObj.put("travel_id", "s1333");
+                        paramObj.put("fb_id", "");
+                        paramObj.put("number", phonenumber.getText().toString().trim());
+                        paramObj.put("password", password.getText().toString().trim());
+                        paramObj.put("user_name", userName.getText().toString().trim());
+                        paramObj.put("travel_id", travelId.getText().toString().trim());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -110,6 +118,16 @@ public class RegisterFragment extends BaseFragment {
             lastName.setError("Please enter last name.");
             flag = false;
         }
+        if (TextUtils.isEmpty(password.getText().toString().trim())) {
+            password.setError("Please enter password");
+            flag = false;
+        }else{
+            if(!password.getText().toString().trim().equalsIgnoreCase(confPassword.getText().toString().trim())){
+                password.setError("Password & Confirm password not matching");
+                confPassword.setError("Password & Confirm password not matching");
+                flag = false;
+            }
+        }
 
         return flag;
     }
@@ -118,6 +136,7 @@ public class RegisterFragment extends BaseFragment {
     public void onSuccessResponse(ResponseVO responseVO) {
         if(responseVO.isResponseValid()){
             Util.t(ctx , "Successfully registered.");
+            activity.loadFragment(Appconst.FragmentId.LOGIN, null, null);
         }else{
             Util.t(ctx,responseVO.getMsg());
         }
