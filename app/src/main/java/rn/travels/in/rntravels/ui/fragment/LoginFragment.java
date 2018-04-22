@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.VolleyError;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -20,16 +22,15 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
-import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import rn.travels.in.rntravels.R;
 import rn.travels.in.rntravels.models.ResponseVO;
+import rn.travels.in.rntravels.network.NRequestor;
+import rn.travels.in.rntravels.network.NetworkConst;
 import rn.travels.in.rntravels.util.Appconst;
 import rn.travels.in.rntravels.util.Util;
 
@@ -75,19 +76,19 @@ public class LoginFragment extends NoToolbarFragment {
         fbLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Log.d("login_fb","Login success");
+                Log.d("login_fb", "Login success");
                 // App code
             }
 
             @Override
             public void onCancel() {
                 // App code
-                Log.d("login_fb","Login cancel");
+                Log.d("login_fb", "Login cancel");
             }
 
             @Override
             public void onError(FacebookException exception) {
-                Log.d("login_fb","Login error");
+                Log.d("login_fb", "Login error");
                 // App code
             }
         });
@@ -97,7 +98,7 @@ public class LoginFragment extends NoToolbarFragment {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         // App code
-                        Log.d("login_fb","LoginManager login result");
+                        Log.d("login_fb", "LoginManager login result");
                         GraphRequest request = GraphRequest.newMeRequest(
                                 loginResult.getAccessToken(),
                                 new GraphRequest.GraphJSONObjectCallback() {
@@ -116,13 +117,13 @@ public class LoginFragment extends NoToolbarFragment {
                     @Override
                     public void onCancel() {
                         // App code
-                        Log.d("login_fb","LoginManager cancel");
+                        Log.d("login_fb", "LoginManager cancel");
                     }
 
                     @Override
                     public void onError(FacebookException exception) {
                         // App code
-                        Log.d("login_fb","LoginManager exception");
+                        Log.d("login_fb", "LoginManager exception");
                     }
                 });
 
@@ -144,15 +145,36 @@ public class LoginFragment extends NoToolbarFragment {
     @Override
     public void onClick(View v) {
 
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.login:
-                Call<ResponseVO> call=apiService.getRNContactDetail();
-                call.enqueue(LoginFragment.this);
+                JSONObject paramObj = new JSONObject();
+
+                try {
+
+                    paramObj.put("email", "s1a@b.com");
+                    paramObj.put("fb_id", "s111");
+                    paramObj.put("first_name", "s1fname");
+                    paramObj.put("last_name", "s1lname");
+                    paramObj.put("number", "s1111");
+                    paramObj.put("password", "s12222");
+                    paramObj.put("user_name", "s1user");
+                    paramObj.put("travel_id", "s1333");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                new NRequestor.RequestBuilder()
+                        .setReqType(Request.Method.POST)
+                        .setUrl(Util.getUrlFor(NetworkConst.ReqTag.REGISTER))
+                        .setListener(this)
+                        .setReqParams(paramObj)
+                        .setReqTag(NetworkConst.ReqTag.REGISTER)
+                        .build()
+                        .sendRequest();
 
                 break;
 
             case R.id.signup:
-                activity.loadFragment(Appconst.FragmentId.REGISTER , null , null);
+                activity.loadFragment(Appconst.FragmentId.REGISTER, null, null);
                 break;
 
             case R.id.fblogin:
@@ -162,15 +184,12 @@ public class LoginFragment extends NoToolbarFragment {
     }
 
     @Override
-    public void onResponse(Call call, Response response) {
-        super.onResponse(call, response);
-        ResponseVO responseVO = (ResponseVO) response.body();
-        List responseList = responseVO.getResponse();
-        responseList.get(0);
+    public void onSuccessResponse(ResponseVO responseVO) {
+        super.onSuccessResponse(responseVO);
     }
 
     @Override
-    public void onFailure(Call call, Throwable t) {
-        super.onFailure(call, t);
+    public void onErrorResponse(VolleyError error) {
+        super.onErrorResponse(error);
     }
 }

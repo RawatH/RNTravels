@@ -11,14 +11,26 @@ import java.lang.annotation.RetentionPolicy;
  */
 
 public class Appconst {
+
+    //FRAGMENTS TAG
+
     @Retention(RetentionPolicy.SOURCE)
-    @IntDef({FragmentId.SPLASH, FragmentId.LOGIN, FragmentId.REGISTER,
-            FragmentId.DASHBOARD, FragmentId.ITINEARY_DETAIL_FRAG,
-            FragmentId.TICKET_FRAG, FragmentId.RN_INFO_FRAG,
-            FragmentId.MISC_FRAG, FragmentId.HELPLINE_FRAG,
-            FragmentId.PKG_OPTION_FRAG, FragmentId.NOTIFICATION_FRAG,
-            FragmentId.PASSWORD_FRAG, FragmentId.PROFILE_FRG,
-            FragmentId.TOUR_HELP_FRG, FragmentId.FEEDBACK_FRG , FragmentId.PDF_FRG})
+    @IntDef({FragmentId.SPLASH,
+            FragmentId.LOGIN,
+            FragmentId.REGISTER,
+            FragmentId.DASHBOARD,
+            FragmentId.ITINEARY_DETAIL_FRAG,
+            FragmentId.TICKET_FRAG,
+            FragmentId.RN_INFO_FRAG,
+            FragmentId.MISC_FRAG,
+            FragmentId.HELPLINE_FRAG,
+            FragmentId.PKG_OPTION_FRAG,
+            FragmentId.NOTIFICATION_FRAG,
+            FragmentId.PASSWORD_FRAG,
+            FragmentId.PROFILE_FRG,
+            FragmentId.TOUR_HELP_FRG,
+            FragmentId.FEEDBACK_FRG,
+            FragmentId.PDF_FRG})
     public @interface FragmentId {
         int SPLASH = 0;
         int LOGIN = 1;
@@ -37,6 +49,8 @@ public class Appconst {
         int FEEDBACK_FRG = 15;
         int PDF_FRG = 16;
     }
+
+
 
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({JKey.NAME,
@@ -61,12 +75,19 @@ public class Appconst {
         String PHONE = "phone";
     }
 
+
+    //BACKSTACK TAG
     @Retention(RetentionPolicy.SOURCE)
-    @StringDef({BSTag.ROOT, BSTag.PKG_OPTION,
-            BSTag.TICKET, BSTag.ITINEARY_DETAIL,
-            BSTag.RN_INFO, BSTag.NOTIFICATION,
-            BSTag.PROFILE, BSTag.TOUR_HELP,
-            BSTag.FEEDBACK , BSTag.PDF
+    @StringDef({BSTag.ROOT,
+            BSTag.PKG_OPTION,
+            BSTag.TICKET,
+            BSTag.ITINEARY_DETAIL,
+            BSTag.RN_INFO,
+            BSTag.NOTIFICATION,
+            BSTag.PROFILE,
+            BSTag.TOUR_HELP,
+            BSTag.FEEDBACK,
+            BSTag.PDF
     })
     public @interface BSTag {
         String ROOT = "root";
@@ -80,7 +101,9 @@ public class Appconst {
         String TOUR_HELP = "tour_help";
         String FEEDBACK = "feedback";
         String PDF = "pdf";
-
     }
+
+
+
 
 }

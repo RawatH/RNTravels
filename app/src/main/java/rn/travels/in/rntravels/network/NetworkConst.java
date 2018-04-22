@@ -1,6 +1,7 @@
 package rn.travels.in.rntravels.network;
 
 import android.support.annotation.IntDef;
+import android.support.annotation.StringDef;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -11,6 +12,22 @@ import java.lang.annotation.RetentionPolicy;
 
 public class NetworkConst {
 
+    public static final String BASE_URL = "http://www.hashcode.co.in/restro/api";
+
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({Endpoints.RN_CONTACT_DETAIL,
+            Endpoints.GET_PKGS,
+            Endpoints.REGSITER,
+            Endpoints.PSWD_RESET,
+            Endpoints.LOGIN})
+    public @interface Endpoints {
+        String RN_CONTACT_DETAIL = "/getRnContactDetails";
+        String GET_PKGS = "/getAllPackages";
+        String REGSITER = "/registerClient";
+        String PSWD_RESET = "/passwordReset";
+        String LOGIN = "/loginClient";
+    }
+
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({RequestType.GET, RequestType.POST})
     public @interface RequestType {
@@ -18,10 +35,25 @@ public class NetworkConst {
         int POST = 1;
     }
 
+    //REQUEST TAGS
+
     @Retention(RetentionPolicy.SOURCE)
-    @IntDef({RequestTag.REG, RequestTag.PKG_DETAILS})
-    public @interface RequestTag {
-        int REG = 0;
-        int PKG_DETAILS = 1;
+    @IntDef({ReqTag.LOGIN,
+            ReqTag.REGISTER,
+            ReqTag.RN_CONTACT_DETAIL,
+            ReqTag.PKG_DETAIL,
+            ReqTag.PSWD_RESET
+    })
+    public @interface ReqTag {
+
+        int LOGIN = 0;
+        int REGISTER = 1;
+        int RN_CONTACT_DETAIL = 2;
+        int PKG_DETAIL = 3;
+        int PSWD_RESET = 4;
+
+
     }
+
+
 }

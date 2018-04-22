@@ -5,29 +5,24 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
 
-import javax.security.auth.callback.Callback;
-
-import retrofit2.Call;
-import retrofit2.Response;
-import rn.travels.in.rntravels.app.RNApp;
-import rn.travels.in.rntravels.network.ApiClient;
-import rn.travels.in.rntravels.network.ApiService;
+import rn.travels.in.rntravels.models.ResponseVO;
+import rn.travels.in.rntravels.network.NetworkListener;
 import rn.travels.in.rntravels.ui.activity.RootActivity;
 
 /**
  * Created by demo on 16/02/18.
  */
 
-public class BaseFragment extends Fragment implements View.OnClickListener, retrofit2.Callback {
+public class BaseFragment extends Fragment implements View.OnClickListener, NetworkListener {
 
     public RootActivity activity;
     public FragListener listener;
     public Context ctx;
     private int fragId;
     private String backStackTag;
-    public ApiService apiService;
-
 
     @Override
     public void onAttach(Context context) {
@@ -35,7 +30,6 @@ public class BaseFragment extends Fragment implements View.OnClickListener, retr
         ctx = context;
         activity = (RootActivity)context;
         listener = (FragListener)context;
-        apiService = ((RNApp)getActivity().getApplication()).getApiService();
     }
 
     @Override
@@ -85,14 +79,15 @@ public class BaseFragment extends Fragment implements View.OnClickListener, retr
     }
 
     @Override
-    public void onResponse(Call call, Response response) {
+    public void onSuccessResponse(ResponseVO responseVO) {
 
     }
 
     @Override
-    public void onFailure(Call call, Throwable t) {
-
+    public void onErrorResponse(VolleyError error) {
+        VolleyLog.d("err", "Error: " + error.getMessage());
     }
+
 
     public interface FragListener {
         void toggleDrawerLock(boolean lockState);

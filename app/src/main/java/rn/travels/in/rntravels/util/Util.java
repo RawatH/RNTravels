@@ -16,6 +16,7 @@ import rn.travels.in.rntravels.R;
 import rn.travels.in.rntravels.models.DayVO;
 import rn.travels.in.rntravels.models.DrawerItemVO;
 import rn.travels.in.rntravels.models.PackageVO;
+import rn.travels.in.rntravels.network.NetworkConst;
 
 /**
  * Created by demo on 16/02/18.
@@ -144,4 +145,20 @@ public class Util {
             return R.id.following;
         }
     }
+
+    public static String getUrlFor(int urlFor){
+        String url = NetworkConst.BASE_URL;
+        switch (urlFor){
+            case NetworkConst.ReqTag.LOGIN:
+                url += NetworkConst.Endpoints.LOGIN;
+                break;
+            case NetworkConst.ReqTag.REGISTER:
+                url += NetworkConst.Endpoints.REGSITER;
+                break;
+        }
+
+        return url;
+    }
+
+
 }

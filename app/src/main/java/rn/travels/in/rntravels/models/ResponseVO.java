@@ -1,26 +1,33 @@
 package rn.travels.in.rntravels.models;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by demo on 18/04/18.
  */
 
 public class ResponseVO {
-    private boolean status;
+    private boolean responseStatus;
     private String msg;
-    private List response;
+    private JSONObject response;
 
-    public ResponseVO() {
+    public ResponseVO(JSONObject jsonObject) {
+        try {
+            this.responseStatus = jsonObject.getBoolean("status");
+            this.msg = jsonObject.getString("msg");
+            this.response = jsonObject.getJSONObject("response");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
-    public boolean isStatus() {
-        return status;
+    public boolean isResponseValid() {
+        return responseStatus;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setResponseStatus(boolean responseStatus) {
+        this.responseStatus = responseStatus;
     }
 
     public String getMsg() {
@@ -31,11 +38,12 @@ public class ResponseVO {
         this.msg = msg;
     }
 
-    public List getResponse() {
+    public JSONObject getResponse() {
         return response;
     }
 
-    public void setResponse(List response) {
+    public void setResponse(JSONObject response) {
         this.response = response;
     }
+
 }
