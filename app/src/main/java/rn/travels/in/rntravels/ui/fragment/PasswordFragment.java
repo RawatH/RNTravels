@@ -108,7 +108,7 @@ public class PasswordFragment extends BackFragment {
         pd.dismiss();
         if (responseVO.isResponseValid()) {
             Util.t(ctx, "Password successfuly updated");
-            activity.loadFragment(Appconst.FragmentId.LOGIN, null, null);
+            activity.onBackPressed();
         } else {
             Util.t(ctx, responseVO.getMsg());
         }
