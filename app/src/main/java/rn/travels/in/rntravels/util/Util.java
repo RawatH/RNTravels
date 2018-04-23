@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import rn.travels.in.rntravels.R;
 import rn.travels.in.rntravels.models.DayVO;
@@ -25,7 +26,7 @@ import rn.travels.in.rntravels.network.NetworkConst;
 public class Util {
 
     public static void loadImageToView(ImageView view, Context ctx, String imgName) {
-        Glide.with(ctx).load(getImage(imgName , ctx)).into(view);
+        Glide.with(ctx).load(getImage(imgName, ctx)).into(view);
 
 
     }
@@ -146,9 +147,9 @@ public class Util {
         }
     }
 
-    public static String getUrlFor(int urlFor){
+    public static String getUrlFor(int urlFor) {
         String url = NetworkConst.BASE_URL;
-        switch (urlFor){
+        switch (urlFor) {
             case NetworkConst.ReqTag.LOGIN:
                 url += NetworkConst.Endpoints.LOGIN;
                 break;
@@ -174,6 +175,21 @@ public class Util {
         }
 
         return url;
+    }
+
+    public static String getTokenisedString(String data) {
+        StringBuilder sb = new StringBuilder();
+        StringTokenizer st = new StringTokenizer(data, ",");
+        int tokenCount = 0 ;
+        while (st.hasMoreTokens()) {
+            if(tokenCount == st.countTokens()){
+                sb.append(st.nextToken().trim());
+            }else {
+                sb.append(st.nextToken().trim() + "\n");
+            }
+           tokenCount++;
+        }
+        return sb.toString();
     }
 
 

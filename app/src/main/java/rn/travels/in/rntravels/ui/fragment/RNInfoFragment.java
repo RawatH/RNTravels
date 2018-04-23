@@ -53,44 +53,41 @@ public class RNInfoFragment extends BackFragment {
         JSONObject paramObj = new JSONObject();
 
         try {
-            {"id":"1","mob_num":"9811585124, 9811575243","landline_num":"23840568, 48325647","website":"www.google.com, http:\/\/www.facebook.com","email":"javiabhavik@gmail.com","addr":"19\/4 Shakti Nagar 4th FloorNew Delhi - 110007"}
-
             paramObj.put("user_id", "4");
+            new NRequestor.RequestBuilder()
+                    .setReqType(Request.Method.POST)
+                    .setUrl(Util.getUrlFor(NetworkConst.ReqTag.RN_CONTACT_DETAIL))
+                    .setListener(this)
+                    .setReqParams(paramObj)
+                    .setReqTag(NetworkConst.ReqTag.RN_CONTACT_DETAIL)
+                    .build()
+                    .sendRequest();
+            pd.show();
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        new NRequestor.RequestBuilder()
-                .setReqType(Request.Method.POST)
-                .setUrl(Util.getUrlFor(NetworkConst.ReqTag.RN_CONTACT_DETAIL))
-                .setListener(this)
-                .setReqParams(paramObj)
-                .setReqTag(NetworkConst.ReqTag.RN_CONTACT_DETAIL)
-                .build()
-                .sendRequest();
-        pd.show();
+
     }
 
     @Override
     public void onSuccessResponse(ResponseVO responseVO) {
         pd.dismiss();
-        if(responseVO.isResponseValid()){
+        if (responseVO.isResponseValid()) {
             try {
-//                {"id":"4","fb_id":"2","first_name":"Harish","last_name":"Rawat","name":"harish","email_addres":"hrawat@gmail.com","contact_number":"123","user_name":"hRawat",
-// "pass_word":"FCEA920F7412B5DA7BE0CF42B8C93759","travel_id":"123456"}
                 JSONObject profileJson = (JSONObject) responseVO.getResponseArr().get(0);
-                rnMobile.setText(profileJson.optString("mob_num"));
-                rnLandlineA.setText(profileJson.optString("landline_num"));
+                rnMobile.setText(Util.getTokenisedString(profileJson.optString("mob_num")));
+                rnLandlineA.setText(Util.getTokenisedString(profileJson.optString("landline_num")));
                 rnEmail.setText(profileJson.optString("email"));
                 rnOfficeAddress.setText(profileJson.optString("addr"));
-                rnWebsite.setText(profileJson.optString("website"));
+                rnWebsite.setText(Util.getTokenisedString(profileJson.optString("website")));
 
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
-        }else{
-            Util.t(ctx,responseVO.getMsg());
+        } else {
+            Util.t(ctx, responseVO.getMsg());
         }
     }
 
