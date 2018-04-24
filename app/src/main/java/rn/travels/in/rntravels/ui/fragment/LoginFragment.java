@@ -32,6 +32,7 @@ import java.util.Arrays;
 
 import rn.travels.in.rntravels.R;
 import rn.travels.in.rntravels.models.ResponseVO;
+import rn.travels.in.rntravels.models.UserVO;
 import rn.travels.in.rntravels.network.NRequestor;
 import rn.travels.in.rntravels.network.NetworkConst;
 import rn.travels.in.rntravels.util.Appconst;
@@ -155,24 +156,25 @@ public class LoginFragment extends NoToolbarFragment {
 
         switch (v.getId()) {
             case R.id.login:
-                if(validateData()) {
+                if (validateData()) {
                     JSONObject paramObj = new JSONObject();
                     try {
                         paramObj.put("user_name", userName.getText().toString().trim());
                         paramObj.put("password", password.getText().toString().trim());
+                        new NRequestor.RequestBuilder()
+                                .setReqType(Request.Method.POST)
+                                .setUrl(Util.getUrlFor(NetworkConst.ReqTag.LOGIN))
+                                .setListener(this)
+                                .setReqParams(paramObj)
+                                .setReqTag(NetworkConst.ReqTag.LOGIN)
+                                .build()
+                                .sendRequest();
+                        pd.show();
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    new NRequestor.RequestBuilder()
-                            .setReqType(Request.Method.POST)
-                            .setUrl(Util.getUrlFor(NetworkConst.ReqTag.LOGIN))
-                            .setListener(this)
-                            .setReqParams(paramObj)
-                            .setReqTag(NetworkConst.ReqTag.LOGIN)
-                            .build()
-                            .sendRequest();
-                    pd.show();
+
                 }
 
                 break;
@@ -190,10 +192,17 @@ public class LoginFragment extends NoToolbarFragment {
     @Override
     public void onSuccessResponse(ResponseVO responseVO) {
         pd.dismiss();
-        if(responseVO.isResponseValid()){
+        if (responseVO.isResponseValid()) {
             activity.loadFragment(Appconst.FragmentId.DASHBOARD, null, null);
-        }else{
-            Util.t(ctx,responseVO.getMsg());
+            UserVO userVO = new UserVO();
+            userVO.setUserEmail(userName.getText().toString().trim());
+            userVO.setUserCred(password.getText().toString().trim());
+            if(db.getUserDao().findByName(userVO.getUserEmail()) == null) {
+                db.getUserDao().insert(userVO);
+            }
+
+        } else {
+            Util.t(ctx, responseVO.getMsg());
         }
     }
 
@@ -206,12 +215,12 @@ public class LoginFragment extends NoToolbarFragment {
     public boolean validateData() {
         boolean flag = true;
         if (TextUtils.isEmpty(userName.getText().toString().trim())) {
-            Util.t(ctx,"Please enter username.");
+            Util.t(ctx, "Please enter username.");
             return false;
         }
 
         if (TextUtils.isEmpty(password.getText().toString().trim())) {
-            Util.t(ctx,"Please enter password.");
+            Util.t(ctx, "Please enter password.");
             return false;
         }
 

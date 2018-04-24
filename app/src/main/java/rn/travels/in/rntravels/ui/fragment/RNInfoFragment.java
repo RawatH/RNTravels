@@ -81,7 +81,6 @@ public class RNInfoFragment extends BackFragment {
                 rnOfficeAddress.setText(profileJson.optString("addr"));
                 rnWebsite.setText(Util.getTokenisedString(profileJson.optString("website")));
 
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }

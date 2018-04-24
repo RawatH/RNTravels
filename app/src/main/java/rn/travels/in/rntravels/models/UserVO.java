@@ -3,6 +3,8 @@ package rn.travels.in.rntravels.models;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import org.json.JSONObject;
+
 /**
  * Created by demo on 16/02/18.
  */

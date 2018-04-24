@@ -17,6 +17,7 @@ import org.json.JSONObject;
 
 import rn.travels.in.rntravels.R;
 import rn.travels.in.rntravels.models.ResponseVO;
+import rn.travels.in.rntravels.models.UserVO;
 import rn.travels.in.rntravels.network.NRequestor;
 import rn.travels.in.rntravels.network.NetworkConst;
 import rn.travels.in.rntravels.ui.activity.RootActivity;
@@ -85,17 +86,19 @@ public class RegisterFragment extends BaseFragment {
                         paramObj.put("password", password.getText().toString().trim());
                         paramObj.put("user_name", userName.getText().toString().trim());
                         paramObj.put("travel_id", travelId.getText().toString().trim());
+
+                        new NRequestor.RequestBuilder()
+                                .setReqType(Request.Method.POST)
+                                .setUrl(Util.getUrlFor(NetworkConst.ReqTag.REGISTER))
+                                .setListener(this)
+                                .setReqParams(paramObj)
+                                .setReqTag(NetworkConst.ReqTag.REGISTER)
+                                .build()
+                                .sendRequest();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    new NRequestor.RequestBuilder()
-                            .setReqType(Request.Method.POST)
-                            .setUrl(Util.getUrlFor(NetworkConst.ReqTag.REGISTER))
-                            .setListener(this)
-                            .setReqParams(paramObj)
-                            .setReqTag(NetworkConst.ReqTag.REGISTER)
-                            .build()
-                            .sendRequest();
+
 
                     break;
 

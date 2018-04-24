@@ -26,9 +26,9 @@ public class BaseFragment extends Fragment implements View.OnClickListener, Netw
     public RootActivity activity;
     public FragListener listener;
     public Context ctx;
-    private int fragId;
+    public int fragId;
     private String backStackTag;
-    private RNDatabase db;
+    public RNDatabase db;
     public ProgressDialog pd;
 
     @Override
@@ -37,7 +37,7 @@ public class BaseFragment extends Fragment implements View.OnClickListener, Netw
         ctx = context;
         activity = (RootActivity)context;
         listener = (FragListener)context;
-        db = Room.databaseBuilder(ctx, RNDatabase.class, "rnDb").build();
+        db = RNDatabase.getInstance(ctx);
         pd = new ProgressDialog(ctx);
         pd.setMessage("Loading...");
     }
