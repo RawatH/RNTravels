@@ -5,14 +5,16 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
+import rn.travels.in.rntravels.database.dao.PackageDao;
 import rn.travels.in.rntravels.database.dao.UserDao;
+import rn.travels.in.rntravels.models.PackageVO;
 import rn.travels.in.rntravels.models.UserVO;
 
 /**
  * Created by demo on 22/04/18.
  */
 
-@Database(entities = {UserVO.class}, version = 1)
+@Database(entities = {UserVO.class , PackageVO.class}, version = 1)
 public abstract class RNDatabase extends RoomDatabase {
     private static final String DB_NAME = "rnDb.db";
     private static volatile RNDatabase instance;
@@ -33,4 +35,5 @@ public abstract class RNDatabase extends RoomDatabase {
 
 
     public abstract UserDao getUserDao();
+    public abstract PackageDao getPackageDao();
 }

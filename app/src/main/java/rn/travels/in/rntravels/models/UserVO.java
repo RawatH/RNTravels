@@ -9,7 +9,7 @@ import org.json.JSONObject;
  * Created by demo on 16/02/18.
  */
 
-@Entity(tableName = "user")
+@Entity(tableName = "USER")
 public class UserVO {
 
     @PrimaryKey

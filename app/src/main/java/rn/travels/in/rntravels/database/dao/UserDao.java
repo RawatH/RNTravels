@@ -15,10 +15,10 @@ import rn.travels.in.rntravels.models.UserVO;
 
 @Dao
 public interface UserDao {
-    @Query("SELECT * FROM user")
+    @Query("SELECT * FROM USER")
     List<UserVO> getAll();
 
-    @Query("SELECT * FROM user WHERE userEmail LIKE :email  LIMIT 1")
+    @Query("SELECT * FROM USER WHERE userEmail LIKE :email  LIMIT 1")
     UserVO findByName(String email);
 
     @Insert

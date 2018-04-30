@@ -1,6 +1,7 @@
 package rn.travels.in.rntravels.util;
 
 import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -191,6 +192,13 @@ public class Util {
         }
         return sb.toString();
     }
+
+    public static void loadImage(Context ctx , String url , ImageView imageView){
+        Glide.with(ctx)
+                .load(url)
+                .into(imageView);
+    }
+
 
 
 }

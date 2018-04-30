@@ -1,21 +1,131 @@
 package rn.travels.in.rntravels.models;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import rn.travels.in.rntravels.util.Appconst;
 
 /**
  * Created by demo on 16/02/18.
  */
 
+@Entity(tableName = "PACKAGE")
 public class PackageVO implements Serializable {
 
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+    private String pkgJson;
+    @Ignore
     private String heading;
+    @Ignore
     private String subHeading;
-    private ArrayList<DayVO> dayList;
-    private String remarks;
-    private String creationDate;
+    @Ignore
+    private String travelDate;
+    @Ignore
     private String emergencyNumber;
+    @Ignore
     private String bannerImage;
+    @Ignore
+    private String ticketsPdf;
+    @Ignore
+    private String boardingPassPdf;
+    @Ignore
+    private String hotelvoucherPdf;
+    @Ignore
+    private ArrayList<DayVO> dayList;
+
+//    @Ignore
+//    private
+
+    public PackageVO() {
+    }
+
+    public PackageVO initPackage(JSONObject jsonObject) {
+        PackageVO packageVO = new PackageVO();
+        this.heading = jsonObject.optString("pack_name");
+        this.subHeading = jsonObject.optString("pack_detail");
+        this.travelDate = jsonObject.optString("travel_dt");
+        this.bannerImage = jsonObject.optString("bannery_img");
+
+        try {
+            JSONArray uploadArr = jsonObject.getJSONArray("uploads");
+            for (int i = 0; i < 3; i++) {
+                JSONObject uploadJson = uploadArr.getJSONObject(i);
+                String data = jsonObject.optString("file_path");
+                switch (uploadJson.optString("file_type")) {
+                    case Appconst.Uploads.TICKET:
+                        this.ticketsPdf = data;
+                        break;
+                    case Appconst.Uploads.BOARDING_PASS:
+                        this.boardingPassPdf = data;
+                        break;
+                    case Appconst.Uploads.VOUCHER:
+                        this.hotelvoucherPdf = data;
+                        break;
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return packageVO;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getPkgJson() {
+        return pkgJson;
+    }
+
+    public void setPkgJson(String pkgJson) {
+        this.pkgJson = pkgJson;
+    }
+
+    public String getTicketsPdf() {
+        return ticketsPdf;
+    }
+
+    public void setTicketsPdf(String ticketsPdf) {
+        this.ticketsPdf = ticketsPdf;
+    }
+
+    public String getBoardingPassPdf() {
+        return boardingPassPdf;
+    }
+
+    public void setBoardingPassPdf(String boardingPassPdf) {
+        this.boardingPassPdf = boardingPassPdf;
+    }
+
+    public String getHotelvoucherPdf() {
+        return hotelvoucherPdf;
+    }
+
+    public void setHotelvoucherPdf(String hotelvoucherPdf) {
+        this.hotelvoucherPdf = hotelvoucherPdf;
+    }
+
+    public String getTravelDate() {
+        return travelDate;
+    }
+
+    public void setTravelDate(String travelDate) {
+        this.travelDate = travelDate;
+    }
 
     public String getHeading() {
         return heading;
@@ -23,22 +133,6 @@ public class PackageVO implements Serializable {
 
     public void setHeading(String heading) {
         this.heading = heading;
-    }
-
-    public String getRemarks() {
-        return remarks;
-    }
-
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
-    }
-
-    public String getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(String creationDate) {
-        this.creationDate = creationDate;
     }
 
     public String getEmergencyNumber() {
@@ -73,16 +167,4 @@ public class PackageVO implements Serializable {
         this.dayList = dayList;
     }
 
-    @Override
-    public String toString() {
-        return "PackageVO{" +
-                "heading='" + heading + '\'' +
-                ", subHeading='" + subHeading + '\'' +
-                ", dayList=" + dayList +
-                ", remarks='" + remarks + '\'' +
-                ", creationDate='" + creationDate + '\'' +
-                ", emergencyNumber='" + emergencyNumber + '\'' +
-                ", bannerImage='" + bannerImage + '\'' +
-                '}';
-    }
 }

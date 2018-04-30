@@ -24,11 +24,11 @@ android {
 }
 
 dependencies {
-    implementation 'com.facebook.android:facebook-login:[4,5)'
+    compile group: 'com.facebook.android', name: 'facebook-android-sdk', version: '4.32.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
@@ -36,13 +36,14 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:26.1.0'
     compile 'com.android.support:design:26.1.0'
 
-    compile 'com.google.android.gms:play-services-safetynet:11.0.1'
-    compile 'com.google.android.gms:play-services-base:11.0.1'
-    compile 'com.google.android.gms:play-services-basement:11.0.1'
-    compile 'com.google.android.gms:play-services-tasks:11.0.1'
+    compile 'com.google.android.gms:play-services-safetynet:15.0.0'
+    compile 'com.google.android.gms:play-services-base:15.0.0'
+    compile 'com.google.android.gms:play-services-basement:15.0.0'
+    compile 'com.google.android.gms:play-services-tasks:15.0.0'
+
     //PDF
     compile 'com.github.barteksc:android-pdf-viewer:2.7.0'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.github.bumptech.glide:glide:4.7.1'
 
     //Volley
     compile 'com.android.volley:volley:1.1.0'
@@ -50,4 +51,7 @@ dependencies {
     //ROOM API
     compile 'android.arch.persistence.room:runtime:1.0.0-alpha5'
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0-alpha5"
+
+    compile 'com.github.bumptech.glide:glide:4.7.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
 }

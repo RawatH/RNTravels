@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import rn.travels.in.rntravels.R;
 import rn.travels.in.rntravels.models.PackageVO;
+import rn.travels.in.rntravels.util.Appconst;
 import rn.travels.in.rntravels.util.Util;
 
 /**
@@ -48,7 +49,8 @@ public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         pkgViewHolder.getPkgNameView().setText(packageVO.getHeading());
         final int sdk = android.os.Build.VERSION.SDK_INT;
         int resID = context.getResources().getIdentifier(packageVO.getBannerImage(), "drawable",  context.getPackageName());
-        pkgViewHolder.getPkgBanner().setImageResource(resID);
+//        pkgViewHolder.getPkgBanner().setImageResource(resID);
+        Util.loadImage(context,packageVO.getBannerImage(),pkgViewHolder.getPkgBanner());
         pkgViewHolder.getPkgSubHeading().setText(packageVO.getSubHeading());
         pkgViewHolder.getPkgBanner().setOnClickListener(new View.OnClickListener() {
             @Override

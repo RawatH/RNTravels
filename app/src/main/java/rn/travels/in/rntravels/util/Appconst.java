@@ -51,7 +51,6 @@ public class Appconst {
     }
 
 
-
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({JKey.NAME,
             JKey.FLIGHT_DETAIL,
@@ -104,6 +103,17 @@ public class Appconst {
     }
 
 
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({Uploads.TICKET,
+            Uploads.BOARDING_PASS,
+            Uploads.VOUCHER
 
+    })
+    public @interface Uploads {
+        //TicketVO
+        String TICKET = "TICK";
+        String BOARDING_PASS = "BOAR";
+        String VOUCHER = "VOUC";
 
+    }
 }
