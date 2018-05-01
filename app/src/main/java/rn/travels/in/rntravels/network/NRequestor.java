@@ -58,7 +58,7 @@ public class NRequestor {
             @Override
             public void onResponse(String response) {
                 try {
-                    INSTANCE.listener.onSuccessResponse(new ResponseVO(new JSONObject(response)));
+                    INSTANCE.listener.onSuccessResponse(new ResponseVO(new JSONObject(response),INSTANCE.reqTag));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -71,7 +71,7 @@ public class NRequestor {
         }){
             @Override
             protected Map<String,String> getParams(){
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 if (INSTANCE.reqParams != null) {
                     Iterator<String> itr = INSTANCE.reqParams.keys();
                     while (itr.hasNext()) {

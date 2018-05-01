@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import java.util.ArrayList;
 
 import rn.travels.in.rntravels.R;
+import rn.travels.in.rntravels.database.RNDatabase;
 import rn.travels.in.rntravels.models.PackageVO;
 import rn.travels.in.rntravels.util.Util;
 
@@ -60,7 +61,7 @@ public class PackagePagerAdapter extends PagerAdapter implements PackageAdapter.
         packageList.setLayoutManager(layoutManager);
         switch (position){
             case 0:
-                this.packageList = Util.getActiveDummyList();
+                this.packageList = (ArrayList<PackageVO>) RNDatabase.getInstance(context).getPackageDao().getAll();
                 break;
             case 1:
                 this.packageList = Util.getPastDummyList();

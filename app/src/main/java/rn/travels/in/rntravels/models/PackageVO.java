@@ -3,6 +3,7 @@ package rn.travels.in.rntravels.models;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,36 +21,26 @@ import rn.travels.in.rntravels.util.Appconst;
 @Entity(tableName = "PACKAGE")
 public class PackageVO implements Serializable {
 
-    @PrimaryKey(autoGenerate = true)
-    private int id;
+    @PrimaryKey
+    @NonNull
+    private String userId;
     private String pkgJson;
-    @Ignore
     private String heading;
-    @Ignore
     private String subHeading;
-    @Ignore
     private String travelDate;
-    @Ignore
     private String emergencyNumber;
-    @Ignore
     private String bannerImage;
-    @Ignore
     private String ticketsPdf;
-    @Ignore
     private String boardingPassPdf;
-    @Ignore
-    private String hotelvoucherPdf;
-    @Ignore
+    private String hotelVoucherPdf;
     private ArrayList<DayVO> dayList;
-
-//    @Ignore
-//    private
 
     public PackageVO() {
     }
 
-    public PackageVO initPackage(JSONObject jsonObject) {
-        PackageVO packageVO = new PackageVO();
+    public PackageVO(String userId, JSONObject jsonObject) {
+        this.userId = userId;
+        this.pkgJson = jsonObject.toString();
         this.heading = jsonObject.optString("pack_name");
         this.subHeading = jsonObject.optString("pack_detail");
         this.travelDate = jsonObject.optString("travel_dt");
@@ -59,7 +50,7 @@ public class PackageVO implements Serializable {
             JSONArray uploadArr = jsonObject.getJSONArray("uploads");
             for (int i = 0; i < 3; i++) {
                 JSONObject uploadJson = uploadArr.getJSONObject(i);
-                String data = jsonObject.optString("file_path");
+                String data = uploadJson.optString("file_path");
                 switch (uploadJson.optString("file_type")) {
                     case Appconst.Uploads.TICKET:
                         this.ticketsPdf = data;
@@ -68,7 +59,7 @@ public class PackageVO implements Serializable {
                         this.boardingPassPdf = data;
                         break;
                     case Appconst.Uploads.VOUCHER:
-                        this.hotelvoucherPdf = data;
+                        this.hotelVoucherPdf = data;
                         break;
                 }
             }
@@ -76,15 +67,15 @@ public class PackageVO implements Serializable {
             e.printStackTrace();
         }
 
-        return packageVO;
     }
 
-    public int getId() {
-        return id;
+    @NonNull
+    public String getUserId() {
+        return userId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUserId(@NonNull String userId) {
+        this.userId = userId;
     }
 
     public String getPkgJson() {
@@ -111,12 +102,12 @@ public class PackageVO implements Serializable {
         this.boardingPassPdf = boardingPassPdf;
     }
 
-    public String getHotelvoucherPdf() {
-        return hotelvoucherPdf;
+    public String getHotelVoucherPdf() {
+        return hotelVoucherPdf;
     }
 
-    public void setHotelvoucherPdf(String hotelvoucherPdf) {
-        this.hotelvoucherPdf = hotelvoucherPdf;
+    public void setHotelVoucherPdf(String hotelVoucherPdf) {
+        this.hotelVoucherPdf = hotelVoucherPdf;
     }
 
     public String getTravelDate() {

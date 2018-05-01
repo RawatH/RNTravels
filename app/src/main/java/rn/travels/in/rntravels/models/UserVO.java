@@ -2,6 +2,7 @@ package rn.travels.in.rntravels.models;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import org.json.JSONObject;
 
@@ -13,6 +14,7 @@ import org.json.JSONObject;
 public class UserVO {
 
     @PrimaryKey
+    @NonNull
     private String userEmail;
 
     private String userId;

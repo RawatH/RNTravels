@@ -13,8 +13,9 @@ public class ResponseVO {
     private String msg;
     private JSONObject response;
     private JSONArray responseArr;
+    private int requestTag;
 
-    public ResponseVO(JSONObject jsonObject) {
+    public ResponseVO(JSONObject jsonObject , int requestTag) {
         try {
             this.responseStatus = jsonObject.getBoolean("status");
             this.msg = jsonObject.getString("msg");
@@ -26,6 +27,11 @@ public class ResponseVO {
                 e1.printStackTrace();
             }
         }
+        this.requestTag = requestTag;
+    }
+
+    public int getRequestTag() {
+        return requestTag;
     }
 
     public JSONArray getResponseArr() {

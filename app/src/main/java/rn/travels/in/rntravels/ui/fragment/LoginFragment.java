@@ -31,6 +31,7 @@ import org.json.JSONObject;
 import java.util.Arrays;
 
 import rn.travels.in.rntravels.R;
+import rn.travels.in.rntravels.models.PackageVO;
 import rn.travels.in.rntravels.models.ResponseVO;
 import rn.travels.in.rntravels.models.UserVO;
 import rn.travels.in.rntravels.network.NRequestor;
@@ -50,6 +51,7 @@ public class LoginFragment extends NoToolbarFragment {
     private EditText userName;
     private EditText password;
 
+    private static final String userId = "52";
     private static final String EMAIL = "email";
     private CallbackManager callbackManager;
 
@@ -193,16 +195,57 @@ public class LoginFragment extends NoToolbarFragment {
     public void onSuccessResponse(ResponseVO responseVO) {
         pd.dismiss();
         if (responseVO.isResponseValid()) {
-            activity.loadFragment(Appconst.FragmentId.DASHBOARD, null, null);
-            UserVO userVO = new UserVO();
-            userVO.setUserEmail(userName.getText().toString().trim());
-            userVO.setUserCred(password.getText().toString().trim());
-            if(db.getUserDao().findByName(userVO.getUserEmail()) == null) {
-                db.getUserDao().insert(userVO);
+            switch (responseVO.getRequestTag()) {
+                case NetworkConst.ReqTag.LOGIN:
+
+                    UserVO userVO = new UserVO();
+                    userVO.setUserEmail(userName.getText().toString().trim());
+                    userVO.setUserCred(password.getText().toString().trim());
+                    if (db.getUserDao().findByName(userVO.getUserEmail()) == null) {
+                        db.getUserDao().insert(userVO);
+                    }
+                    loadUserPackage(userVO.getUserId());
+                    break;
+
+                case NetworkConst.ReqTag.PKG_DETAIL:
+                    PackageVO packageVO = null;
+                    try {
+                        packageVO = new PackageVO(userId , (JSONObject)responseVO.getResponseArr().get(0));
+                        if (db.getPackageDao().getPackageBy(userId) == null) {
+                            db.getPackageDao().insert(packageVO);
+                        }else{
+                            db.getPackageDao().update(packageVO);
+                        }
+                        activity.loadFragment(Appconst.FragmentId.DASHBOARD, null, null);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    break;
             }
+
 
         } else {
             Util.t(ctx, responseVO.getMsg());
+        }
+    }
+
+    private void loadUserPackage(String userId) {
+        JSONObject paramObj = new JSONObject();
+        try {
+            paramObj.put("user_id", "52");
+            new NRequestor.RequestBuilder()
+                    .setReqType(Request.Method.POST)
+                    .setUrl(Util.getUrlFor(NetworkConst.ReqTag.PKG_DETAIL))
+                    .setListener(this)
+                    .setReqParams(paramObj)
+                    .setReqTag(NetworkConst.ReqTag.PKG_DETAIL)
+                    .build()
+                    .sendRequest();
+            pd.show();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 

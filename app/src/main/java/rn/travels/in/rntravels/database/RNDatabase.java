@@ -14,7 +14,7 @@ import rn.travels.in.rntravels.models.UserVO;
  * Created by demo on 22/04/18.
  */
 
-@Database(entities = {UserVO.class , PackageVO.class}, version = 1)
+@Database(entities = {UserVO.class , PackageVO.class}, version = 1 ,exportSchema = false)
 public abstract class RNDatabase extends RoomDatabase {
     private static final String DB_NAME = "rnDb.db";
     private static volatile RNDatabase instance;
