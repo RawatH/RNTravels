@@ -25,6 +25,7 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -209,15 +210,19 @@ public class LoginFragment extends NoToolbarFragment {
                     break;
 
                 case NetworkConst.ReqTag.PKG_DETAIL:
-                    PackageVO packageVO ;
+                    PackageVO packageVO;
                     try {
-                        packageVO = new PackageVO(userId , (JSONObject)responseVO.getResponseArr().get(0));
-                        if (db.getPackageDao().getPackageBy(userId) == null) {
-                            db.getPackageDao().insert(packageVO);
-
-                        }else{
-                            db.getPackageDao().update(packageVO);
+                        JSONArray arr = responseVO.getResponseArr();
+                        for (int idx = 0; idx < arr.length(); idx++) {
+                            packageVO = new PackageVO(userId, (JSONObject) responseVO.getResponseArr().get(idx));
+                            if (db.getPackageDao().getPackageBy(userId) == null) {
+                                db.getPackageDao().insert(packageVO);
+                                Util.createFileStructure(ctx,packageVO.getPkgId());
+                            } else {
+                                db.getPackageDao().update(packageVO);
+                            }
                         }
+
                         activity.loadFragment(Appconst.FragmentId.DASHBOARD, null, null);
                     } catch (JSONException e) {
                         e.printStackTrace();

@@ -6,11 +6,13 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.github.barteksc.pdfviewer.PDFView;
 
+import java.io.File;
 import java.io.IOException;
 
 import rn.travels.in.rntravels.R;
@@ -18,6 +20,7 @@ import rn.travels.in.rntravels.models.ResponseVO;
 import rn.travels.in.rntravels.network.NRequestor;
 import rn.travels.in.rntravels.network.NetworkConst;
 import rn.travels.in.rntravels.util.Appconst;
+import rn.travels.in.rntravels.util.Util;
 
 /**
  * Created by demo on 21/03/18.
@@ -27,45 +30,49 @@ public class PDFFragment extends BackFragment {
     private PDFView pdfView;
     private String title;
     private String pdfFile;
+    private String filePath;
+    private String fileName;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pdf, container, false);
         setBackStackTag(Appconst.BSTag.PDF);
-        pdfView = view.findViewById(R.id.pdfView);
+        init(view);
 
-        AssetManager assetManager = getActivity().getAssets();
-
-
-//        try {
-//            pdfView.fromStream(assetManager.open(pdfFile))
-//                    .enableSwipe(true) // allows to block changing pages using swipe
-//                    .swipeHorizontal(false)
-//                    .enableDoubletap(true)
-//                    .defaultPage(0)
-//
-//                    .load();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
         return view;
+    }
+
+    private void init(View view) {
+        pdfView = view.findViewById(R.id.pdfView);
+        Bundle bundle = getArguments();
+        this.pdfFile = bundle.getString("pdfUrl");
+        this.filePath = bundle.getString("filePath");
+        this.fileName = pdfFile.substring(pdfFile.lastIndexOf("/") + 1, pdfFile.length());
+        if (Util.doesFileExists(filePath + File.separator + fileName)) {
+            openPdf();
+        } else {
+            downloadPDF();
+        }
     }
 
     @Override
     public String getTitle() {
         Bundle bundle = getArguments();
         this.title = bundle.getString("title");
-        this.pdfFile = bundle.getString("pdfUrl");
-        downloadPDF();
+
         return this.title;
     }
 
-    private void downloadPDF(){
+    private void downloadPDF() {
+        Bundle bundle = new Bundle();
+        bundle.putString("dest", filePath);
+        bundle.putString("fileName", fileName);
         new NRequestor.RequestBuilder(ctx)
                 .setReqType(Request.Method.GET)
                 .setUrl(pdfFile)
                 .setListener(this)
+                .setReqBundle(bundle)
                 .setReqVolleyType(NetworkConst.VolleyReq.BYTE)
                 .setReqTag(NetworkConst.ReqTag.DOWNLOAD)
                 .build()
@@ -76,13 +83,22 @@ public class PDFFragment extends BackFragment {
     @Override
     public void onSuccessResponse(ResponseVO responseVO) {
         super.onSuccessResponse(responseVO);
-
-
+        Toast.makeText(ctx, "Download complete.", Toast.LENGTH_LONG).show();
+        openPdf();
     }
 
     @Override
     public void onErrorResponse(VolleyError error) {
         super.onErrorResponse(error);
 
+    }
+
+    private void openPdf() {
+        pdfView.fromFile(new File(filePath + File.separator + fileName))
+                .enableSwipe(true) // allows to block changing pages using swipe
+                .swipeHorizontal(false)
+                .enableDoubletap(true)
+                .defaultPage(0)
+                .load();
     }
 }

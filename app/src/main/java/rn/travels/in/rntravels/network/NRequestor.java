@@ -13,6 +13,7 @@ import com.android.volley.toolbox.StringRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -105,22 +106,26 @@ public class NRequestor {
                         new Response.Listener<byte[]>() {
                             @Override
                             public void onResponse(byte[] response) {
+                                String fileName = INSTANCE.reqBundle.getString("fileName");
+                                String filePath = INSTANCE.reqBundle.getString("dest") + File.separator + fileName;
                                 // TODO handle the response
                                 try {
-                                    if (response!=null) {
-//                                        FileOutputStream outputStream;
-//                                        String name=<FILE_NAME_WITH_EXTENSION e.g reference.txt>;
-//                                        outputStream = openFileOutput(name, Context.MODE_PRIVATE);
-//                                        outputStream.write(response);
-//                                        outputStream.close();
-                                        Toast.makeText(INSTANCE.ctx, "Download complete.", Toast.LENGTH_LONG).show();
+                                    if (response != null) {
+                                        File file = new File(filePath);
+                                        file.createNewFile();
+
+                                        FileOutputStream fos = new FileOutputStream(file);
+                                        fos.write(response);
+                                        fos.close();
+
+                                        INSTANCE.listener.onSuccessResponse(null);
                                     }
                                 } catch (Exception e) {
 
                                     e.printStackTrace();
                                 }
                             }
-                        } ,new Response.ErrorListener() {
+                        }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
@@ -156,7 +161,7 @@ public class NRequestor {
         private int reqVolleyType;
         private Bundle reqBundle;
 
-        public RequestBuilder(Context ctx){
+        public RequestBuilder(Context ctx) {
             this.ctx = ctx;
         }
 

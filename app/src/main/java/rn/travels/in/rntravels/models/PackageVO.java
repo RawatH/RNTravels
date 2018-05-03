@@ -23,6 +23,7 @@ public class PackageVO implements Serializable {
 
     @PrimaryKey
     @NonNull
+    private String pkgId;
     private String userId;
     private String pkgJson;
     private String heading;
@@ -42,6 +43,7 @@ public class PackageVO implements Serializable {
     public PackageVO(String userId, JSONObject jsonObject) {
         this.userId = userId;
         this.pkgJson = jsonObject.toString();
+        this.pkgId = jsonObject.optString("id");
         this.heading = jsonObject.optString("pack_name");
         this.subHeading = jsonObject.optString("pack_detail");
         this.travelDate = jsonObject.optString("travel_dt");
@@ -56,7 +58,7 @@ public class PackageVO implements Serializable {
                     case Appconst.Uploads.TICKET:
                         this.ticketsPdf = data;
                         break;
-                    case Appconst.Uploads.BOARDING_PASS:
+                    case Appconst.Uploads.BOARDING:
                         this.boardingPassPdf = data;
                         break;
                     case Appconst.Uploads.VOUCHER:
@@ -68,6 +70,15 @@ public class PackageVO implements Serializable {
             e.printStackTrace();
         }
 
+    }
+
+    @NonNull
+    public String getPkgId() {
+        return pkgId;
+    }
+
+    public void setPkgId(@NonNull String pkgId) {
+        this.pkgId = pkgId;
     }
 
     @NonNull

@@ -1,14 +1,12 @@
 package rn.travels.in.rntravels.util;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -181,24 +179,45 @@ public class Util {
     public static String getTokenisedString(String data) {
         StringBuilder sb = new StringBuilder();
         StringTokenizer st = new StringTokenizer(data, ",");
-        int tokenCount = 0 ;
+        int tokenCount = 0;
         while (st.hasMoreTokens()) {
-            if(tokenCount == st.countTokens()){
+            if (tokenCount == st.countTokens()) {
                 sb.append(st.nextToken().trim());
-            }else {
+            } else {
                 sb.append(st.nextToken().trim() + "\n");
             }
-           tokenCount++;
+            tokenCount++;
         }
         return sb.toString();
     }
 
-    public static void loadImage(Context ctx , String url , ImageView imageView){
+    public static void loadImage(Context ctx, String url, ImageView imageView) {
         Glide.with(ctx)
                 .load(url)
                 .into(imageView);
     }
 
+    public static void createFileStructure(Context ctx, String pkgName) {
+        File file = new File(ctx.getFilesDir() + File.separator + pkgName);
+        if (!file.exists()) {
+            if (file.mkdir()) {
+                File boarding = new File(ctx.getFilesDir() + File.separator + pkgName + File.separator + Appconst.Uploads.BOARDING);
+                boarding.mkdir();
+                File ticket = new File(ctx.getFilesDir() + File.separator + pkgName + File.separator + Appconst.Uploads.TICKET);
+                ticket.mkdir();
+                File voucher = new File(ctx.getFilesDir() + File.separator + pkgName + File.separator + Appconst.Uploads.VOUCHER);
+                voucher.mkdir();
+                t(ctx, "Created successfully");
+            } else {
+                t(ctx, "Failed to create structure");
+            }
+        }
+    }
+
+    public static boolean doesFileExists(String filePath)
+    {
+        return new File(filePath).exists();
+    }
 
 
 }
