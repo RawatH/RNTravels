@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 import rn.travels.in.rntravels.R;
@@ -50,7 +52,9 @@ public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         final int sdk = android.os.Build.VERSION.SDK_INT;
         int resID = context.getResources().getIdentifier(packageVO.getBannerImage(), "drawable",  context.getPackageName());
 //        pkgViewHolder.getPkgBanner().setImageResource(resID);
+
         Util.loadImage(context,packageVO.getBannerImage(),pkgViewHolder.getPkgBanner());
+
         pkgViewHolder.getPkgSubHeading().setText(packageVO.getSubHeading());
         pkgViewHolder.getPkgBanner().setOnClickListener(new View.OnClickListener() {
             @Override

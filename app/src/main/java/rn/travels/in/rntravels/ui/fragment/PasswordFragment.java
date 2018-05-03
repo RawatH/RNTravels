@@ -60,7 +60,7 @@ public class PasswordFragment extends BackFragment {
                     try {
                         paramObj.put("user_name", "a");
                         paramObj.put("password",newPassword.getText().toString());
-                        new NRequestor.RequestBuilder()
+                        new NRequestor.RequestBuilder(ctx)
                                 .setReqType(Request.Method.POST)
                                 .setUrl(Util.getUrlFor(NetworkConst.ReqTag.PSWD_RESET))
                                 .setListener(this)

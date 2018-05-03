@@ -6,6 +6,8 @@ import android.support.annotation.StringDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+import rn.travels.in.rntravels.network.NetworkConst;
+
 /**
  * Created by demo on 17/02/18.
  */
@@ -114,6 +116,20 @@ public class Appconst {
         String TICKET = "TICK";
         String BOARDING_PASS = "BOAR";
         String VOUCHER = "VOUC";
+    }
+
+
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({PackageType.RECENT,
+            PackageType.PAST,
+            PackageType.FOLLOWING
+    })
+    public @interface PackageType {
+
+        int RECENT = 0;
+        int PAST = 1;
+        int FOLLOWING = 2;
 
     }
+
 }

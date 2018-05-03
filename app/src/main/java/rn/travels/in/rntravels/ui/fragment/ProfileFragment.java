@@ -58,7 +58,7 @@ public class ProfileFragment extends BackFragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        new NRequestor.RequestBuilder()
+        new NRequestor.RequestBuilder(ctx)
                 .setReqType(Request.Method.POST)
                 .setUrl(Util.getUrlFor(NetworkConst.ReqTag.PROFILE))
                 .setListener(this)

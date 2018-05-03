@@ -54,7 +54,7 @@ public class RNInfoFragment extends BackFragment {
 
         try {
             paramObj.put("user_id", "4");
-            new NRequestor.RequestBuilder()
+            new NRequestor.RequestBuilder(ctx)
                     .setReqType(Request.Method.POST)
                     .setUrl(Util.getUrlFor(NetworkConst.ReqTag.RN_CONTACT_DETAIL))
                     .setListener(this)

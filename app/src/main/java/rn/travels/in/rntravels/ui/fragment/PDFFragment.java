@@ -7,11 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.Request;
+import com.android.volley.VolleyError;
 import com.github.barteksc.pdfviewer.PDFView;
 
 import java.io.IOException;
 
 import rn.travels.in.rntravels.R;
+import rn.travels.in.rntravels.models.ResponseVO;
+import rn.travels.in.rntravels.network.NRequestor;
+import rn.travels.in.rntravels.network.NetworkConst;
 import rn.travels.in.rntravels.util.Appconst;
 
 /**
@@ -21,7 +26,7 @@ import rn.travels.in.rntravels.util.Appconst;
 public class PDFFragment extends BackFragment {
     private PDFView pdfView;
     private String title;
-    private String pdfFileName;
+    private String pdfFile;
 
 
     @Override
@@ -32,17 +37,18 @@ public class PDFFragment extends BackFragment {
 
         AssetManager assetManager = getActivity().getAssets();
 
-        try {
-            pdfView.fromStream(assetManager.open(pdfFileName))
-                    .enableSwipe(true) // allows to block changing pages using swipe
-                    .swipeHorizontal(false)
-                    .enableDoubletap(true)
-                    .defaultPage(0)
-
-                    .load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        downloadPDF();
+//        try {
+//            pdfView.fromStream(assetManager.open(pdfFile))
+//                    .enableSwipe(true) // allows to block changing pages using swipe
+//                    .swipeHorizontal(false)
+//                    .enableDoubletap(true)
+//                    .defaultPage(0)
+//
+//                    .load();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         return view;
     }
 
@@ -50,7 +56,29 @@ public class PDFFragment extends BackFragment {
     public String getTitle() {
         Bundle bundle = getArguments();
         this.title = bundle.getString("title");
-        this.pdfFileName = bundle.getString("pdfName");
+        this.pdfFile = bundle.getString("pdfUrle");
         return this.title;
+    }
+
+    private void downloadPDF(){
+        new NRequestor.RequestBuilder(ctx)
+                .setReqType(Request.Method.GET)
+                .setUrl(pdfFile)
+                .setListener(this)
+                .setReqVolleyType(NetworkConst.VolleyReq.BYTE)
+                .setReqTag(NetworkConst.ReqTag.DOWNLOAD)
+                .build()
+                .sendRequest();
+        pd.show();
+    }
+
+    @Override
+    public void onSuccessResponse(ResponseVO responseVO) {
+        super.onSuccessResponse(responseVO);
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        super.onErrorResponse(error);
     }
 }

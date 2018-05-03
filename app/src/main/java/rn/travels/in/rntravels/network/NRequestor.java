@@ -1,16 +1,19 @@
 package rn.travels.in.rntravels.network;
 
-import android.util.Log;
+import android.content.Context;
+import android.os.Bundle;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -29,8 +32,11 @@ public class NRequestor {
     private int reqType;
     private NetworkListener listener;
     private int reqTag;
+    private int reqVolleyType;
     private JSONObject reqParams;
     private RNApp rnApp;
+    private Context ctx;
+    private Bundle reqBundle;
     private static final String TAG = "nreq";
 
     private NRequestor() {
@@ -48,51 +54,89 @@ public class NRequestor {
         INSTANCE.listener = builder.listener;
         INSTANCE.reqTag = builder.reqTag;
         INSTANCE.reqParams = builder.reqParams;
+        INSTANCE.reqVolleyType = builder.reqVolleyType;
+        INSTANCE.ctx = builder.ctx;
+        INSTANCE.reqBundle = builder.reqBundle;
 
         return INSTANCE;
     }
 
     public void sendRequest() {
-
-        StringRequest request = new StringRequest(INSTANCE.reqType, INSTANCE.reqUrl , new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    INSTANCE.listener.onSuccessResponse(new ResponseVO(new JSONObject(response),INSTANCE.reqTag));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                INSTANCE.listener.onErrorResponse(error);  
-            }
-        }){
-            @Override
-            protected Map<String,String> getParams(){
-                Map<String, String> params = new HashMap<>();
-                if (INSTANCE.reqParams != null) {
-                    Iterator<String> itr = INSTANCE.reqParams.keys();
-                    while (itr.hasNext()) {
-                        String k = itr.next();
-                        params.put(k, INSTANCE.reqParams.optString(k));
+        Request request = null;
+        switch (INSTANCE.reqVolleyType) {
+            case NetworkConst.VolleyReq.STRING:
+                request = new StringRequest(INSTANCE.reqType, INSTANCE.reqUrl, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            INSTANCE.listener.onSuccessResponse(new ResponseVO(new JSONObject(response), INSTANCE.reqTag));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
-                }
-                return params;
-            }
+                }, new Response.ErrorListener() {
+                    public void onErrorResponse(VolleyError error) {
+                        INSTANCE.listener.onErrorResponse(error);
+                    }
+                }) {
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<>();
+                        if (INSTANCE.reqParams != null) {
+                            Iterator<String> itr = INSTANCE.reqParams.keys();
+                            while (itr.hasNext()) {
+                                String k = itr.next();
+                                params.put(k, INSTANCE.reqParams.optString(k));
+                            }
+                        }
+                        return params;
+                    }
 
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String,String> headers = new HashMap<String, String>();
-                headers.put("Content-Type","application/x-www-form-urlencoded");
-                return headers;
-            }
-        };
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        Map<String, String> headers = new HashMap<String, String>();
+                        headers.put("Content-Type", "application/x-www-form-urlencoded");
+                        return headers;
+                    }
+                };
+                break;
+            case NetworkConst.VolleyReq.BYTE:
+                request = new InputStreamVolleyRequest(INSTANCE.reqType, INSTANCE.reqUrl,
+                        new Response.Listener<byte[]>() {
+                            @Override
+                            public void onResponse(byte[] response) {
+                                // TODO handle the response
+                                try {
+                                    if (response!=null) {
+//                                        FileOutputStream outputStream;
+//                                        String name=<FILE_NAME_WITH_EXTENSION e.g reference.txt>;
+//                                        outputStream = openFileOutput(name, Context.MODE_PRIVATE);
+//                                        outputStream.write(response);
+//                                        outputStream.close();
+                                        Toast.makeText(INSTANCE.ctx, "Download complete.", Toast.LENGTH_LONG).show();
+                                    }
+                                } catch (Exception e) {
 
-//        // Adding request to request queue
-//
-        INSTANCE.rnApp.addToRequestQueue(request, String.valueOf(INSTANCE.reqTag));
+                                    e.printStackTrace();
+                                }
+                            }
+                        } ,new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO handle the error
+                        error.printStackTrace();
+                    }
+                }, null);
+                break;
+
+        }
+
+
+        if (request != null) {
+
+            INSTANCE.rnApp.addToRequestQueue(request, String.valueOf(INSTANCE.reqTag));
+        }
 
     }
 
@@ -103,11 +147,18 @@ public class NRequestor {
 
     public static class RequestBuilder {
 
+        private final Context ctx;
         private String url;
         private NetworkListener listener;
         private int reqType;
         private int reqTag;
         private JSONObject reqParams;
+        private int reqVolleyType;
+        private Bundle reqBundle;
+
+        public RequestBuilder(Context ctx){
+            this.ctx = ctx;
+        }
 
         public RequestBuilder setUrl(String url) {
             this.url = url;
@@ -131,6 +182,16 @@ public class NRequestor {
 
         public RequestBuilder setReqParams(JSONObject reqParams) {
             this.reqParams = reqParams;
+            return this;
+        }
+
+        public RequestBuilder setReqVolleyType(int reqVolleyType) {
+            this.reqVolleyType = reqVolleyType;
+            return this;
+        }
+
+        public RequestBuilder setReqBundle(Bundle reqBundle) {
+            this.reqBundle = reqBundle;
             return this;
         }
 

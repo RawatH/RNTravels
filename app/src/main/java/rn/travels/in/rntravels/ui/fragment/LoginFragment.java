@@ -163,10 +163,11 @@ public class LoginFragment extends NoToolbarFragment {
                     try {
                         paramObj.put("user_name", userName.getText().toString().trim());
                         paramObj.put("password", password.getText().toString().trim());
-                        new NRequestor.RequestBuilder()
+                        new NRequestor.RequestBuilder(ctx)
                                 .setReqType(Request.Method.POST)
                                 .setUrl(Util.getUrlFor(NetworkConst.ReqTag.LOGIN))
                                 .setListener(this)
+                                .setReqVolleyType(NetworkConst.VolleyReq.STRING)
                                 .setReqParams(paramObj)
                                 .setReqTag(NetworkConst.ReqTag.LOGIN)
                                 .build()
@@ -208,7 +209,7 @@ public class LoginFragment extends NoToolbarFragment {
                     break;
 
                 case NetworkConst.ReqTag.PKG_DETAIL:
-                    PackageVO packageVO = null;
+                    PackageVO packageVO ;
                     try {
                         packageVO = new PackageVO(userId , (JSONObject)responseVO.getResponseArr().get(0));
                         if (db.getPackageDao().getPackageBy(userId) == null) {
@@ -234,10 +235,11 @@ public class LoginFragment extends NoToolbarFragment {
         JSONObject paramObj = new JSONObject();
         try {
             paramObj.put("user_id", "52");
-            new NRequestor.RequestBuilder()
+            new NRequestor.RequestBuilder(ctx)
                     .setReqType(Request.Method.POST)
                     .setUrl(Util.getUrlFor(NetworkConst.ReqTag.PKG_DETAIL))
                     .setListener(this)
+                    .setReqVolleyType(NetworkConst.VolleyReq.STRING)
                     .setReqParams(paramObj)
                     .setReqTag(NetworkConst.ReqTag.PKG_DETAIL)
                     .build()

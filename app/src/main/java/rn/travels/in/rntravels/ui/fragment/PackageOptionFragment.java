@@ -19,8 +19,6 @@ import rn.travels.in.rntravels.util.Appconst;
 
 public class PackageOptionFragment extends BackFragment implements View.OnClickListener {
 
-    private TextView pkgOptionTitle;
-    private TextView pkgoptionSubTitle;
     private TextView travelId;
     private Button feedback;
     private Button itenary;
@@ -36,6 +34,7 @@ public class PackageOptionFragment extends BackFragment implements View.OnClickL
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.package_option_fragment, container, false);
+        selectedPkgVO = PackageManager.getInstance().getSelectedPackage();
         init(view);
         return view;
     }
@@ -97,7 +96,7 @@ public class PackageOptionFragment extends BackFragment implements View.OnClickL
                 break;
             case R.id.boardingPass:
                 bundle.putString("title","Boarding Pass");
-                bundle.putString("pdfName","boarding_pass.pdf");
+                bundle.putString("e",selectedPkgVO.getBoardingPassPdf());
                 activity.loadFragment(Appconst.FragmentId.PDF_FRG, bundle, null);
                 break;
         }

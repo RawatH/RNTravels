@@ -33,6 +33,7 @@ public class PackageVO implements Serializable {
     private String ticketsPdf;
     private String boardingPassPdf;
     private String hotelVoucherPdf;
+    @Ignore
     private ArrayList<DayVO> dayList;
 
     public PackageVO() {

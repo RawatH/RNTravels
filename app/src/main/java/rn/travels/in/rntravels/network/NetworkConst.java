@@ -45,7 +45,8 @@ public class NetworkConst {
             ReqTag.RN_CONTACT_DETAIL,
             ReqTag.PKG_DETAIL,
             ReqTag.PSWD_RESET,
-            ReqTag.PROFILE
+            ReqTag.PROFILE,
+            ReqTag.DOWNLOAD
     })
     public @interface ReqTag {
 
@@ -55,9 +56,19 @@ public class NetworkConst {
         int PKG_DETAIL = 3;
         int PSWD_RESET = 4;
         int PROFILE = 5;
-
-
+        int DOWNLOAD = 6;
     }
 
+
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({VolleyReq.STRING,
+            VolleyReq.BYTE
+    })
+    public @interface VolleyReq {
+
+        int STRING = 0;
+        int BYTE = 1;
+
+    }
 
 }

@@ -87,7 +87,7 @@ public class RegisterFragment extends BaseFragment {
                         paramObj.put("user_name", userName.getText().toString().trim());
                         paramObj.put("travel_id", travelId.getText().toString().trim());
 
-                        new NRequestor.RequestBuilder()
+                        new NRequestor.RequestBuilder(ctx)
                                 .setReqType(Request.Method.POST)
                                 .setUrl(Util.getUrlFor(NetworkConst.ReqTag.REGISTER))
                                 .setListener(this)

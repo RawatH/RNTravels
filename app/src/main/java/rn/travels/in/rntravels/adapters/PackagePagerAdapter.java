@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import rn.travels.in.rntravels.R;
 import rn.travels.in.rntravels.database.RNDatabase;
 import rn.travels.in.rntravels.models.PackageVO;
+import rn.travels.in.rntravels.util.Appconst;
 import rn.travels.in.rntravels.util.Util;
 
 /**
@@ -60,13 +61,13 @@ public class PackagePagerAdapter extends PagerAdapter implements PackageAdapter.
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         packageList.setLayoutManager(layoutManager);
         switch (position){
-            case 0:
+            case Appconst.PackageType.RECENT:
                 this.packageList = (ArrayList<PackageVO>) RNDatabase.getInstance(context).getPackageDao().getAll();
                 break;
-            case 1:
+            case Appconst.PackageType.PAST:
                 this.packageList = Util.getPastDummyList();
                 break;
-            case 2:
+            case Appconst.PackageType.FOLLOWING:
                 this.packageList = new ArrayList<>();
                 break;
         }
