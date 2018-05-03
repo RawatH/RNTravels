@@ -214,6 +214,7 @@ public class LoginFragment extends NoToolbarFragment {
                         packageVO = new PackageVO(userId , (JSONObject)responseVO.getResponseArr().get(0));
                         if (db.getPackageDao().getPackageBy(userId) == null) {
                             db.getPackageDao().insert(packageVO);
+
                         }else{
                             db.getPackageDao().update(packageVO);
                         }

@@ -96,7 +96,7 @@ public class PackageOptionFragment extends BackFragment implements View.OnClickL
                 break;
             case R.id.boardingPass:
                 bundle.putString("title","Boarding Pass");
-                bundle.putString("e",selectedPkgVO.getBoardingPassPdf());
+                bundle.putString("pdfUrl",selectedPkgVO.getBoardingPassPdf());
                 activity.loadFragment(Appconst.FragmentId.PDF_FRG, bundle, null);
                 break;
         }

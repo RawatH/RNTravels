@@ -37,7 +37,7 @@ public class PDFFragment extends BackFragment {
 
         AssetManager assetManager = getActivity().getAssets();
 
-        downloadPDF();
+
 //        try {
 //            pdfView.fromStream(assetManager.open(pdfFile))
 //                    .enableSwipe(true) // allows to block changing pages using swipe
@@ -56,7 +56,8 @@ public class PDFFragment extends BackFragment {
     public String getTitle() {
         Bundle bundle = getArguments();
         this.title = bundle.getString("title");
-        this.pdfFile = bundle.getString("pdfUrle");
+        this.pdfFile = bundle.getString("pdfUrl");
+        downloadPDF();
         return this.title;
     }
 
@@ -69,16 +70,19 @@ public class PDFFragment extends BackFragment {
                 .setReqTag(NetworkConst.ReqTag.DOWNLOAD)
                 .build()
                 .sendRequest();
-        pd.show();
+
     }
 
     @Override
     public void onSuccessResponse(ResponseVO responseVO) {
         super.onSuccessResponse(responseVO);
+
+
     }
 
     @Override
     public void onErrorResponse(VolleyError error) {
         super.onErrorResponse(error);
+
     }
 }
