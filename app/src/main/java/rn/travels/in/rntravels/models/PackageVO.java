@@ -31,9 +31,13 @@ public class PackageVO implements Serializable {
     private String travelDate;
     private String emergencyNumber;
     private String bannerImage;
-    private String ticketsPdf;
-    private String boardingPassPdf;
-    private String hotelVoucherPdf;
+    private String uploadJson;
+    @Ignore
+    private ArrayList<PdfVO> ticketsList;
+    @Ignore
+    private ArrayList<PdfVO> voucherList;
+    @Ignore
+    private ArrayList<PdfVO> boardingPassList;
     @Ignore
     private ArrayList<DayVO> dayList;
 
@@ -48,21 +52,37 @@ public class PackageVO implements Serializable {
         this.subHeading = jsonObject.optString("pack_detail");
         this.travelDate = jsonObject.optString("travel_dt");
         this.bannerImage = jsonObject.optString("bannery_img");
+        this.uploadJson = jsonObject.optString("uploads");
+        populatePdfList();
 
+    }
+
+    public void populatePdfList() {
+
+        JSONArray uploadArr = null;
         try {
-            JSONArray uploadArr = jsonObject.getJSONArray("uploads");
-            for (int i = 0; i < 3; i++) {
-                JSONObject uploadJson = uploadArr.getJSONObject(i);
-                String data = uploadJson.optString("file_path");
-                switch (uploadJson.optString("file_type")) {
+            uploadArr = new JSONArray(uploadJson);
+            for (int i = 0; i < uploadArr.length(); i++) {
+                JSONObject pdfJson = uploadArr.getJSONObject(i);
+                PdfVO pdfVO = new PdfVO(pdfJson);
+                switch (pdfVO.getFileType()) {
                     case Appconst.Uploads.TICKET:
-                        this.ticketsPdf = data;
+                        if (ticketsList == null) {
+                            ticketsList = new ArrayList<>();
+                        }
+                        ticketsList.add(pdfVO);
                         break;
                     case Appconst.Uploads.BOARDING:
-                        this.boardingPassPdf = data;
+                        if (boardingPassList == null) {
+                            boardingPassList = new ArrayList<>();
+                        }
+                        boardingPassList.add(pdfVO);
                         break;
                     case Appconst.Uploads.VOUCHER:
-                        this.hotelVoucherPdf = data;
+                        if (voucherList == null) {
+                            voucherList = new ArrayList<>();
+                        }
+                        voucherList.add(pdfVO);
                         break;
                 }
             }
@@ -70,6 +90,14 @@ public class PackageVO implements Serializable {
             e.printStackTrace();
         }
 
+    }
+
+    public String getUploadJson() {
+        return uploadJson;
+    }
+
+    public void setUploadJson(String uploadJson) {
+        this.uploadJson = uploadJson;
     }
 
     @NonNull
@@ -98,28 +126,28 @@ public class PackageVO implements Serializable {
         this.pkgJson = pkgJson;
     }
 
-    public String getTicketsPdf() {
-        return ticketsPdf;
+    public ArrayList<PdfVO> getTicketsList() {
+        return ticketsList;
     }
 
-    public void setTicketsPdf(String ticketsPdf) {
-        this.ticketsPdf = ticketsPdf;
+    public void setTicketsList(ArrayList<PdfVO> ticketsList) {
+        this.ticketsList = ticketsList;
     }
 
-    public String getBoardingPassPdf() {
-        return boardingPassPdf;
+    public ArrayList<PdfVO> getVoucherList() {
+        return voucherList;
     }
 
-    public void setBoardingPassPdf(String boardingPassPdf) {
-        this.boardingPassPdf = boardingPassPdf;
+    public void setVoucherList(ArrayList<PdfVO> voucherList) {
+        this.voucherList = voucherList;
     }
 
-    public String getHotelVoucherPdf() {
-        return hotelVoucherPdf;
+    public ArrayList<PdfVO> getBoardingPassList() {
+        return boardingPassList;
     }
 
-    public void setHotelVoucherPdf(String hotelVoucherPdf) {
-        this.hotelVoucherPdf = hotelVoucherPdf;
+    public void setBoardingPassList(ArrayList<PdfVO> boardingPassList) {
+        this.boardingPassList = boardingPassList;
     }
 
     public String getTravelDate() {
@@ -168,6 +196,20 @@ public class PackageVO implements Serializable {
 
     public void setDayList(ArrayList<DayVO> dayList) {
         this.dayList = dayList;
+    }
+
+    public ArrayList<PdfVO> getListByType(String type) {
+        populatePdfList();
+        switch (type) {
+            case Appconst.Uploads.TICKET:
+                return ticketsList;
+            case Appconst.Uploads.VOUCHER:
+                return voucherList;
+            case Appconst.Uploads.BOARDING:
+                return boardingPassList;
+            default:
+                return null;
+        }
     }
 
 }

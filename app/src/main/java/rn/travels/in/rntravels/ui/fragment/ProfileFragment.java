@@ -66,12 +66,12 @@ public class ProfileFragment extends BackFragment {
                 .setReqTag(NetworkConst.ReqTag.PROFILE)
                 .build()
                 .sendRequest();
-        pd.show();
+        showProgress("Loading profile...");
     }
 
     @Override
     public void onSuccessResponse(ResponseVO responseVO) {
-        pd.dismiss();
+       dismissProgress();
         if(responseVO.isResponseValid()){
             try {
 //                {"id":"4","fb_id":"2","first_name":"Harish","last_name":"Rawat","name":"harish","email_addres":"hrawat@gmail.com","contact_number":"123","user_name":"hRawat","pass_word":"FCEA920F7412B5DA7BE0CF42B8C93759","travel_id":"123456"}
@@ -95,7 +95,7 @@ public class ProfileFragment extends BackFragment {
     @Override
     public void onErrorResponse(VolleyError error) {
         super.onErrorResponse(error);
-        pd.cancel();
+        dismissProgress();
     }
 
     @Override

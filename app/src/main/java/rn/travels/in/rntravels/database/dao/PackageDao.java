@@ -25,8 +25,8 @@ public interface PackageDao {
     @Insert
     void insert(PackageVO packageVO);
 
-    @Delete
-    void delete(PackageVO packageVO);
+    @Query("DELETE  FROM PACKAGE")
+    void delete();
 
     @Update
     void update(PackageVO packageVO);

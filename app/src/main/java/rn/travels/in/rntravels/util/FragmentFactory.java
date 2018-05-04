@@ -6,6 +6,7 @@ import rn.travels.in.rntravels.PackageManager;
 import rn.travels.in.rntravels.ui.fragment.BaseFragment;
 import rn.travels.in.rntravels.ui.fragment.NotificationFragment;
 import rn.travels.in.rntravels.ui.fragment.PDFFragment;
+import rn.travels.in.rntravels.ui.fragment.PDFListFragment;
 import rn.travels.in.rntravels.ui.fragment.PasswordFragment;
 import rn.travels.in.rntravels.ui.fragment.ProfileFragment;
 import rn.travels.in.rntravels.ui.fragment.RNInfoFragment;
@@ -101,6 +102,9 @@ public class FragmentFactory {
             case Appconst.FragmentId.PDF_FRG:
                 fragment = new PDFFragment();
                 fragment.setBackStackTag(Appconst.BSTag.PDF);
+                break;
+            case Appconst.FragmentId.PDF_LIST:
+                fragment = new PDFListFragment();
                 break;
             default:
                 fragment = null;

@@ -173,7 +173,7 @@ public class LoginFragment extends NoToolbarFragment {
                                 .setReqTag(NetworkConst.ReqTag.LOGIN)
                                 .build()
                                 .sendRequest();
-                        pd.show();
+                        showProgress("Authenticating... ");
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -195,7 +195,7 @@ public class LoginFragment extends NoToolbarFragment {
 
     @Override
     public void onSuccessResponse(ResponseVO responseVO) {
-        pd.dismiss();
+        dismissProgress();
         if (responseVO.isResponseValid()) {
             switch (responseVO.getRequestTag()) {
                 case NetworkConst.ReqTag.LOGIN:
@@ -203,6 +203,12 @@ public class LoginFragment extends NoToolbarFragment {
                     UserVO userVO = new UserVO();
                     userVO.setUserEmail(userName.getText().toString().trim());
                     userVO.setUserCred(password.getText().toString().trim());
+                    try {
+                        String userId = (String) responseVO.getResponse().get("user_id");
+                        userVO.setUserId(userId);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     if (db.getUserDao().findByName(userVO.getUserEmail()) == null) {
                         db.getUserDao().insert(userVO);
                     }
@@ -217,12 +223,11 @@ public class LoginFragment extends NoToolbarFragment {
                             packageVO = new PackageVO(userId, (JSONObject) responseVO.getResponseArr().get(idx));
                             if (db.getPackageDao().getPackageBy(userId) == null) {
                                 db.getPackageDao().insert(packageVO);
-                                Util.createFileStructure(ctx,packageVO.getPkgId());
+                                Util.createFileStructure(ctx, packageVO.getPkgId());
                             } else {
                                 db.getPackageDao().update(packageVO);
                             }
                         }
-
                         activity.loadFragment(Appconst.FragmentId.DASHBOARD, null, null);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -240,7 +245,7 @@ public class LoginFragment extends NoToolbarFragment {
     private void loadUserPackage(String userId) {
         JSONObject paramObj = new JSONObject();
         try {
-            paramObj.put("user_id", "52");
+            paramObj.put("user_id", userId);
             new NRequestor.RequestBuilder(ctx)
                     .setReqType(Request.Method.POST)
                     .setUrl(Util.getUrlFor(NetworkConst.ReqTag.PKG_DETAIL))
@@ -250,7 +255,7 @@ public class LoginFragment extends NoToolbarFragment {
                     .setReqTag(NetworkConst.ReqTag.PKG_DETAIL)
                     .build()
                     .sendRequest();
-            pd.show();
+            showProgress("Loading packages...");
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -260,7 +265,7 @@ public class LoginFragment extends NoToolbarFragment {
     @Override
     public void onErrorResponse(VolleyError error) {
         super.onErrorResponse(error);
-        pd.dismiss();
+        dismissProgress();
     }
 
     public boolean validateData() {

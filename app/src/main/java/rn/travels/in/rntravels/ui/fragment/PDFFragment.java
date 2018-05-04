@@ -15,7 +15,9 @@ import com.github.barteksc.pdfviewer.PDFView;
 import java.io.File;
 import java.io.IOException;
 
+import rn.travels.in.rntravels.PackageManager;
 import rn.travels.in.rntravels.R;
+import rn.travels.in.rntravels.models.PdfVO;
 import rn.travels.in.rntravels.models.ResponseVO;
 import rn.travels.in.rntravels.network.NRequestor;
 import rn.travels.in.rntravels.network.NetworkConst;
@@ -32,6 +34,8 @@ public class PDFFragment extends BackFragment {
     private String pdfFile;
     private String filePath;
     private String fileName;
+    private PdfVO pdf;
+
 
 
     @Override
@@ -46,8 +50,9 @@ public class PDFFragment extends BackFragment {
     private void init(View view) {
         pdfView = view.findViewById(R.id.pdfView);
         Bundle bundle = getArguments();
-        this.pdfFile = bundle.getString("pdfUrl");
-        this.filePath = bundle.getString("filePath");
+        this.pdf = (PdfVO) bundle.getSerializable("obj");
+        this.pdfFile = pdf.getFileUrl();
+        this.filePath = ctx.getFilesDir()+File.separator+ PackageManager.getInstance().getSelectedPackage().getPkgId()+File.separator+pdf.getFileType();
         this.fileName = pdfFile.substring(pdfFile.lastIndexOf("/") + 1, pdfFile.length());
         if (Util.doesFileExists(filePath + File.separator + fileName)) {
             openPdf();
@@ -60,7 +65,6 @@ public class PDFFragment extends BackFragment {
     public String getTitle() {
         Bundle bundle = getArguments();
         this.title = bundle.getString("title");
-
         return this.title;
     }
 
@@ -77,6 +81,7 @@ public class PDFFragment extends BackFragment {
                 .setReqTag(NetworkConst.ReqTag.DOWNLOAD)
                 .build()
                 .sendRequest();
+        showProgress("Downloading...");
 
     }
 
@@ -85,12 +90,13 @@ public class PDFFragment extends BackFragment {
         super.onSuccessResponse(responseVO);
         Toast.makeText(ctx, "Download complete.", Toast.LENGTH_LONG).show();
         openPdf();
+       dismissProgress();
     }
 
     @Override
     public void onErrorResponse(VolleyError error) {
         super.onErrorResponse(error);
-
+       dismissProgress();
     }
 
     private void openPdf() {

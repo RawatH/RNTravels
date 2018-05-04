@@ -30,7 +30,10 @@ public class Appconst {
             FragmentId.PROFILE_FRG,
             FragmentId.TOUR_HELP_FRG,
             FragmentId.FEEDBACK_FRG,
-            FragmentId.PDF_FRG})
+            FragmentId.PDF_FRG,
+            FragmentId.LOGOUT,
+            FragmentId.PDF_LIST
+    })
     public @interface FragmentId {
         int SPLASH = 0;
         int LOGIN = 1;
@@ -48,6 +51,8 @@ public class Appconst {
         int TOUR_HELP_FRG = 14;
         int FEEDBACK_FRG = 15;
         int PDF_FRG = 16;
+        int LOGOUT = 17;
+        int PDF_LIST = 18;
     }
 
 
@@ -86,7 +91,8 @@ public class Appconst {
             BSTag.PROFILE,
             BSTag.TOUR_HELP,
             BSTag.FEEDBACK,
-            BSTag.PDF
+            BSTag.PDF,
+            BSTag.PDF_LIST
     })
     public @interface BSTag {
         String ROOT = "root";
@@ -100,6 +106,7 @@ public class Appconst {
         String TOUR_HELP = "tour_help";
         String FEEDBACK = "feedback";
         String PDF = "pdf";
+        String PDF_LIST = "pdf_list";
     }
 
 

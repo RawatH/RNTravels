@@ -29,7 +29,7 @@ public class BaseFragment extends Fragment implements View.OnClickListener, Netw
     public int fragId;
     private String backStackTag;
     public RNDatabase db;
-    public ProgressDialog pd;
+    private ProgressDialog pd;
 
     @Override
     public void onAttach(Context context) {
@@ -39,7 +39,16 @@ public class BaseFragment extends Fragment implements View.OnClickListener, Netw
         listener = (FragListener)context;
         db = RNDatabase.getInstance(ctx);
         pd = new ProgressDialog(ctx);
-        pd.setMessage("Loading...");
+        pd.setCanceledOnTouchOutside(false);
+    }
+
+    public void showProgress(String msg){
+        pd.setMessage(msg == null ? "Loading..." : msg);
+        pd.show();
+    }
+
+    public void dismissProgress(){
+        pd.dismiss();
     }
 
     @Override

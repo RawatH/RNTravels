@@ -131,6 +131,7 @@ public class NRequestor {
                     public void onErrorResponse(VolleyError error) {
                         // TODO handle the error
                         error.printStackTrace();
+                        INSTANCE.listener.onErrorResponse(error);
                     }
                 }, null);
                 break;

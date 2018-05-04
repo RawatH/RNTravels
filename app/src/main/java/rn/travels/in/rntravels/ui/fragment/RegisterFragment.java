@@ -95,6 +95,7 @@ public class RegisterFragment extends BaseFragment {
                                 .setReqTag(NetworkConst.ReqTag.REGISTER)
                                 .build()
                                 .sendRequest();
+                        showProgress("Registering...");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -137,6 +138,7 @@ public class RegisterFragment extends BaseFragment {
 
     @Override
     public void onSuccessResponse(ResponseVO responseVO) {
+        dismissProgress();
         if(responseVO.isResponseValid()){
             Util.t(ctx , "Successfully registered.");
             activity.loadFragment(Appconst.FragmentId.LOGIN, null, null);
@@ -148,6 +150,7 @@ public class RegisterFragment extends BaseFragment {
 
     @Override
     public void onErrorResponse(VolleyError error) {
+        dismissProgress();
         super.onErrorResponse(error);
     }
 }

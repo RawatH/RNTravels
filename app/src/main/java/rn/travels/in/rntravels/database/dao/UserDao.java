@@ -15,8 +15,8 @@ import rn.travels.in.rntravels.models.UserVO;
 
 @Dao
 public interface UserDao {
-    @Query("SELECT * FROM USER")
-    List<UserVO> getAll();
+    @Query("SELECT * FROM USER LIMIT 1")
+    UserVO getLoggedUser();
 
     @Query("SELECT * FROM USER WHERE userEmail LIKE :email  LIMIT 1")
     UserVO findByName(String email);
@@ -24,6 +24,6 @@ public interface UserDao {
     @Insert
     void insert(UserVO userVO);
 
-    @Delete
-    void delete(UserVO userVO);
+    @Query("Delete FROM USER")
+    void delete();
 }

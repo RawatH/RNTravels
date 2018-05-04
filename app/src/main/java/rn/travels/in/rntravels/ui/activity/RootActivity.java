@@ -18,8 +18,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.io.File;
+import java.util.ArrayList;
+
 import rn.travels.in.rntravels.R;
 import rn.travels.in.rntravels.adapters.DrawerListAdapter;
+import rn.travels.in.rntravels.database.RNDatabase;
+import rn.travels.in.rntravels.models.UserVO;
 import rn.travels.in.rntravels.ui.fragment.BackFragment;
 import rn.travels.in.rntravels.ui.fragment.BaseFragment;
 import rn.travels.in.rntravels.ui.fragment.DrawerFragment;
@@ -63,7 +68,12 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                loadFragment(Appconst.FragmentId.LOGIN, null, null);
+                UserVO loggedUserVO = RNDatabase.getInstance(RootActivity.this).getUserDao().getLoggedUser();
+                if (loggedUserVO == null) {
+                    loadFragment(Appconst.FragmentId.LOGIN, null, null);
+                } else {
+                    loadFragment(Appconst.FragmentId.DASHBOARD, null, null);
+                }
             }
         }, 1000);
     }
@@ -92,13 +102,13 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
             setupToolbar();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            if(!(loadedFragment.getFragId() == Appconst.FragmentId.SPLASH)) {
+            if (!(loadedFragment.getFragId() == Appconst.FragmentId.SPLASH)) {
                 fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
             }
             if (loadedFragment.getBackStackTag() == null) {
                 fragmentTransaction.replace(R.id.container, fragment);
             } else {
-                fragmentTransaction.replace(R.id.container, fragment , loadedFragment.getBackStackTag());
+                fragmentTransaction.replace(R.id.container, fragment, loadedFragment.getBackStackTag());
                 fragmentTransaction.addToBackStack(loadedFragment.getBackStackTag());
             }
 
@@ -112,7 +122,7 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
         int count = getSupportFragmentManager().getBackStackEntryCount();
         if (count > 1) {
             super.onBackPressed();
-            FragmentManager.BackStackEntry backStackEntry = getSupportFragmentManager().getBackStackEntryAt(getSupportFragmentManager().getBackStackEntryCount()-1);
+            FragmentManager.BackStackEntry backStackEntry = getSupportFragmentManager().getBackStackEntryAt(getSupportFragmentManager().getBackStackEntryCount() - 1);
             loadedFragment = (BaseFragment) getSupportFragmentManager().findFragmentByTag(backStackEntry.getName());
             setupToolbar();
         } else {
@@ -120,7 +130,6 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
         }
 
     }
-
 
 
     private void setupToolbar() {
@@ -137,7 +146,7 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
             }
         }
         toolbar.setTitle(loadedFragment.getTitle());
-        if(loadedFragment.getSubTitle() != null) {
+        if (loadedFragment.getSubTitle() != null) {
             toolbar.setSubtitle(loadedFragment.getSubTitle());
         }
     }
@@ -194,13 +203,27 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
         if (fragId == -1) {
             Util.t(this, "Not yet implemented");
         } else {
-            if(fragId == Appconst.FragmentId.DASHBOARD){
-                getSupportFragmentManager().popBackStack(Appconst.BSTag.ROOT,0);
-                loadedFragment = (BaseFragment) getSupportFragmentManager().findFragmentByTag(Appconst.BSTag.ROOT);
-                setupToolbar();
-            }else {
-                loadFragment(fragId, null, null);
+            switch (fragId) {
+                case Appconst.FragmentId.DASHBOARD:
+                    getSupportFragmentManager().popBackStack(Appconst.BSTag.ROOT, 0);
+                    loadedFragment = (BaseFragment) getSupportFragmentManager().findFragmentByTag(Appconst.BSTag.ROOT);
+                    setupToolbar();
+                    break;
+                case Appconst.FragmentId.LOGOUT:
+                    RNDatabase.getInstance(this).getUserDao().delete();
+                    RNDatabase.getInstance(this).getPackageDao().delete();
+                    for(File file : getFilesDir().listFiles()) {
+                        Util.clearDirStructure(file);
+                    }
+                    loadFragment(Appconst.FragmentId.LOGIN, null, null);
+
+                    break;
+
+                default:
+                    loadFragment(fragId, null, null);
+                    break;
             }
+
         }
     }
 }

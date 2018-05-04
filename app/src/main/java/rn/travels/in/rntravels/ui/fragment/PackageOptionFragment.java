@@ -7,9 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
 import java.io.File;
-
 import rn.travels.in.rntravels.PackageManager;
 import rn.travels.in.rntravels.R;
 import rn.travels.in.rntravels.models.PackageVO;
@@ -84,16 +82,19 @@ public class PackageOptionFragment extends BackFragment implements View.OnClickL
                 activity.loadFragment(Appconst.FragmentId.ITINEARY_DETAIL_FRAG, null, null);
                 break;
             case R.id.tickets:
-                bundle.putString("title", "Ticket Details");
-                bundle.putString("pdfUrl", selectedPkgVO.getBoardingPassPdf());
-                bundle.putString("filePath", ctx.getFilesDir() + File.separator + selectedPkgVO.getPkgId() + File.separator + Appconst.Uploads.TICKET);
-                activity.loadFragment(Appconst.FragmentId.PDF_FRG, bundle, null);
+                bundle.putString("title", "Tickets");
+                bundle.putString("fileType", Appconst.Uploads.TICKET);
+                activity.loadFragment(Appconst.FragmentId.PDF_LIST, bundle, null);
                 break;
             case R.id.travel_voucher:
-                bundle.putString("title", "Ticket Details");
-                bundle.putString("pdfUrl", selectedPkgVO.getBoardingPassPdf());
-                bundle.putString("filePath", ctx.getFilesDir() + File.separator + selectedPkgVO.getPkgId() + File.separator + Appconst.Uploads.VOUCHER);
-                activity.loadFragment(Appconst.FragmentId.PDF_FRG, bundle, null);
+                bundle.putString("title", "Vouchers");
+                bundle.putString("fileType", Appconst.Uploads.VOUCHER);
+                activity.loadFragment(Appconst.FragmentId.PDF_LIST, bundle, null);
+                break;
+            case R.id.boardingPass:
+                bundle.putString("title", "Boarding Pass");
+                bundle.putString("fileType", Appconst.Uploads.BOARDING);
+                activity.loadFragment(Appconst.FragmentId.PDF_LIST, bundle, null);
                 break;
             case R.id.emergency:
                 activity.loadFragment(Appconst.FragmentId.TOUR_HELP_FRG, null, null);
@@ -102,12 +103,7 @@ public class PackageOptionFragment extends BackFragment implements View.OnClickL
                 FeedbackFragment feedbackFragment = new FeedbackFragment();
                 feedbackFragment.show(getActivity().getSupportFragmentManager(), "feedback");
                 break;
-            case R.id.boardingPass:
-                bundle.putString("title", "Boarding Pass");
-                bundle.putString("pdfUrl", selectedPkgVO.getBoardingPassPdf());
-                bundle.putString("filePath", ctx.getFilesDir() + File.separator + selectedPkgVO.getPkgId() + File.separator + Appconst.Uploads.BOARDING);
-                activity.loadFragment(Appconst.FragmentId.PDF_FRG, bundle, null);
-                break;
+
         }
     }
 

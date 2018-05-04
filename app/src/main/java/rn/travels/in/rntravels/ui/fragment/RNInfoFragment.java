@@ -62,7 +62,7 @@ public class RNInfoFragment extends BackFragment {
                     .setReqTag(NetworkConst.ReqTag.RN_CONTACT_DETAIL)
                     .build()
                     .sendRequest();
-            pd.show();
+            showProgress("Loading contact details...");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -71,7 +71,7 @@ public class RNInfoFragment extends BackFragment {
 
     @Override
     public void onSuccessResponse(ResponseVO responseVO) {
-        pd.dismiss();
+        dismissProgress();
         if (responseVO.isResponseValid()) {
             try {
                 JSONObject profileJson = (JSONObject) responseVO.getResponseArr().get(0);
@@ -93,7 +93,7 @@ public class RNInfoFragment extends BackFragment {
     @Override
     public void onErrorResponse(VolleyError error) {
         super.onErrorResponse(error);
-        pd.cancel();
+        dismissProgress();
     }
 
     @Override

@@ -17,6 +17,7 @@ import rn.travels.in.rntravels.models.DayVO;
 import rn.travels.in.rntravels.models.DrawerItemVO;
 import rn.travels.in.rntravels.models.PackageVO;
 import rn.travels.in.rntravels.network.NetworkConst;
+import rn.travels.in.rntravels.ui.activity.RootActivity;
 
 /**
  * Created by demo on 16/02/18.
@@ -26,8 +27,6 @@ public class Util {
 
     public static void loadImageToView(ImageView view, Context ctx, String imgName) {
         Glide.with(ctx).load(getImage(imgName, ctx)).into(view);
-
-
     }
 
     private static int getImage(String imageName, Context ctx) {
@@ -127,9 +126,10 @@ public class Util {
                 return Appconst.FragmentId.PASSWORD_FRAG;
             case R.drawable.ic_profile:
                 return Appconst.FragmentId.PROFILE_FRG;
+            case R.drawable.ic_logout:
+                return Appconst.FragmentId.LOGOUT;
             case R.drawable.ic_g_translate:
             case R.drawable.ic_forex_rate:
-            case R.drawable.ic_logout:
             default:
                 return -1;
 
@@ -207,17 +207,23 @@ public class Util {
                 ticket.mkdir();
                 File voucher = new File(ctx.getFilesDir() + File.separator + pkgName + File.separator + Appconst.Uploads.VOUCHER);
                 voucher.mkdir();
-                t(ctx, "Created successfully");
-            } else {
-                t(ctx, "Failed to create structure");
+                t(ctx, "Package loaded");
             }
         }
     }
 
-    public static boolean doesFileExists(String filePath)
-    {
+    public static boolean doesFileExists(String filePath) {
         return new File(filePath).exists();
     }
 
 
+    public static void clearDirStructure(File rootFile) {
+        if(rootFile.isDirectory()) {
+            for (File child : rootFile.listFiles()) {
+                clearDirStructure(child);
+            }
+        }
+        rootFile.delete();
+
+    }
 }

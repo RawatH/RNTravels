@@ -68,7 +68,7 @@ public class PasswordFragment extends BackFragment {
                                 .setReqTag(NetworkConst.ReqTag.PSWD_RESET)
                                 .build()
                                 .sendRequest();
-                        pd.show();
+                        showProgress("Updating password");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -105,7 +105,7 @@ public class PasswordFragment extends BackFragment {
 
     @Override
     public void onSuccessResponse(ResponseVO responseVO) {
-        pd.dismiss();
+        dismissProgress();
         if (responseVO.isResponseValid()) {
             Util.t(ctx, "Password successfuly updated");
             activity.onBackPressed();
@@ -117,6 +117,6 @@ public class PasswordFragment extends BackFragment {
     @Override
     public void onErrorResponse(VolleyError error) {
         super.onErrorResponse(error);
-        pd.cancel();
+        dismissProgress();
     }
 }
