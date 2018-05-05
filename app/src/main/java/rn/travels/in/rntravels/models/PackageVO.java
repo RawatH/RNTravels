@@ -19,7 +19,7 @@ import rn.travels.in.rntravels.util.Appconst;
  */
 
 @Entity(tableName = "PACKAGE")
-public class PackageVO implements Serializable {
+public class PackageVO  implements Serializable {
 
     @PrimaryKey
     @NonNull

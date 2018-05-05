@@ -113,6 +113,7 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
             }
 
             fragmentTransaction.commit();
+            fragmentManager.executePendingTransactions();
         }
 
     }

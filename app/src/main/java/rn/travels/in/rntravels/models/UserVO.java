@@ -25,7 +25,16 @@ public class UserVO {
     private String travelId;
     private String userName;
     private String phoneNumber;
+    private boolean isFBUser;
 
+
+    public boolean isFBUser() {
+        return isFBUser;
+    }
+
+    public void setFBUser(boolean FBUser) {
+        isFBUser = FBUser;
+    }
 
     public String getUserId() {
         return userId;

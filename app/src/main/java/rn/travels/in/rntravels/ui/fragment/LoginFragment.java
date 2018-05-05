@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -38,6 +37,7 @@ import rn.travels.in.rntravels.models.UserVO;
 import rn.travels.in.rntravels.network.NRequestor;
 import rn.travels.in.rntravels.network.NetworkConst;
 import rn.travels.in.rntravels.util.Appconst;
+import rn.travels.in.rntravels.util.NWReqUtility;
 import rn.travels.in.rntravels.util.Util;
 
 /**
@@ -51,8 +51,7 @@ public class LoginFragment extends NoToolbarFragment {
     private TextView signupBtn;
     private EditText userName;
     private EditText password;
-
-    private static final String userId = "52";
+    private UserVO loggingUserVO;
     private static final String EMAIL = "email";
     private CallbackManager callbackManager;
 
@@ -117,11 +116,15 @@ public class LoginFragment extends NoToolbarFragment {
 
                                     @Override
                                     public void onCompleted(JSONObject object, GraphResponse response) {
-                                        Log.d("login_fb", response.toString());
+                                        String graphResponse = response.getRawResponse();
+                                        if (graphResponse != null) {
+                                            registerFbUser(graphResponse);
+                                        }
                                     }
+
                                 });
                         Bundle parameters = new Bundle();
-                        parameters.putString("fields", "id,name,email,gender, birthday");
+                        parameters.putString("fields", "id,name,email,first_name, last_name");
                         request.setParameters(parameters);
                         request.executeAsync();
                     }
@@ -144,6 +147,42 @@ public class LoginFragment extends NoToolbarFragment {
 
     }
 
+    private void registerFbUser(String response) {
+
+        try {
+
+            JSONObject responseObj = new JSONObject(response);
+            JSONObject paramObj = new JSONObject();
+            paramObj.put("fb_id", responseObj.optString("id"));
+            paramObj.put("first_name", responseObj.optString("first_name"));
+            paramObj.put("last_name", responseObj.optString("last_name"));
+            paramObj.put("user_name", responseObj.optString("name"));
+            paramObj.put("email", responseObj.optString("email"));
+
+            loggingUserVO = new UserVO();
+            loggingUserVO.setFbId(paramObj.optString("fb_id"));
+            loggingUserVO.setUserEmail(paramObj.optString("email"));
+            loggingUserVO.setFirstName(paramObj.optString("first_name"));
+            loggingUserVO.setLastName(paramObj.optString("last_name"));
+            loggingUserVO.setUserEmail(paramObj.optString("email"));
+            loggingUserVO.setFBUser(true);
+
+
+            new NRequestor.RequestBuilder(ctx)
+                    .setReqType(Request.Method.POST)
+                    .setUrl(Util.getUrlFor(NetworkConst.ReqTag.REGISTER))
+                    .setListener(this)
+                    .setReqParams(paramObj)
+                    .setReqTag(NetworkConst.ReqTag.REGISTER)
+                    .build()
+                    .sendRequest();
+            showProgress("Registering...");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
@@ -162,7 +201,7 @@ public class LoginFragment extends NoToolbarFragment {
                 if (validateData()) {
                     JSONObject paramObj = new JSONObject();
                     try {
-                        paramObj.put("user_name", userName.getText().toString().trim());
+                        paramObj.put("email", userName.getText().toString().trim());
                         paramObj.put("password", password.getText().toString().trim());
                         new NRequestor.RequestBuilder(ctx)
                                 .setReqType(Request.Method.POST)
@@ -186,9 +225,6 @@ public class LoginFragment extends NoToolbarFragment {
             case R.id.signup:
                 activity.loadFragment(Appconst.FragmentId.REGISTER, null, null);
                 break;
-
-            case R.id.fblogin:
-                break;
         }
 
     }
@@ -196,71 +232,50 @@ public class LoginFragment extends NoToolbarFragment {
     @Override
     public void onSuccessResponse(ResponseVO responseVO) {
         dismissProgress();
-        if (responseVO.isResponseValid()) {
-            switch (responseVO.getRequestTag()) {
-                case NetworkConst.ReqTag.LOGIN:
 
-                    UserVO userVO = new UserVO();
-                    userVO.setUserEmail(userName.getText().toString().trim());
-                    userVO.setUserCred(password.getText().toString().trim());
+        switch (responseVO.getRequestTag()) {
+            case NetworkConst.ReqTag.LOGIN:
+                if(responseVO.isResponseValid()) {
+
+                    loggingUserVO = new UserVO();
+                    loggingUserVO.setUserEmail(userName.getText().toString().trim());
+                    loggingUserVO.setUserCred(password.getText().toString().trim());
+                    loggingUserVO.setFBUser(true);
                     try {
                         String userId = (String) responseVO.getResponse().get("user_id");
-                        userVO.setUserId(userId);
+                        loggingUserVO.setUserId(userId);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    if (db.getUserDao().findByName(userVO.getUserEmail()) == null) {
-                        db.getUserDao().insert(userVO);
+                    if (db.getUserDao().findByName(loggingUserVO.getUserEmail()) == null) {
+                        db.getUserDao().insert(loggingUserVO);
                     }
-                    loadUserPackage(userVO.getUserId());
-                    break;
+                    activity.loadFragment(Appconst.FragmentId.DASHBOARD, null, null);
 
-                case NetworkConst.ReqTag.PKG_DETAIL:
-                    PackageVO packageVO;
-                    try {
-                        JSONArray arr = responseVO.getResponseArr();
-                        for (int idx = 0; idx < arr.length(); idx++) {
-                            packageVO = new PackageVO(userId, (JSONObject) responseVO.getResponseArr().get(idx));
-                            if (db.getPackageDao().getPackageBy(userId) == null) {
-                                db.getPackageDao().insert(packageVO);
-                                Util.createFileStructure(ctx, packageVO.getPkgId());
-                            } else {
-                                db.getPackageDao().update(packageVO);
-                            }
-                        }
-                        activity.loadFragment(Appconst.FragmentId.DASHBOARD, null, null);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                }else {
+                    Util.t(ctx,responseVO.getMsg());
+                }
+                break;
+
+
+            case NetworkConst.ReqTag.REGISTER:
+
+                try {
+                    String userId = String.valueOf(responseVO.getResponse().get("user_id"));
+                    loggingUserVO.setUserId(userId);
+                    if (db.getUserDao().findByName(loggingUserVO.getUserEmail()) == null) {
+                        db.getUserDao().insert(loggingUserVO);
                     }
+                    activity.loadFragment(Appconst.FragmentId.DASHBOARD, null, null);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
-                    break;
-            }
-
-
-        } else {
-            Util.t(ctx, responseVO.getMsg());
+                break;
         }
+
     }
 
-    private void loadUserPackage(String userId) {
-        JSONObject paramObj = new JSONObject();
-        try {
-            paramObj.put("user_id", userId);
-            new NRequestor.RequestBuilder(ctx)
-                    .setReqType(Request.Method.POST)
-                    .setUrl(Util.getUrlFor(NetworkConst.ReqTag.PKG_DETAIL))
-                    .setListener(this)
-                    .setReqVolleyType(NetworkConst.VolleyReq.STRING)
-                    .setReqParams(paramObj)
-                    .setReqTag(NetworkConst.ReqTag.PKG_DETAIL)
-                    .build()
-                    .sendRequest();
-            showProgress("Loading packages...");
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public void onErrorResponse(VolleyError error) {

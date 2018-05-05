@@ -6,6 +6,7 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import rn.travels.in.rntravels.models.PackageVO;
@@ -20,7 +21,7 @@ public interface PackageDao {
     List<PackageVO> getAll();
 
     @Query("SELECT * FROM PACKAGE where userId =:userId")
-    PackageVO getPackageBy(String userId);
+    List<PackageVO> getPackageBy(String userId);
 
     @Insert
     void insert(PackageVO packageVO);

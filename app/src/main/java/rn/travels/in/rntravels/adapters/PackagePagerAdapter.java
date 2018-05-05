@@ -57,6 +57,7 @@ public class PackagePagerAdapter extends PagerAdapter implements PackageAdapter.
     }
 
     private void init(View view , int position) {
+
         RecyclerView packageList = view.findViewById(R.id.catalogList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         packageList.setLayoutManager(layoutManager);
@@ -65,14 +66,19 @@ public class PackagePagerAdapter extends PagerAdapter implements PackageAdapter.
                 this.packageList = (ArrayList<PackageVO>) RNDatabase.getInstance(context).getPackageDao().getAll();
                 break;
             case Appconst.PackageType.PAST:
-                this.packageList = Util.getPastDummyList();
+                this.packageList = new ArrayList<>();
                 break;
             case Appconst.PackageType.FOLLOWING:
                 this.packageList = new ArrayList<>();
                 break;
         }
-        PackageAdapter adapter = new PackageAdapter(this.packageList, context ,this);
-        packageList.setAdapter(adapter);
+        if(this.packageList == null || this.packageList.size() == 0){
+            view.findViewById(R.id.noPakageView).setVisibility(View.VISIBLE);
+        }else {
+            packageList.setVisibility(View.VISIBLE);
+            PackageAdapter adapter = new PackageAdapter(this.packageList, context, this);
+            packageList.setAdapter(adapter);
+        }
     }
 
     @Override
