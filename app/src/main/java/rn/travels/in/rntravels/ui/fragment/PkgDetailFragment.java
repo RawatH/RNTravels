@@ -24,18 +24,12 @@ import rn.travels.in.rntravels.models.PackageVO;
 
 public class PkgDetailFragment extends BackFragment {
 
-    private Context context;
     private ExpandableListAdapter listAdapter;
     private ExpandableListView expListView;
     private ArrayList<String> headerList;
     private HashMap<String, ArrayList<String>> dataList;
     private PackageVO packageVO;
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        this.context = context;
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,7 +48,7 @@ public class PkgDetailFragment extends BackFragment {
     private void init(View view) {
         expListView =  view.findViewById(R.id.detailLst);
         prepareListData();
-        listAdapter = new PkgDetailAdapter(context, headerList, dataList);
+        listAdapter = new PkgDetailAdapter(ctx, headerList, dataList);
         expListView.setAdapter(listAdapter);
     }
 

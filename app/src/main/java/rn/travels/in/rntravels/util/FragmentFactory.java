@@ -105,6 +105,7 @@ public class FragmentFactory {
                 break;
             case Appconst.FragmentId.PDF_LIST:
                 fragment = new PDFListFragment();
+                fragment.setBackStackTag(Appconst.BSTag.PDF_LIST);
                 break;
             default:
                 fragment = null;

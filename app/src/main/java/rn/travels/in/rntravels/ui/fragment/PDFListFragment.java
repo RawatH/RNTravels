@@ -8,8 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.github.barteksc.pdfviewer.PDFView;
-
 import java.util.ArrayList;
 
 import rn.travels.in.rntravels.PackageManager;
@@ -30,7 +28,6 @@ public class PDFListFragment extends BackFragment implements PDFAdapter.PDFSelec
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pdf_list, container, false);
-        setBackStackTag(Appconst.BSTag.PDF_LIST);
         init(view);
         return view;
     }
