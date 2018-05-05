@@ -123,6 +123,7 @@ public class NRequestor {
                                 } catch (Exception e) {
 
                                     e.printStackTrace();
+                                    INSTANCE.listener.onErrorResponse(null);
                                 }
                             }
                         }, new Response.ErrorListener() {

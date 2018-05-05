@@ -17,8 +17,10 @@ import java.io.IOException;
 
 import rn.travels.in.rntravels.PackageManager;
 import rn.travels.in.rntravels.R;
+import rn.travels.in.rntravels.database.RNDatabase;
 import rn.travels.in.rntravels.models.PdfVO;
 import rn.travels.in.rntravels.models.ResponseVO;
+import rn.travels.in.rntravels.models.UserVO;
 import rn.travels.in.rntravels.network.NRequestor;
 import rn.travels.in.rntravels.network.NetworkConst;
 import rn.travels.in.rntravels.util.Appconst;
@@ -37,7 +39,6 @@ public class PDFFragment extends BackFragment {
     private PdfVO pdf;
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pdf, container, false);
@@ -52,7 +53,8 @@ public class PDFFragment extends BackFragment {
         Bundle bundle = getArguments();
         this.pdf = (PdfVO) bundle.getSerializable("obj");
         this.pdfFile = pdf.getFileUrl();
-        this.filePath = ctx.getFilesDir()+File.separator+ PackageManager.getInstance().getSelectedPackage().getPkgId()+File.separator+pdf.getFileType();
+        UserVO userVO = RNDatabase.getInstance(ctx).getUserDao().getLoggedUser();
+        this.filePath = ctx.getFilesDir() + File.separator + userVO.getUserId() + File.separator + PackageManager.getInstance().getSelectedPackage().getPkgId() + File.separator + pdf.getFileType();
         this.fileName = pdfFile.substring(pdfFile.lastIndexOf("/") + 1, pdfFile.length());
         if (Util.doesFileExists(filePath + File.separator + fileName)) {
             openPdf();
@@ -90,13 +92,13 @@ public class PDFFragment extends BackFragment {
         super.onSuccessResponse(responseVO);
         Toast.makeText(ctx, "Download complete.", Toast.LENGTH_LONG).show();
         openPdf();
-       dismissProgress();
+        dismissProgress();
     }
 
     @Override
     public void onErrorResponse(VolleyError error) {
         super.onErrorResponse(error);
-       dismissProgress();
+        dismissProgress();
     }
 
     private void openPdf() {

@@ -41,13 +41,17 @@ public class PackageDashboardFragment extends DrawerFragment implements ViewPage
     private ViewPager pager;
     private PackagePagerAdapter packagePagerAdapter;
     private BottomNavigationView bottomNavigationView;
+    private View rootView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        init(view);
-        return view;
+        if(rootView == null) {
+            View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
+            init(view);
+            rootView = view;
+        }
+        return rootView;
     }
 
     private void init(View view) {
@@ -86,7 +90,7 @@ public class PackageDashboardFragment extends DrawerFragment implements ViewPage
 
     }
 
-    private void renderPackage(String userId){
+    private void renderPackage(String userId) {
         ArrayList<PackageVO> packageList = (ArrayList<PackageVO>) RNDatabase.getInstance(ctx).getPackageDao().getPackageBy(userId);
         packagePagerAdapter = new PackagePagerAdapter(getContext(), packageList, this);
         pager.setAdapter(packagePagerAdapter);
@@ -110,26 +114,33 @@ public class PackageDashboardFragment extends DrawerFragment implements ViewPage
         dismissProgress();
         switch (responseVO.getRequestTag()) {
             case NetworkConst.ReqTag.PKG_DETAIL:
-                    PackageVO packageVO;
-                    try {
-                        JSONArray arr = responseVO.getResponseArr();
-                        UserVO userVO = RNDatabase.getInstance(ctx).getUserDao().getLoggedUser();
-                        for (int idx = 0; idx < arr.length(); idx++) {
-                            packageVO = new PackageVO(userVO.getUserId(), (JSONObject) responseVO.getResponseArr().get(idx));
 
-                            if (db.getPackageDao().getPackageBy(userVO.getUserId()) == null) {
-                                db.getPackageDao().insert(packageVO);
-                                Util.createFileStructure(ctx, packageVO.getPkgId());
-                            } else {
-                                Util.clearDirStructure(new File(ctx.getFilesDir()+File.separator+packageVO.getPkgId()));
-                                db.getPackageDao().update(packageVO);
-                            }
-                        }
-                        renderPackage(userVO.getUserId());
+                UserVO userVO = RNDatabase.getInstance(ctx).getUserDao().getLoggedUser();
+                PackageVO packageVO;
+                try {
+                    //Remove all packages from DB
+                    db.getPackageDao().deleteAllPackages();
+                    File file = new File(ctx.getFilesDir() + File.separator + userVO.getUserId());
+                    //Clear old packages
+                    Util.deleteUserData(file);
+                    //Create new structure
+                    Util.createUserRootFolder(file);
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    //Push new packages in DB
+                    JSONArray arr = responseVO.getResponseArr();
+
+
+                    for (int idx = 0; idx < arr.length(); idx++) {
+                        packageVO = new PackageVO(userVO.getUserId(), (JSONObject) responseVO.getResponseArr().get(idx));
+                        db.getPackageDao().insert(packageVO);
+                        Util.createFileStructure(file.getPath() + File.separator + packageVO.getPkgId());
                     }
+
+                    renderPackage(userVO.getUserId());
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
                 break;
         }

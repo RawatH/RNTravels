@@ -17,7 +17,6 @@ import rn.travels.in.rntravels.models.DayVO;
 import rn.travels.in.rntravels.models.DrawerItemVO;
 import rn.travels.in.rntravels.models.PackageVO;
 import rn.travels.in.rntravels.network.NetworkConst;
-import rn.travels.in.rntravels.ui.activity.RootActivity;
 
 /**
  * Created by demo on 16/02/18.
@@ -197,33 +196,45 @@ public class Util {
                 .into(imageView);
     }
 
-    public static void createFileStructure(Context ctx, String pkgName) {
-        File file = new File(ctx.getFilesDir() + File.separator + pkgName);
+    public static void createFileStructure(String pkgPath) {
+        File file = new File(pkgPath);
         if (!file.exists()) {
             if (file.mkdir()) {
-                File boarding = new File(ctx.getFilesDir() + File.separator + pkgName + File.separator + Appconst.Uploads.BOARDING);
+                File boarding = new File(pkgPath + File.separator + Appconst.Uploads.BOARDING);
                 boarding.mkdir();
-                File ticket = new File(ctx.getFilesDir() + File.separator + pkgName + File.separator + Appconst.Uploads.TICKET);
+                File ticket = new File(pkgPath + File.separator + Appconst.Uploads.TICKET);
                 ticket.mkdir();
-                File voucher = new File(ctx.getFilesDir() + File.separator + pkgName + File.separator + Appconst.Uploads.VOUCHER);
+                File voucher = new File(pkgPath + File.separator + Appconst.Uploads.VOUCHER);
                 voucher.mkdir();
-                t(ctx, "Package loaded");
             }
         }
     }
+
+    public static void createUserRootFolder(File file){
+        if (!file.exists()) {
+            file.mkdir();
+        }
+    }
+
 
     public static boolean doesFileExists(String filePath) {
         return new File(filePath).exists();
     }
 
 
-    public static void clearDirStructure(File rootFile) {
+    private static void eraseStructure(File rootFile) {
         if(rootFile.isDirectory()) {
             for (File child : rootFile.listFiles()) {
-                clearDirStructure(child);
+                eraseStructure(child);
             }
         }
         rootFile.delete();
     }
 
+
+    public static void deleteUserData(File f) {
+        if(f.exists()) {
+            eraseStructure(f);
+        }
+    }
 }

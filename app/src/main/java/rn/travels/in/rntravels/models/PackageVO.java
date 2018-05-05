@@ -4,6 +4,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
+import android.support.v4.util.Pair;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,7 +20,7 @@ import rn.travels.in.rntravels.util.Appconst;
  */
 
 @Entity(tableName = "PACKAGE")
-public class PackageVO  implements Serializable {
+public class PackageVO implements Serializable {
 
     @PrimaryKey
     @NonNull
@@ -29,9 +30,8 @@ public class PackageVO  implements Serializable {
     private String heading;
     private String subHeading;
     private String travelDate;
-    private String emergencyNumber;
     private String bannerImage;
-    private String uploadJson;
+
     @Ignore
     private ArrayList<PdfVO> ticketsList;
     @Ignore
@@ -40,6 +40,7 @@ public class PackageVO  implements Serializable {
     private ArrayList<PdfVO> boardingPassList;
     @Ignore
     private ArrayList<DayVO> dayList;
+
 
     public PackageVO() {
     }
@@ -52,14 +53,34 @@ public class PackageVO  implements Serializable {
         this.subHeading = jsonObject.optString("pack_detail");
         this.travelDate = jsonObject.optString("travel_dt");
         this.bannerImage = jsonObject.optString("bannery_img");
-        this.uploadJson = jsonObject.optString("uploads");
-        populatePdfList();
+
+        populatePdfList(jsonObject.optString("uploads"));
 
     }
 
-    public void populatePdfList() {
+    public ArrayList<Pair<String, String>> getEmergencyContactList() {
+        ArrayList<Pair<String, String>> emergencyContactList = new ArrayList<>();
 
-        JSONArray uploadArr = null;
+        try {
+            JSONObject json = new JSONObject(pkgJson);
+
+            JSONArray eContactJson = new JSONArray(json.optString("e_contacts"));
+            for (int i = 0; i < eContactJson.length(); i++) {
+                JSONObject jsonObject = eContactJson.getJSONObject(i);
+                Pair<String, String> p = new Pair<>(jsonObject.optString("contact_name"), jsonObject.optString("contact_number"));
+                    emergencyContactList.add(p);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return emergencyContactList;
+
+    }
+
+    public void populatePdfList(String uploadJson) {
+
+        JSONArray uploadArr;
         try {
             uploadArr = new JSONArray(uploadJson);
             for (int i = 0; i < uploadArr.length(); i++) {
@@ -92,14 +113,6 @@ public class PackageVO  implements Serializable {
 
     }
 
-    public String getUploadJson() {
-        return uploadJson;
-    }
-
-    public void setUploadJson(String uploadJson) {
-        this.uploadJson = uploadJson;
-    }
-
     @NonNull
     public String getPkgId() {
         return pkgId;
@@ -126,29 +139,29 @@ public class PackageVO  implements Serializable {
         this.pkgJson = pkgJson;
     }
 
-    public ArrayList<PdfVO> getTicketsList() {
-        return ticketsList;
-    }
-
-    public void setTicketsList(ArrayList<PdfVO> ticketsList) {
-        this.ticketsList = ticketsList;
-    }
-
-    public ArrayList<PdfVO> getVoucherList() {
-        return voucherList;
-    }
-
-    public void setVoucherList(ArrayList<PdfVO> voucherList) {
-        this.voucherList = voucherList;
-    }
-
-    public ArrayList<PdfVO> getBoardingPassList() {
-        return boardingPassList;
-    }
-
-    public void setBoardingPassList(ArrayList<PdfVO> boardingPassList) {
-        this.boardingPassList = boardingPassList;
-    }
+//    public ArrayList<PdfVO> getTicketsList() {
+//        return ticketsList;
+//    }
+//
+//    public void setTicketsList(ArrayList<PdfVO> ticketsList) {
+//        this.ticketsList = ticketsList;
+//    }
+//
+//    public ArrayList<PdfVO> getVoucherList() {
+//        return voucherList;
+//    }
+//
+//    public void setVoucherList(ArrayList<PdfVO> voucherList) {
+//        this.voucherList = voucherList;
+//    }
+//
+//    public ArrayList<PdfVO> getBoardingPassList() {
+//        return boardingPassList;
+//    }
+//
+//    public void setBoardingPassList(ArrayList<PdfVO> boardingPassList) {
+//        this.boardingPassList = boardingPassList;
+//    }
 
     public String getTravelDate() {
         return travelDate;
@@ -164,14 +177,6 @@ public class PackageVO  implements Serializable {
 
     public void setHeading(String heading) {
         this.heading = heading;
-    }
-
-    public String getEmergencyNumber() {
-        return emergencyNumber;
-    }
-
-    public void setEmergencyNumber(String emergencyNumber) {
-        this.emergencyNumber = emergencyNumber;
     }
 
     public String getBannerImage() {
@@ -199,17 +204,24 @@ public class PackageVO  implements Serializable {
     }
 
     public ArrayList<PdfVO> getListByType(String type) {
-        populatePdfList();
-        switch (type) {
-            case Appconst.Uploads.TICKET:
-                return ticketsList;
-            case Appconst.Uploads.VOUCHER:
-                return voucherList;
-            case Appconst.Uploads.BOARDING:
-                return boardingPassList;
-            default:
-                return null;
+        try {
+            JSONObject json = new JSONObject(pkgJson);
+            populatePdfList(json.optString("uploads"));
+            switch (type) {
+                case Appconst.Uploads.TICKET:
+                    return ticketsList;
+                case Appconst.Uploads.VOUCHER:
+                    return voucherList;
+                case Appconst.Uploads.BOARDING:
+                    return boardingPassList;
+                default:
+                    return null;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+
+        return null;
     }
 
 }

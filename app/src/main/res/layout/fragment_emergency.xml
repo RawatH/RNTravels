@@ -21,9 +21,9 @@
             android:text="@string/tour_contact_person" />
 
         <TextView
+            android:id="@+id/tourContact"
             style="@style/rn_help_value_style"
-            android:autoLink="phone"
-            android:text="Mr. Joseph    +91 - 9560833229 " />
+            android:autoLink="phone" />
 
         <TextView
             style="@style/rn_help_header_style"
@@ -31,9 +31,9 @@
             android:text="@string/cab_contact_person" />
 
         <TextView
+            android:id="@+id/tourCabContact"
             style="@style/rn_help_value_style"
-            android:autoLink="phone"
-            android:text="Mr. Jai       +91 - 9234567801 " />
+            android:autoLink="phone" />
 
 
     </LinearLayout>

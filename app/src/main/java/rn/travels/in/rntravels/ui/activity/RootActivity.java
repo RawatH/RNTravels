@@ -19,7 +19,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import java.io.File;
-import java.util.ArrayList;
 
 import rn.travels.in.rntravels.R;
 import rn.travels.in.rntravels.adapters.DrawerListAdapter;
@@ -211,11 +210,10 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
                     setupToolbar();
                     break;
                 case Appconst.FragmentId.LOGOUT:
-                    RNDatabase.getInstance(this).getUserDao().delete();
-                    RNDatabase.getInstance(this).getPackageDao().delete();
-                    for(File file : getFilesDir().listFiles()) {
-                        Util.clearDirStructure(file);
-                    }
+                    UserVO userVO = RNDatabase.getInstance(this).getUserDao().getLoggedUser();
+                    Util.deleteUserData(new File(getFilesDir()+File.separator+userVO.getUserId()));
+                    RNDatabase.getInstance(this).getUserDao().deleteUser();
+                    RNDatabase.getInstance(this).getPackageDao().deleteAllPackages();
                     loadFragment(Appconst.FragmentId.LOGIN, null, null);
 
                     break;
