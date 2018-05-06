@@ -18,6 +18,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.facebook.login.LoginManager;
+
 import java.io.File;
 
 import rn.travels.in.rntravels.R;
@@ -215,7 +217,9 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
                     RNDatabase.getInstance(this).getUserDao().deleteUser();
                     RNDatabase.getInstance(this).getPackageDao().deleteAllPackages();
                     loadFragment(Appconst.FragmentId.LOGIN, null, null);
-
+                    if(userVO.isFBUser()){
+                        LoginManager.getInstance().logOut();
+                    }
                     break;
 
                 default:
