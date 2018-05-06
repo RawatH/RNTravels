@@ -1,9 +1,7 @@
 package rn.travels.in.rntravels.ui.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +11,11 @@ import android.widget.ExpandableListView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import rn.travels.in.rntravels.PackageManager;
 import rn.travels.in.rntravels.R;
 import rn.travels.in.rntravels.adapters.PkgDetailAdapter;
 import rn.travels.in.rntravels.models.DayVO;
+import rn.travels.in.rntravels.models.ItineraryVO;
 import rn.travels.in.rntravels.models.PackageVO;
 
 /**
@@ -27,14 +27,14 @@ public class PkgDetailFragment extends BackFragment {
     private ExpandableListAdapter listAdapter;
     private ExpandableListView expListView;
     private ArrayList<String> headerList;
-    private HashMap<String, ArrayList<String>> dataList;
+    private HashMap<String, DayVO> dataList;
     private PackageVO packageVO;
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        packageVO = (PackageVO) getArguments().getSerializable("pkgObj");
+        packageVO = PackageManager.getInstance().getSelectedPackage();
     }
 
     @Nullable
@@ -53,18 +53,20 @@ public class PkgDetailFragment extends BackFragment {
     }
 
     private void prepareListData() {
+        ItineraryVO itineraryVO = PackageManager.getInstance().getSelectedPackage().getItinerary();
 
         headerList = new ArrayList<>();
         dataList = new HashMap<>();
 
-        for (DayVO dayVO : packageVO.getDayList()) {
+        for (DayVO dayVO : itineraryVO.getDaysList()) {
             headerList.add(dayVO.getTitle());
-            dataList.put(dayVO.getTitle() , dayVO.getDaySnippetList());
+            dataList.put(dayVO.getTitle() ,dayVO);
+
         }
     }
 
     @Override
     public String getTitle() {
-        return "Itinerary";
+        return "ItineraryVO";
     }
 }

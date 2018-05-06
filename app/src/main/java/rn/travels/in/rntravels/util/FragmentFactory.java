@@ -62,8 +62,7 @@ public class FragmentFactory {
             case Appconst.FragmentId.ITINEARY_DETAIL_FRAG:
                 fragment = new PkgDetailFragment();
                 fragment.setBackStackTag(Appconst.BSTag.ITINEARY_DETAIL);
-                bundle = new Bundle();
-                bundle.putSerializable("pkgObj", PackageManager.getInstance().getSelectedPackage());
+
                 break;
             case Appconst.FragmentId.TICKET_FRAG:
                 fragment = new TicketFragment();

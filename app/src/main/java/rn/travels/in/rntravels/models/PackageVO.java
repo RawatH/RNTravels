@@ -68,7 +68,7 @@ public class PackageVO implements Serializable {
             for (int i = 0; i < eContactJson.length(); i++) {
                 JSONObject jsonObject = eContactJson.getJSONObject(i);
                 Pair<String, String> p = new Pair<>(jsonObject.optString("contact_name"), jsonObject.optString("contact_number"));
-                    emergencyContactList.add(p);
+                emergencyContactList.add(p);
             }
 
         } catch (JSONException e) {
@@ -139,30 +139,6 @@ public class PackageVO implements Serializable {
         this.pkgJson = pkgJson;
     }
 
-//    public ArrayList<PdfVO> getTicketsList() {
-//        return ticketsList;
-//    }
-//
-//    public void setTicketsList(ArrayList<PdfVO> ticketsList) {
-//        this.ticketsList = ticketsList;
-//    }
-//
-//    public ArrayList<PdfVO> getVoucherList() {
-//        return voucherList;
-//    }
-//
-//    public void setVoucherList(ArrayList<PdfVO> voucherList) {
-//        this.voucherList = voucherList;
-//    }
-//
-//    public ArrayList<PdfVO> getBoardingPassList() {
-//        return boardingPassList;
-//    }
-//
-//    public void setBoardingPassList(ArrayList<PdfVO> boardingPassList) {
-//        this.boardingPassList = boardingPassList;
-//    }
-
     public String getTravelDate() {
         return travelDate;
     }
@@ -221,6 +197,16 @@ public class PackageVO implements Serializable {
             e.printStackTrace();
         }
 
+        return null;
+    }
+
+    public ItineraryVO getItinerary() {
+        try {
+            JSONObject json = new JSONObject(pkgJson);
+            return new ItineraryVO(json.optJSONObject("itinerary"));
+        } catch (JSONException e) {
+
+        }
         return null;
     }
 

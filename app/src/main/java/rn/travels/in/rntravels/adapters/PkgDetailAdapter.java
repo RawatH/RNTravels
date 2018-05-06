@@ -1,7 +1,6 @@
 package rn.travels.in.rntravels.adapters;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import rn.travels.in.rntravels.R;
+import rn.travels.in.rntravels.models.DayVO;
+import rn.travels.in.rntravels.util.Util;
 
 /**
  * Created by demo on 20/02/18.
@@ -22,9 +23,9 @@ public class PkgDetailAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private ArrayList<String> headerList;
-    private HashMap<String, ArrayList<String>> dataList;
+    private HashMap<String, DayVO> dataList;
 
-    public PkgDetailAdapter(Context context, ArrayList<String> headerList, HashMap<String, ArrayList<String>> dataList) {
+    public PkgDetailAdapter(Context context, ArrayList<String> headerList, HashMap<String, DayVO> dataList) {
         this.context = context;
         this.headerList = headerList;
         this.dataList = dataList;
@@ -37,7 +38,8 @@ public class PkgDetailAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return this.dataList.get(this.headerList.get(groupPosition)).size();
+        return 1;
+//        return this.dataList.get(this.headerList.get(groupPosition)).size();
     }
 
     @Override
@@ -47,7 +49,7 @@ public class PkgDetailAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return this.dataList.get(this.headerList.get(groupPosition)).get(childPosition);
+        return this.dataList.get(this.headerList.get(groupPosition));//.get(childPosition);
     }
 
     @Override
@@ -78,7 +80,8 @@ public class PkgDetailAdapter extends BaseExpandableListAdapter {
             holder = (GroupHolder) convertView.getTag();
         }
 
-        holder.groupTextLabel.setText(headerTitle);
+        holder.getExpandableImg().setImageResource(isExpanded ? R.drawable.ic_expand_less : R.drawable.ic_expand_more);
+        holder.getGroupTextLabel().setText(headerTitle);
 
         return convertView;
     }
@@ -87,7 +90,7 @@ public class PkgDetailAdapter extends BaseExpandableListAdapter {
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
 
         ChildHolder holder;
-        final String childText = (String) getChild(groupPosition, childPosition);
+        final DayVO dayVO = (DayVO) getChild(groupPosition, childPosition);
 
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -98,11 +101,12 @@ public class PkgDetailAdapter extends BaseExpandableListAdapter {
             holder = (ChildHolder) convertView.getTag();
         }
 
-
-        holder.childText.setText(childText);
-        if(childPosition > 0){
-            holder.itineraryImg.setVisibility(View.GONE);
+        StringBuilder sb = new StringBuilder();
+        for (String daySnippet : dayVO.getDaySnippetList()) {
+            sb.append(daySnippet +"\n\n");
         }
+        holder.getDaySnippet().setText(sb.toString());
+        Util.loadImage(context, dayVO.getDayPhoto(), holder.getItineraryImg());
         return convertView;
     }
 
@@ -112,23 +116,40 @@ public class PkgDetailAdapter extends BaseExpandableListAdapter {
     }
 
     static class GroupHolder {
-        TextView groupTextLabel;
-        TextView groupTextSubtitle;
+        private TextView groupTextLabel;
+        //        TextView groupTextSubtitle;
         ImageView expandableImg;
 
         public GroupHolder(View view) {
             groupTextLabel = view.findViewById(R.id.day_header_title);
-            groupTextLabel = view.findViewById(R.id.day_header_subtitle);
+//            groupTextLabel = view.findViewById(R.id.day_header_subtitle);
             expandableImg = view.findViewById(R.id.expandImg);
+        }
+
+        public TextView getGroupTextLabel() {
+            return groupTextLabel;
+        }
+
+        public ImageView getExpandableImg() {
+            return expandableImg;
         }
     }
 
     static class ChildHolder {
-        TextView childText;
-        ImageView itineraryImg;
+        private TextView daySnippet;
+        private ImageView itineraryImg;
+
         public ChildHolder(View view) {
-            childText = view.findViewById(R.id.itinerary_txt);
+            daySnippet = view.findViewById(R.id.itinerary_txt);
             itineraryImg = view.findViewById(R.id.itinerary_img);
+        }
+
+        public TextView getDaySnippet() {
+            return daySnippet;
+        }
+
+        public ImageView getItineraryImg() {
+            return itineraryImg;
         }
     }
 }
