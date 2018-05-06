@@ -63,6 +63,7 @@
     <string name="fb_login_protocol_scheme">fb411263559336773</string>
     <string name="submit">Submit</string>
     <string name="phone_num">Phone number</string>
+    <string name="no_upload">No record available.</string>
     <!--import com.facebook.FacebookSdk;
     import com.facebook.appevents.AppEventsLogger;-->
 

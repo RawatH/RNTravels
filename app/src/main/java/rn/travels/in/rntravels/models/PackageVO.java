@@ -5,6 +5,7 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
+import android.text.TextUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,6 +32,7 @@ public class PackageVO implements Serializable {
     private String subHeading;
     private String travelDate;
     private String bannerImage;
+    private String uploadJson;
 
     @Ignore
     private ArrayList<PdfVO> ticketsList;
@@ -53,64 +55,16 @@ public class PackageVO implements Serializable {
         this.subHeading = jsonObject.optString("pack_detail");
         this.travelDate = jsonObject.optString("travel_dt");
         this.bannerImage = jsonObject.optString("bannery_img");
-
-        populatePdfList(jsonObject.optString("uploads"));
-
-    }
-
-    public ArrayList<Pair<String, String>> getEmergencyContactList() {
-        ArrayList<Pair<String, String>> emergencyContactList = new ArrayList<>();
-
-        try {
-            JSONObject json = new JSONObject(pkgJson);
-
-            JSONArray eContactJson = new JSONArray(json.optString("e_contacts"));
-            for (int i = 0; i < eContactJson.length(); i++) {
-                JSONObject jsonObject = eContactJson.getJSONObject(i);
-                Pair<String, String> p = new Pair<>(jsonObject.optString("contact_name"), jsonObject.optString("contact_number"));
-                emergencyContactList.add(p);
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return emergencyContactList;
+        this.uploadJson = jsonObject.optString("uploads");
 
     }
 
-    public void populatePdfList(String uploadJson) {
+    public String getUploadJson() {
+        return uploadJson;
+    }
 
-        JSONArray uploadArr;
-        try {
-            uploadArr = new JSONArray(uploadJson);
-            for (int i = 0; i < uploadArr.length(); i++) {
-                JSONObject pdfJson = uploadArr.getJSONObject(i);
-                PdfVO pdfVO = new PdfVO(pdfJson);
-                switch (pdfVO.getFileType()) {
-                    case Appconst.Uploads.TICKET:
-                        if (ticketsList == null) {
-                            ticketsList = new ArrayList<>();
-                        }
-                        ticketsList.add(pdfVO);
-                        break;
-                    case Appconst.Uploads.BOARDING:
-                        if (boardingPassList == null) {
-                            boardingPassList = new ArrayList<>();
-                        }
-                        boardingPassList.add(pdfVO);
-                        break;
-                    case Appconst.Uploads.VOUCHER:
-                        if (voucherList == null) {
-                            voucherList = new ArrayList<>();
-                        }
-                        voucherList.add(pdfVO);
-                        break;
-                }
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
+    public void setUploadJson(String uploadJson) {
+        this.uploadJson = uploadJson;
     }
 
     @NonNull
@@ -171,33 +125,19 @@ public class PackageVO implements Serializable {
         this.subHeading = subHeading;
     }
 
-    public ArrayList<DayVO> getDayList() {
-        return dayList;
-    }
-
-    public void setDayList(ArrayList<DayVO> dayList) {
-        this.dayList = dayList;
-    }
-
     public ArrayList<PdfVO> getListByType(String type) {
-        try {
-            JSONObject json = new JSONObject(pkgJson);
-            populatePdfList(json.optString("uploads"));
-            switch (type) {
-                case Appconst.Uploads.TICKET:
-                    return ticketsList;
-                case Appconst.Uploads.VOUCHER:
-                    return voucherList;
-                case Appconst.Uploads.BOARDING:
-                    return boardingPassList;
-                default:
-                    return null;
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
+
+        switch (type) {
+            case Appconst.Uploads.TICKET:
+                return ticketsList;
+            case Appconst.Uploads.VOUCHER:
+                return voucherList;
+            case Appconst.Uploads.BOARDING:
+                return boardingPassList;
+            default:
+                return null;
         }
 
-        return null;
     }
 
     public ItineraryVO getItinerary() {
@@ -208,6 +148,63 @@ public class PackageVO implements Serializable {
 
         }
         return null;
+    }
+    public ArrayList<Pair<String, String>> getEmergencyContactList() {
+        ArrayList<Pair<String, String>> emergencyContactList = new ArrayList<>();
+
+        try {
+            JSONObject json = new JSONObject(pkgJson);
+
+            JSONArray eContactJson = new JSONArray(json.optString("e_contacts"));
+            for (int i = 0; i < eContactJson.length(); i++) {
+                JSONObject jsonObject = eContactJson.getJSONObject(i);
+                Pair<String, String> p = new Pair<>(jsonObject.optString("contact_name"), jsonObject.optString("contact_number"));
+                emergencyContactList.add(p);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return emergencyContactList;
+
+    }
+
+    public void populatePdfList() {
+
+        try {
+            JSONArray uploadArr = new JSONArray(this.uploadJson);
+            uploadArr = new JSONArray(uploadJson);
+            for (int i = 0; i < uploadArr.length(); i++) {
+                JSONObject pdfJson = uploadArr.getJSONObject(i);
+                PdfVO pdfVO = new PdfVO(pdfJson);
+                if (TextUtils.isEmpty(pdfVO.getFileTitle().trim()) || TextUtils.isEmpty(pdfVO.getFileUrl().trim())) {
+                    continue;
+                }
+                switch (pdfVO.getFileType()) {
+                    case Appconst.Uploads.TICKET:
+                        if (ticketsList == null) {
+                            ticketsList = new ArrayList<>();
+                        }
+                        ticketsList.add(pdfVO);
+                        break;
+                    case Appconst.Uploads.BOARDING:
+                        if (boardingPassList == null) {
+                            boardingPassList = new ArrayList<>();
+                        }
+                        boardingPassList.add(pdfVO);
+                        break;
+                    case Appconst.Uploads.VOUCHER:
+                        if (voucherList == null) {
+                            voucherList = new ArrayList<>();
+                        }
+                        voucherList.add(pdfVO);
+                        break;
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -22,7 +23,6 @@ import rn.travels.in.rntravels.util.Appconst;
 
 public class PDFListFragment extends BackFragment implements PDFAdapter.PDFSelectionListener {
 
-    private RecyclerView pdfList;
     private String title;
 
     @Override
@@ -40,14 +40,20 @@ public class PDFListFragment extends BackFragment implements PDFAdapter.PDFSelec
     }
 
     private void init(View view) {
-        pdfList = view.findViewById(R.id.pdfList);
+        TextView noUploadView = view.findViewById(R.id.no_record);
+        RecyclerView pdfList = view.findViewById(R.id.pdfList);
         pdfList.setLayoutManager(new LinearLayoutManager(ctx));
 
         String fileType = getArguments().getString("fileType");
         ArrayList<PdfVO> dataList = PackageManager.getInstance().getSelectedPackage().getListByType(fileType);
         if (dataList != null) {
+            pdfList.setVisibility(View.VISIBLE);
+            noUploadView.setVisibility(View.GONE);
             PDFAdapter adapter = new PDFAdapter(dataList, this);
             pdfList.setAdapter(adapter);
+        }else{
+            noUploadView.setVisibility(View.VISIBLE);
+            pdfList.setVisibility(View.GONE);
         }
 
     }

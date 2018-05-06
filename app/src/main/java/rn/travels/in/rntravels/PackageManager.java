@@ -26,5 +26,6 @@ public class PackageManager {
 
     public void setSelectedPackage(PackageVO selectedPackage) {
         this.selectedPackage = selectedPackage;
+        this.selectedPackage.populatePdfList();
     }
 }
