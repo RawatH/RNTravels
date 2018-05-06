@@ -40,7 +40,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
-            android:hint="@string/username"
+            android:hint="@string/email"
             android:paddingLeft="10dp"
             android:textColor="@color/primary_text"
             android:textColorHint="@color/secondary_text" />

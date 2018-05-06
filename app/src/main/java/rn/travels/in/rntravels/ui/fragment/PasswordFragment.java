@@ -16,7 +16,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import rn.travels.in.rntravels.R;
+import rn.travels.in.rntravels.database.RNDatabase;
 import rn.travels.in.rntravels.models.ResponseVO;
+import rn.travels.in.rntravels.models.UserVO;
 import rn.travels.in.rntravels.network.NRequestor;
 import rn.travels.in.rntravels.network.NetworkConst;
 import rn.travels.in.rntravels.util.Appconst;
@@ -42,12 +44,19 @@ public class PasswordFragment extends BackFragment {
     }
 
     private void init(View view) {
-
-        oldPassword = view.findViewById(R.id.oldPassword);
-        newPassword = view.findViewById(R.id.newPassword);
-        confPassword = view.findViewById(R.id.confirmPassword);
-        changePswd = view.findViewById(R.id.changePassword);
-        changePswd.setOnClickListener(this);
+        UserVO userVO = RNDatabase.getInstance(ctx).getUserDao().getLoggedUser();
+        if(userVO.isFBUser()){
+            view.findViewById(R.id.no_password).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.passwordContainer).setVisibility(View.GONE);
+        }else {
+            view.findViewById(R.id.passwordContainer).setVisibility(View.VISIBLE);
+            view.findViewById(R.id.no_password).setVisibility(View.GONE);
+            oldPassword = view.findViewById(R.id.oldPassword);
+            newPassword = view.findViewById(R.id.newPassword);
+            confPassword = view.findViewById(R.id.confirmPassword);
+            changePswd = view.findViewById(R.id.changePassword);
+            changePswd.setOnClickListener(this);
+        }
 
     }
 
