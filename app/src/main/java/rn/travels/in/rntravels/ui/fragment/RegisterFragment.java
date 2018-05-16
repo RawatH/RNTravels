@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
@@ -125,8 +126,8 @@ public class RegisterFragment extends BaseFragment {
         if (TextUtils.isEmpty(password.getText().toString().trim())) {
             password.setError("Please enter password");
             flag = false;
-        }else{
-            if(!password.getText().toString().trim().equalsIgnoreCase(confPassword.getText().toString().trim())){
+        } else {
+            if (!password.getText().toString().trim().equalsIgnoreCase(confPassword.getText().toString().trim())) {
                 password.setError("Password & Confirm password not matching");
                 confPassword.setError("Password & Confirm password not matching");
                 flag = false;
@@ -139,11 +140,19 @@ public class RegisterFragment extends BaseFragment {
     @Override
     public void onSuccessResponse(ResponseVO responseVO) {
         dismissProgress();
-        if(responseVO.isResponseValid()){
-            Util.t(ctx , "Successfully registered.");
-            activity.loadFragment(Appconst.FragmentId.LOGIN, null, null);
-        }else{
-            Util.t(ctx,responseVO.getMsg());
+        if (responseVO.isResponseValid()) {
+            switch (responseVO.getMsg()) {
+                case "Sccess":
+                    Util.t(ctx, "Successfully registered");
+                    activity.loadFragment(Appconst.FragmentId.LOGIN, null, null);
+                    break;
+                default:
+                    Toast.makeText(ctx, getResources().getString(R.string.already_reg), Toast.LENGTH_LONG).show();
+                    break;
+            }
+
+        } else {
+            Util.t(ctx, responseVO.getMsg());
         }
 
     }

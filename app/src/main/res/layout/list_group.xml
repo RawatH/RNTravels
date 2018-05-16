@@ -25,11 +25,10 @@
                 android:fontFamily="sans-serif-condensed"
                 android:gravity="center_vertical"
                 android:paddingLeft="20dp"
-                android:text="Day 1"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
-<!--
+
             <TextView
                 android:id="@+id/day_header_subtitle"
                 android:layout_width="match_parent"
@@ -40,9 +39,8 @@
                 android:paddingBottom="2dp"
                 android:paddingLeft="20dp"
                 android:fontFamily="sans-serif-condensed"
-                android:text="Day in Opera House"
                 android:textColor="@color/white"
-                android:textSize="15sp" />-->
+                android:textSize="15sp" />
         </LinearLayout>
 
 

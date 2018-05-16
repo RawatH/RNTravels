@@ -22,10 +22,10 @@ import rn.travels.in.rntravels.util.Util;
 public class PkgDetailAdapter extends BaseExpandableListAdapter {
 
     private Context context;
-    private ArrayList<String> headerList;
+    private ArrayList<DayVO> headerList;
     private HashMap<String, DayVO> dataList;
 
-    public PkgDetailAdapter(Context context, ArrayList<String> headerList, HashMap<String, DayVO> dataList) {
+    public PkgDetailAdapter(Context context, ArrayList<DayVO> headerList, HashMap<String, DayVO> dataList) {
         this.context = context;
         this.headerList = headerList;
         this.dataList = dataList;
@@ -70,7 +70,7 @@ public class PkgDetailAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         GroupHolder holder;
-        String headerTitle = (String) getGroup(groupPosition);
+        DayVO dayVO = (DayVO) getGroup(groupPosition);
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.list_group, null);
@@ -81,7 +81,8 @@ public class PkgDetailAdapter extends BaseExpandableListAdapter {
         }
 
         holder.getExpandableImg().setImageResource(isExpanded ? R.drawable.ic_expand_less : R.drawable.ic_expand_more);
-        holder.getGroupTextLabel().setText(headerTitle);
+        holder.getGroupTextLabel().setText("Day " +dayVO.getDaySequence());
+        holder.getGroupTextSubtitle().setText(dayVO.getTitle());
 
         return convertView;
     }
@@ -117,12 +118,12 @@ public class PkgDetailAdapter extends BaseExpandableListAdapter {
 
     static class GroupHolder {
         private TextView groupTextLabel;
-        //        TextView groupTextSubtitle;
+                TextView groupTextSubtitle;
         ImageView expandableImg;
 
         public GroupHolder(View view) {
             groupTextLabel = view.findViewById(R.id.day_header_title);
-//            groupTextLabel = view.findViewById(R.id.day_header_subtitle);
+            groupTextLabel = view.findViewById(R.id.day_header_subtitle);
             expandableImg = view.findViewById(R.id.expandImg);
         }
 
@@ -132,6 +133,10 @@ public class PkgDetailAdapter extends BaseExpandableListAdapter {
 
         public ImageView getExpandableImg() {
             return expandableImg;
+        }
+
+        public TextView getGroupTextSubtitle() {
+            return groupTextSubtitle;
         }
     }
 

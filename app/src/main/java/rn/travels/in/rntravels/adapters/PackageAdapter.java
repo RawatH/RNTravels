@@ -6,16 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
 import rn.travels.in.rntravels.R;
 import rn.travels.in.rntravels.models.PackageVO;
-import rn.travels.in.rntravels.util.Appconst;
 import rn.travels.in.rntravels.util.Util;
 
 /**
@@ -55,7 +51,7 @@ public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         Util.loadImage(context,packageVO.getBannerImage(),pkgViewHolder.getPkgBanner());
 
-        pkgViewHolder.getPkgSubHeading().setText(packageVO.getSubHeading());
+        pkgViewHolder.getPkgSubHeading().setText(packageVO.getTravelDate());
         pkgViewHolder.getPkgBanner().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,7 +76,7 @@ public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             super(view);
             pkgBanner =  view.findViewById(R.id.packageBanner);
             pkgNameView =  view.findViewById(R.id.packageName);
-            pkgSubHeading = view.findViewById(R.id.packageSubheading);
+            pkgSubHeading = view.findViewById(R.id.packageDate);
         }
 
         public ImageView getPkgBanner() {

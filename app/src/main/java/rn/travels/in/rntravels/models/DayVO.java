@@ -1,5 +1,7 @@
 package rn.travels.in.rntravels.models;
 
+import android.support.annotation.NonNull;
+
 import org.json.JSONObject;
 
 import java.io.Serializable;
@@ -11,7 +13,7 @@ import rn.travels.in.rntravels.util.Util;
  * Created by demo on 16/02/18.
  */
 
-public class DayVO implements Serializable {
+public class DayVO implements Serializable ,Comparable {
 
     private String title;
     private int daySequence;
@@ -28,7 +30,7 @@ public class DayVO implements Serializable {
     }
 
     public String getTitle() {
-        return title;
+        return "Day "+getDaySequence();
     }
 
     public void setTitle(String title) {
@@ -76,5 +78,10 @@ public class DayVO implements Serializable {
                 ", daySnippetList=" + daySnippetList +
                 ", dayPhoto='" + dayPhoto + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(@NonNull Object o) {
+        return getDaySequence() - ((DayVO)o).getDaySequence();
     }
 }

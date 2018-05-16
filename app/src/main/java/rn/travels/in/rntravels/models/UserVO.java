@@ -27,9 +27,25 @@ public class UserVO {
     private String phoneNumber;
     private boolean isFBUser;
 
+    public UserVO() {
+    }
+
+    public UserVO(JSONObject json) {
+        this.fbId = json.optString("fb_id");
+        this.userId = json.optString("id");
+        this.firstName = json.optString("first_name");
+        this.lastName = json.optString("last_name");
+        this.userEmail = json.optString("email_addres");
+        this.phoneNumber = json.optString("contact_number");
+        this.userCred = json.optString("pass_word");
+        this.travelId = json.optString("travel_id");
+        this.userName = json.optString("user_name");
+
+    }
+
 
     public boolean isFBUser() {
-        return isFBUser;
+        return this.fbId != null;
     }
 
     public void setFBUser(boolean FBUser) {
@@ -111,9 +127,16 @@ public class UserVO {
     @Override
     public String toString() {
         return "UserVO{" +
-                "userName='" + userName + '\'' +
-                ", userEmail='" + userEmail + '\'' +
+                "userEmail='" + userEmail + '\'' +
+                ", userId='" + userId + '\'' +
+                ", fbId='" + fbId + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", userCred='" + userCred + '\'' +
+                ", travelId='" + travelId + '\'' +
+                ", userName='" + userName + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
+                ", isFBUser=" + isFBUser +
                 '}';
     }
 }

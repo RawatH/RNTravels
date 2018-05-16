@@ -26,7 +26,7 @@ public class PkgDetailFragment extends BackFragment {
 
     private ExpandableListAdapter listAdapter;
     private ExpandableListView expListView;
-    private ArrayList<String> headerList;
+    private ArrayList<DayVO> headerList;
     private HashMap<String, DayVO> dataList;
     private PackageVO packageVO;
 
@@ -59,7 +59,7 @@ public class PkgDetailFragment extends BackFragment {
         dataList = new HashMap<>();
 
         for (DayVO dayVO : itineraryVO.getDaysList()) {
-            headerList.add(dayVO.getTitle());
+            headerList.add(dayVO);
             dataList.put(dayVO.getTitle() ,dayVO);
 
         }
@@ -67,6 +67,6 @@ public class PkgDetailFragment extends BackFragment {
 
     @Override
     public String getTitle() {
-        return "ItineraryVO";
+        return "Itinerary";
     }
 }

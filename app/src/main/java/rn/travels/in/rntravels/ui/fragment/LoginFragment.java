@@ -236,20 +236,11 @@ public class LoginFragment extends NoToolbarFragment {
         switch (responseVO.getRequestTag()) {
             case NetworkConst.ReqTag.LOGIN:
                 if (responseVO.isResponseValid()) {
-                    loggingUserVO = new UserVO();
-                    loggingUserVO.setUserEmail(userName.getText().toString().trim());
-                    loggingUserVO.setUserCred(password.getText().toString().trim());
-                    loggingUserVO.setFBUser(false);
-                    try {
-                        String userId = (String) responseVO.getResponse().get("user_id");
-                        loggingUserVO.setUserId(userId);
-                        if (db.getUserDao().findByName(loggingUserVO.getUserEmail()) == null) {
-                            db.getUserDao().insert(loggingUserVO);
-                        }
-                        activity.loadFragment(Appconst.FragmentId.DASHBOARD, null, null);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    loggingUserVO = new UserVO(responseVO.getResponse());
+                    if (db.getUserDao().findByName(loggingUserVO.getUserEmail()) == null) {
+                        db.getUserDao().insert(loggingUserVO);
                     }
+                    activity.loadFragment(Appconst.FragmentId.DASHBOARD, null, null);
 
                 } else {
                     Util.t(ctx, responseVO.getMsg());
