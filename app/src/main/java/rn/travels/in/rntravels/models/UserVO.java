@@ -40,11 +40,12 @@ public class UserVO {
         this.userCred = json.optString("pass_word");
         this.travelId = json.optString("travel_id");
         this.userName = json.optString("user_name");
+        setFBUser(isFBUser());
     }
 
 
     public boolean isFBUser() {
-        return this.fbId != null;
+        return !this.fbId.equals("null");
     }
 
     public void setFBUser(boolean FBUser) {
