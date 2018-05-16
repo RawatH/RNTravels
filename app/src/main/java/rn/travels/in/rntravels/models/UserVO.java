@@ -40,7 +40,6 @@ public class UserVO {
         this.userCred = json.optString("pass_word");
         this.travelId = json.optString("travel_id");
         this.userName = json.optString("user_name");
-
     }
 
 
