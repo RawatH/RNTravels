@@ -49,7 +49,7 @@ public class PkgDetailAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return this.dataList.get(this.headerList.get(groupPosition));//.get(childPosition);
+        return this.dataList.get(String.valueOf(headerList.get(groupPosition).getDaySequence()));
     }
 
     @Override
@@ -123,7 +123,7 @@ public class PkgDetailAdapter extends BaseExpandableListAdapter {
 
         public GroupHolder(View view) {
             groupTextLabel = view.findViewById(R.id.day_header_title);
-            groupTextLabel = view.findViewById(R.id.day_header_subtitle);
+            groupTextSubtitle = view.findViewById(R.id.day_header_subtitle);
             expandableImg = view.findViewById(R.id.expandImg);
         }
 

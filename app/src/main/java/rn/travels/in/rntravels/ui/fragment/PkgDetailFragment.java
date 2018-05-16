@@ -60,7 +60,7 @@ public class PkgDetailFragment extends BackFragment {
 
         for (DayVO dayVO : itineraryVO.getDaysList()) {
             headerList.add(dayVO);
-            dataList.put(dayVO.getTitle() ,dayVO);
+            dataList.put(String.valueOf(dayVO.getDaySequence()) ,dayVO);
 
         }
     }

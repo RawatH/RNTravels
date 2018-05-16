@@ -30,7 +30,7 @@ public class DayVO implements Serializable ,Comparable {
     }
 
     public String getTitle() {
-        return "Day "+getDaySequence();
+        return this.title;
     }
 
     public void setTitle(String title) {
