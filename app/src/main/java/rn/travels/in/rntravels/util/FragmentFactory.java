@@ -2,8 +2,12 @@ package rn.travels.in.rntravels.util;
 
 import android.os.Bundle;
 
+import java.util.Currency;
+import java.util.Locale;
+
 import rn.travels.in.rntravels.PackageManager;
 import rn.travels.in.rntravels.ui.fragment.BaseFragment;
+import rn.travels.in.rntravels.ui.fragment.ConversionFragment;
 import rn.travels.in.rntravels.ui.fragment.NotificationFragment;
 import rn.travels.in.rntravels.ui.fragment.PDFFragment;
 import rn.travels.in.rntravels.ui.fragment.PDFListFragment;
@@ -62,7 +66,6 @@ public class FragmentFactory {
             case Appconst.FragmentId.ITINEARY_DETAIL_FRAG:
                 fragment = new PkgDetailFragment();
                 fragment.setBackStackTag(Appconst.BSTag.ITINEARY_DETAIL);
-
                 break;
             case Appconst.FragmentId.TICKET_FRAG:
                 fragment = new TicketFragment();
@@ -105,6 +108,10 @@ public class FragmentFactory {
             case Appconst.FragmentId.PDF_LIST:
                 fragment = new PDFListFragment();
                 fragment.setBackStackTag(Appconst.BSTag.PDF_LIST);
+                break;
+            case Appconst.FragmentId.CONV_FRG:
+                fragment = new ConversionFragment();
+                fragment.setBackStackTag(Appconst.BSTag.CONV);
                 break;
             default:
                 fragment = null;

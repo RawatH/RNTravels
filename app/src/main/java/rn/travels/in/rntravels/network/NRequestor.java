@@ -70,7 +70,15 @@ public class NRequestor {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            INSTANCE.listener.onSuccessResponse(new ResponseVO(new JSONObject(response), INSTANCE.reqTag));
+                            switch (INSTANCE.reqTag) {
+                                case NetworkConst.ReqTag.CONV:
+                                    INSTANCE.listener.onSuccessResponse(new ResponseVO(new JSONObject(response)));
+                                    break;
+                                default:
+                                    INSTANCE.listener.onSuccessResponse(new ResponseVO(new JSONObject(response), INSTANCE.reqTag));
+                                    break;
+                            }
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

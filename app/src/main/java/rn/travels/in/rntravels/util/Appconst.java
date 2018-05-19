@@ -5,6 +5,7 @@ import android.support.annotation.StringDef;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.Currency;
 
 /**
  * Created by demo on 17/02/18.
@@ -32,7 +33,8 @@ public class Appconst {
             FragmentId.FEEDBACK_FRG,
             FragmentId.PDF_FRG,
             FragmentId.LOGOUT,
-            FragmentId.PDF_LIST
+            FragmentId.PDF_LIST,
+            FragmentId.CONV_FRG
     })
     public @interface FragmentId {
         int SPLASH = 0;
@@ -53,6 +55,7 @@ public class Appconst {
         int PDF_FRG = 16;
         int LOGOUT = 17;
         int PDF_LIST = 18;
+        int CONV_FRG = 19;
     }
 
 
@@ -92,7 +95,8 @@ public class Appconst {
             BSTag.TOUR_HELP,
             BSTag.FEEDBACK,
             BSTag.PDF,
-            BSTag.PDF_LIST
+            BSTag.PDF_LIST,
+            BSTag.CONV
     })
     public @interface BSTag {
         String ROOT = "root";
@@ -107,6 +111,7 @@ public class Appconst {
         String FEEDBACK = "feedback";
         String PDF = "pdf";
         String PDF_LIST = "pdf_list";
+        String CONV = "conv";
     }
 
 

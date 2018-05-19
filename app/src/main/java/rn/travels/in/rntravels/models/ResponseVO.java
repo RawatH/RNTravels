@@ -15,6 +15,11 @@ public class ResponseVO {
     private JSONArray responseArr;
     private int requestTag;
 
+    public ResponseVO(JSONObject jsonObject){
+        this.responseStatus = true;
+        this.response = jsonObject;
+    }
+
     public ResponseVO(JSONObject jsonObject , int requestTag) {
         try {
             this.responseStatus = jsonObject.getBoolean("status");

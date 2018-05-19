@@ -1,6 +1,10 @@
 package rn.travels.in.rntravels.util;
 
+import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -9,7 +13,14 @@ import com.bumptech.glide.Glide;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Currency;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 import rn.travels.in.rntravels.R;
@@ -23,6 +34,47 @@ import rn.travels.in.rntravels.network.NetworkConst;
  */
 
 public class Util {
+
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    public static ArrayList<String> getAllCurrCodes()
+    {
+        Set<Currency> toret = new HashSet<Currency>();
+        Locale[] locs = Locale.getAvailableLocales();
+
+        for(Locale loc : locs) {
+            try {
+                Currency currency = Currency.getInstance( loc );
+
+                if ( currency != null ) {
+                    toret.add( currency );
+                }
+            } catch(Exception exc)
+            {
+                // Locale not found
+            }
+        }
+
+        ArrayList<String> currList = new ArrayList<>();
+        Iterator<Currency> itr = toret.iterator();
+        while (itr.hasNext()){
+            Currency curr = itr.next();
+            currList.add(curr.getCurrencyCode());
+        }
+
+        Collections.sort(currList);
+
+        return currList;
+    }
 
     public static void loadImageToView(ImageView view, Context ctx, String imgName) {
         Glide.with(ctx).load(getImage(imgName, ctx)).into(view);
@@ -76,8 +128,9 @@ public class Util {
                 return Appconst.FragmentId.PROFILE_FRG;
             case R.drawable.ic_logout:
                 return Appconst.FragmentId.LOGOUT;
-            case R.drawable.ic_g_translate:
             case R.drawable.ic_forex_rate:
+                return Appconst.FragmentId.CONV_FRG;
+            case R.drawable.ic_g_translate:
             default:
                 return -1;
 
@@ -119,6 +172,10 @@ public class Util {
             case NetworkConst.ReqTag.PROFILE:
                 url += NetworkConst.Endpoints.PROFILE;
                 break;
+
+            case NetworkConst.ReqTag.CONV:
+                return NetworkConst.CONV_URL;
+
         }
 
         return url;

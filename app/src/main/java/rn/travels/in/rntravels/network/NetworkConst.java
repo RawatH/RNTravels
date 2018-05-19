@@ -13,6 +13,7 @@ import java.lang.annotation.RetentionPolicy;
 public class NetworkConst {
 
     public static final String BASE_URL = "http://www.hashcode.co.in/restro/api";
+    public static final String CONV_URL = "http://free.currencyconverterapi.com/api/v5/convert";
 
     @Retention(RetentionPolicy.SOURCE)
     @StringDef({Endpoints.RN_CONTACT_DETAIL,
@@ -20,7 +21,9 @@ public class NetworkConst {
             Endpoints.REGSITER,
             Endpoints.PSWD_RESET,
             Endpoints.LOGIN,
-            Endpoints.PROFILE})
+            Endpoints.PROFILE,
+            Endpoints.CONVERT
+    })
     public @interface Endpoints {
         String RN_CONTACT_DETAIL = "/getRnContactDetails";
         String GET_PKGS = "/getAllPackages";
@@ -28,6 +31,7 @@ public class NetworkConst {
         String PSWD_RESET = "/passwordReset";
         String LOGIN = "/loginClient";
         String PROFILE = "/getClientDetails";
+        String CONVERT = "/convert";
     }
 
     @Retention(RetentionPolicy.SOURCE)
@@ -46,7 +50,8 @@ public class NetworkConst {
             ReqTag.PKG_DETAIL,
             ReqTag.PSWD_RESET,
             ReqTag.PROFILE,
-            ReqTag.DOWNLOAD
+            ReqTag.DOWNLOAD,
+            ReqTag.CONV
     })
     public @interface ReqTag {
 
@@ -57,6 +62,7 @@ public class NetworkConst {
         int PSWD_RESET = 4;
         int PROFILE = 5;
         int DOWNLOAD = 6;
+        int CONV = 7;
     }
 
 

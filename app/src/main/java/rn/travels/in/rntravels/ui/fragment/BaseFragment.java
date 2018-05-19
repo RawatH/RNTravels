@@ -99,12 +99,14 @@ public class BaseFragment extends Fragment implements View.OnClickListener, Netw
 
     @Override
     public void onSuccessResponse(ResponseVO responseVO) {
+        dismissProgress();
 
     }
 
     @Override
     public void onErrorResponse(VolleyError error) {
         VolleyLog.d("err", "Error: " + error.getMessage());
+        dismissProgress();
     }
 
 
