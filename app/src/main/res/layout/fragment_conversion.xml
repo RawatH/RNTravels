@@ -3,11 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="30dp">
+    android:padding="30dp"
+    android:gravity="center">
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:background="@drawable/top_rounded_rect"
         android:hint="Conversion amount"
         android:textColorHint="@color/accent">
@@ -21,13 +24,9 @@
     </android.support.design.widget.TextInputLayout>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/rn_help_header_style"
         android:text="From"
-        android:textColor="@color/primary_dark"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginTop="5dp"/>
+     />
 
     <Spinner
         android:id="@+id/fromCurr"
@@ -36,29 +35,27 @@
         android:paddingTop="10dp" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="To"
-        android:textColor="@color/primary_dark"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginTop="5dp"/>
+        style="@style/rn_help_header_style"/>
 
     <Spinner
         android:id="@+id/toCurr"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:paddingBottom="5dp"
-        android:paddingTop="10dp" />
+        android:paddingTop="10dp"
+        />
 
     <Button
         android:id="@+id/convert"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
+        android:padding="5dp"
         android:background="@color/primary_dark"
         android:paddingBottom="5dp"
         android:paddingTop="5dp"
         android:text="Convert"
+        android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="20sp" />
 
@@ -70,6 +67,7 @@
         android:text="_ _ _ _"
         android:textColor="@color/primary_dark"
         android:textSize="20dp"
+
         android:textStyle="" />
 
 

@@ -2,6 +2,9 @@ package rn.travels.in.rntravels.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -11,11 +14,17 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Currency;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -34,6 +43,25 @@ import rn.travels.in.rntravels.network.NetworkConst;
  */
 
 public class Util {
+
+    public static Date addDays(Date date, int days) {
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.setTime(date);
+        cal.add(Calendar.DATE, days);
+
+        return cal.getTime();
+    }
+
+    public static Date getFormattedDate(String date) {
+        Date formattedDate = null;
+        try {
+            DateFormat dateFormat = new SimpleDateFormat("MMMM dd, yyyy", Locale.ENGLISH);
+            formattedDate = dateFormat.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return formattedDate;
+    }
 
     public static void hideKeyboard(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -202,6 +230,34 @@ public class Util {
                 .into(imageView);
     }
 
+//    public static String saveImage(Bitmap image) {
+//        String savedImagePath = null;
+//
+//        String imageFileName = "JPEG_" + "FILE_NAME" + ".jpg";
+//        File storageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+//                + "/YOUR_FOLDER_NAME");
+//        boolean success = true;
+//        if (!storageDir.exists()) {
+//            success = storageDir.mkdirs();
+//        }
+//        if (success) {
+//            File imageFile = new File(storageDir, imageFileName);
+//            savedImagePath = imageFile.getAbsolutePath();
+//            try {
+//                OutputStream fOut = new FileOutputStream(imageFile);
+//                image.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
+//                fOut.close();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//
+//            // Add the image to the system gallery
+//            galleryAddPic(savedImagePath);
+//            Toast.makeText(mContext, "IMAGE SAVED", Toast.LENGTH_LONG).show();
+//        }
+//        return savedImagePath;
+//    }
+
     public static void createFileStructure(String pkgPath) {
         File file = new File(pkgPath);
         if (!file.exists()) {
@@ -251,5 +307,12 @@ public class Util {
             snippetList.add(st.nextToken());
         }
         return snippetList;
+    }
+
+    public static boolean hasConnectivity(Context context){
+        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 }

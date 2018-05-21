@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.android.volley.NoConnectionError;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 
@@ -16,6 +17,7 @@ import rn.travels.in.rntravels.database.RNDatabase;
 import rn.travels.in.rntravels.models.ResponseVO;
 import rn.travels.in.rntravels.network.NetworkListener;
 import rn.travels.in.rntravels.ui.activity.RootActivity;
+import rn.travels.in.rntravels.util.Util;
 
 /**
  * Created by demo on 16/02/18.
@@ -106,6 +108,9 @@ public class BaseFragment extends Fragment implements View.OnClickListener, Netw
     @Override
     public void onErrorResponse(VolleyError error) {
         VolleyLog.d("err", "Error: " + error.getMessage());
+        if(error instanceof NoConnectionError){
+            Util.t(ctx , "Internet connection off.");
+        }
         dismissProgress();
     }
 

@@ -15,6 +15,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import rn.travels.in.rntravels.util.Appconst;
+import rn.travels.in.rntravels.util.Util;
 
 /**
  * Created by demo on 16/02/18.
@@ -56,7 +57,6 @@ public class PackageVO implements Serializable {
         this.travelDate = jsonObject.optString("travel_dt");
         this.bannerImage = jsonObject.optString("bannery_img");
         this.uploadJson = jsonObject.optString("uploads");
-
     }
 
     public String getUploadJson() {
@@ -94,6 +94,7 @@ public class PackageVO implements Serializable {
     }
 
     public String getTravelDate() {
+
         return travelDate;
     }
 

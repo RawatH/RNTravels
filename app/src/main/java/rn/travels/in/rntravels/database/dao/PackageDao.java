@@ -21,7 +21,10 @@ public interface PackageDao {
     List<PackageVO> getAll();
 
     @Query("SELECT * FROM PACKAGE where userId =:userId")
-    List<PackageVO> getPackageBy(String userId);
+    List<PackageVO> getUserPackages(String userId);
+
+    @Query("SELECT * FROM PACKAGE where pkgId =:pkgId")
+    PackageVO getPkgById(String pkgId);
 
     @Query("DELETE  FROM PACKAGE where pkgId =:pkgId")
     void deletePkgByPkgId(String pkgId);

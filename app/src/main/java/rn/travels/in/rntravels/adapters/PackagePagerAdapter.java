@@ -26,14 +26,12 @@ import rn.travels.in.rntravels.util.Util;
 public class PackagePagerAdapter extends PagerAdapter implements PackageAdapter.PagerCommunicator {
     private Context context;
     private ArrayList<PackageVO> packageList;
-    private LayoutInflater layoutInflater;
     private ArrayList<String> headerList;
     private PackageSelectionListener listener;
 
-    public PackagePagerAdapter(Context context, ArrayList<PackageVO> dataList , PackageSelectionListener listener ) {
+    public PackagePagerAdapter(Context context, ArrayList<PackageVO> dataList, PackageSelectionListener listener) {
         this.context = context;
         this.packageList = dataList;
-        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         prepareDataSet();
         this.listener = listener;
     }
@@ -50,18 +48,18 @@ public class PackagePagerAdapter extends PagerAdapter implements PackageAdapter.
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.pkg_display_layout, container, false);
-        init(view , position);
+        init(view, position);
         container.addView(view);
         view.setTag("View" + position);
         return view;
     }
 
-    private void init(View view , int position) {
+    private void init(View view, int position) {
 
         RecyclerView packageList = view.findViewById(R.id.catalogList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         packageList.setLayoutManager(layoutManager);
-        switch (position){
+        switch (position) {
             case Appconst.PackageType.RECENT:
                 this.packageList = (ArrayList<PackageVO>) RNDatabase.getInstance(context).getPackageDao().getAll();
                 break;
@@ -72,9 +70,9 @@ public class PackagePagerAdapter extends PagerAdapter implements PackageAdapter.
                 this.packageList = new ArrayList<>();
                 break;
         }
-        if(this.packageList == null || this.packageList.size() == 0){
+        if (this.packageList == null || this.packageList.size() == 0) {
             view.findViewById(R.id.noPakageView).setVisibility(View.VISIBLE);
-        }else {
+        } else {
             packageList.setVisibility(View.VISIBLE);
             PackageAdapter adapter = new PackageAdapter(this.packageList, context, this);
             packageList.setAdapter(adapter);
@@ -105,10 +103,10 @@ public class PackagePagerAdapter extends PagerAdapter implements PackageAdapter.
 
     @Override
     public void onPackageSelected(PackageVO packageVO) {
-       listener.onPackageSelected(packageVO);
+        listener.onPackageSelected(packageVO);
     }
 
     public interface PackageSelectionListener {
-         void onPackageSelected(PackageVO packageVO);
+        void onPackageSelected(PackageVO packageVO);
     }
 }
