@@ -127,6 +127,7 @@ public class LoginFragment extends NoToolbarFragment {
                         parameters.putString("fields", "id,name,email,first_name, last_name");
                         request.setParameters(parameters);
                         request.executeAsync();
+
                     }
 
                     @Override
@@ -139,6 +140,9 @@ public class LoginFragment extends NoToolbarFragment {
                     public void onError(FacebookException exception) {
                         // App code
                         Log.d("login_fb", "LoginManager exception");
+                        if(exception.getMessage().startsWith("CONNECTION_FAILURE")){
+                            Util.t(ctx , "Internet connection off.");
+                        }
                     }
                 });
 
@@ -176,7 +180,7 @@ public class LoginFragment extends NoToolbarFragment {
                     .setReqTag(NetworkConst.ReqTag.REGISTER)
                     .build()
                     .sendRequest();
-            showProgress("Registering...");
+            showProgress("Initializing...");
         } catch (JSONException e) {
             e.printStackTrace();
         }
