@@ -178,9 +178,7 @@ public class PackageVO implements Serializable {
             for (int i = 0; i < uploadArr.length(); i++) {
                 JSONObject pdfJson = uploadArr.getJSONObject(i);
                 PdfVO pdfVO = new PdfVO(pdfJson);
-                if (TextUtils.isEmpty(pdfVO.getFileTitle().trim()) || TextUtils.isEmpty(pdfVO.getFileUrl().trim())) {
-                    continue;
-                }
+
                 switch (pdfVO.getFileType()) {
                     case Appconst.Uploads.TICKET:
                         if (ticketsList == null) {
