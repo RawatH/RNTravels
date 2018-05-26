@@ -66,20 +66,24 @@ public class PasswordFragment extends BackFragment {
             case R.id.changePassword:
                 if (validate()) {
                     JSONObject paramObj = new JSONObject();
-                    try {
-                        paramObj.put("user_name", "a");
-                        paramObj.put("password",newPassword.getText().toString());
-                        new NRequestor.RequestBuilder(ctx)
-                                .setReqType(Request.Method.POST)
-                                .setUrl(Util.getUrlFor(NetworkConst.ReqTag.PSWD_RESET))
-                                .setListener(this)
-                                .setReqParams(paramObj)
-                                .setReqTag(NetworkConst.ReqTag.PSWD_RESET)
-                                .build()
-                                .sendRequest();
-                        showProgress("Updating password");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    UserVO userVO = db.getUserDao().getLoggedUser();
+                    if(userVO != null) {
+                        try {
+
+                            paramObj.put("user_name", userVO.getUserEmail());
+                            paramObj.put("password", newPassword.getText().toString());
+                            new NRequestor.RequestBuilder(ctx)
+                                    .setReqType(Request.Method.POST)
+                                    .setUrl(Util.getUrlFor(NetworkConst.ReqTag.PSWD_RESET))
+                                    .setListener(this)
+                                    .setReqParams(paramObj)
+                                    .setReqTag(NetworkConst.ReqTag.PSWD_RESET)
+                                    .build()
+                                    .sendRequest();
+                            showProgress("Updating password");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
                 break;
