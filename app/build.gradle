@@ -22,6 +22,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    packagingOptions {
+        exclude 'META-INF/INDEX.LIST'
+    }
 }
 
 dependencies {
@@ -40,8 +44,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
 
-    compile 'com.google.android.gms:play-services-safetynet:15.0.0'
-    compile 'com.google.android.gms:play-services-base:15.0.0'
+    compile 'com.google.android.gms:play-services-safetynet:15.0.1'
+    compile 'com.google.android.gms:play-services-base:15.0.1'
     compile 'com.google.android.gms:play-services-basement:15.0.0'
     compile 'com.google.android.gms:play-services-tasks:15.0.0'
 
@@ -58,4 +62,7 @@ dependencies {
 
     //Glide
     compile 'com.github.bumptech.glide:glide:3.7.0'
+
+    //Google translate
+    compile 'com.google.cloud:google-cloud-translate:1.31.0'
 }

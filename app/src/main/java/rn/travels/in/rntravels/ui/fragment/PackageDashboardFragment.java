@@ -81,14 +81,14 @@ public class PackageDashboardFragment extends DrawerFragment implements ViewPage
 
     private void loadPackage() {
         UserVO userVO = db.getUserDao().getLoggedUser();
-        if(Util.hasConnectivity(ctx)) {
+        if (Util.hasConnectivity(ctx)) {
             NRequestor nRequestor = NWReqUtility.getPackageReq(ctx, this, userVO.getUserId());
 
             if (nRequestor != null) {
                 nRequestor.sendRequest();
                 showProgress("Loading package...");
             }
-        }else{
+        } else {
             renderPackage(userVO.getUserId());
         }
 
@@ -122,27 +122,29 @@ public class PackageDashboardFragment extends DrawerFragment implements ViewPage
                 UserVO userVO = RNDatabase.getInstance(ctx).getUserDao().getLoggedUser();
                 PackageVO packageVO;
                 try {
-                    //Remove all packages from DB
+                    if (responseVO.isResponseValid()) {
+                        //Remove all packages from DB
 //                    db.getPackageDao().deleteAllPackages();
-                    File file = new File(ctx.getFilesDir() + File.separator + userVO.getUserId());
+                        File file = new File(ctx.getFilesDir() + File.separator + userVO.getUserId());
 
 //                    //Clear old packages
 //                    Util.deleteUserData(file);
-                    //Create new structure
-                    Util.createUserRootFolder(file);
+                        //Create new structure
+                        Util.createUserRootFolder(file);
 
-                    //Push new packages in DB
-                    JSONArray arr = responseVO.getResponseArr();
-                    for (int idx = 0; idx < arr.length(); idx++) {
-                        packageVO = new PackageVO(userVO.getUserId(), (JSONObject) responseVO.getResponseArr().get(idx));
-                        PackageVO dbPkg = db.getPackageDao().getPkgById(packageVO.getPkgId());
-                        if(dbPkg == null){
-                            db.getPackageDao().insert(packageVO);
-                            Util.createFileStructure(file.getPath() + File.separator + packageVO.getPkgId());
-                        }else{
-                            //TODO : Update only if update is received
+                        //Push new packages in DB
+                        JSONArray arr = responseVO.getResponseArr();
+                        for (int idx = 0; idx < arr.length(); idx++) {
+                            packageVO = new PackageVO(userVO.getUserId(), (JSONObject) responseVO.getResponseArr().get(idx));
+                            PackageVO dbPkg = db.getPackageDao().getPkgById(packageVO.getPkgId());
+                            if (dbPkg == null) {
+                                db.getPackageDao().insert(packageVO);
+                                Util.createFileStructure(file.getPath() + File.separator + packageVO.getPkgId());
+                            } else {
+                                //TODO : Update only if update is received
+                            }
+
                         }
-
                     }
 
                     renderPackage(userVO.getUserId());

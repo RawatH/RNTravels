@@ -1,6 +1,7 @@
 package rn.travels.in.rntravels.ui.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import rn.travels.in.rntravels.R;
+import rn.travels.in.rntravels.TranslationManager;
 import rn.travels.in.rntravels.database.RNDatabase;
 import rn.travels.in.rntravels.models.ResponseVO;
 import rn.travels.in.rntravels.models.UserVO;
@@ -69,7 +71,6 @@ public class PasswordFragment extends BackFragment {
                     UserVO userVO = db.getUserDao().getLoggedUser();
                     if(userVO != null) {
                         try {
-
                             paramObj.put("user_name", userVO.getUserEmail());
                             paramObj.put("password", newPassword.getText().toString());
                             new NRequestor.RequestBuilder(ctx)
