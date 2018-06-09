@@ -12,6 +12,7 @@ import rn.travels.in.rntravels.PackageManager;
 import rn.travels.in.rntravels.R;
 import rn.travels.in.rntravels.models.PackageVO;
 import rn.travels.in.rntravels.util.Appconst;
+import rn.travels.in.rntravels.util.Util;
 
 /**
  * Created by demo on 14/03/18.
@@ -79,7 +80,11 @@ public class PackageOptionFragment extends BackFragment implements View.OnClickL
                 activity.loadFragment(Appconst.FragmentId.RN_INFO_FRAG, null, null);
                 break;
             case R.id.itenary:
-                activity.loadFragment(Appconst.FragmentId.ITINEARY_DETAIL_FRAG, null, null);
+                if(PackageManager.getInstance().getSelectedPackage().getItinerary() != null) {
+                    activity.loadFragment(Appconst.FragmentId.ITINEARY_DETAIL_FRAG, null, null);
+                }else{
+                    Util.t(ctx,"Itineary not uploaded.");
+                }
                 break;
             case R.id.tickets:
                 bundle.putString("title", "Tickets");

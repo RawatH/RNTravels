@@ -145,11 +145,11 @@ public class PackageVO implements Serializable {
         try {
             JSONObject json = new JSONObject(pkgJson);
             return new ItineraryVO(json.optJSONObject("itinerary"));
-        } catch (JSONException e) {
-
+        } catch (JSONException | NullPointerException e) {
+            return null;
         }
-        return null;
     }
+
     public ArrayList<Pair<String, String>> getEmergencyContactList() {
         ArrayList<Pair<String, String>> emergencyContactList = new ArrayList<>();
 
