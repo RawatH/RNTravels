@@ -22,7 +22,8 @@ public class NetworkConst {
             Endpoints.PSWD_RESET,
             Endpoints.LOGIN,
             Endpoints.PROFILE,
-            Endpoints.CONVERT
+            Endpoints.CONVERT,
+            Endpoints.FEEDBACK
     })
     public @interface Endpoints {
         String RN_CONTACT_DETAIL = "/getRnContactDetails";
@@ -32,6 +33,7 @@ public class NetworkConst {
         String LOGIN = "/loginClient";
         String PROFILE = "/getClientDetails";
         String CONVERT = "/convert";
+        String FEEDBACK = "/addFeedBack";
     }
 
     @Retention(RetentionPolicy.SOURCE)
@@ -51,7 +53,8 @@ public class NetworkConst {
             ReqTag.PSWD_RESET,
             ReqTag.PROFILE,
             ReqTag.DOWNLOAD,
-            ReqTag.CONV
+            ReqTag.CONV,
+            ReqTag.FEEDBACK
     })
     public @interface ReqTag {
 
@@ -63,6 +66,7 @@ public class NetworkConst {
         int PROFILE = 5;
         int DOWNLOAD = 6;
         int CONV = 7;
+        int FEEDBACK = 8;
     }
 
 

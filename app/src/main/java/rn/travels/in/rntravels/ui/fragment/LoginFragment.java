@@ -189,6 +189,7 @@ public class LoginFragment extends NoToolbarFragment {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
+        Util.printKeyHash(getActivity());
         super.onActivityResult(requestCode, resultCode, data);
     }
 

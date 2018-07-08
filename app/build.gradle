@@ -4,7 +4,22 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+configurations {
+    all {
+        exclude module: 'httpclient'
+        exclude module: 'commons-logging'
+    }
+}
+
 android {
+    signingConfigs {
+        config {
+            keyAlias 'key0'
+            keyPassword 'user@1234'
+            storeFile file('/Users/demo/Desktop/rn_cert')
+            storePassword 'user@1234'
+        }
+    }
     compileSdkVersion 27
     defaultConfig {
         multiDexEnabled true
@@ -12,7 +27,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
-        versionName "1.0"
+        versionName "1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -20,9 +35,9 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
-
     packagingOptions {
         exclude 'META-INF/INDEX.LIST'
     }
@@ -30,39 +45,31 @@ android {
 
 dependencies {
     implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.intellij:annotations:+@jar'
-
-
-    compile 'com.android.support:appcompat-v7:27.1.0'
-    compile 'com.android.support:support-v4:27.1.0'
-    compile 'com.android.support:recyclerview-v7:27.1.0'
-    compile 'com.android.support:design:27.1.0'
-    compile 'com.android.support:cardview-v7:27.1.0'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.intellij:annotations:+@jar'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:customtabs:27.1.1'
+    implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:cardview-v7:27.1.1'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-
-
-    compile 'com.google.android.gms:play-services-safetynet:15.0.1'
-    compile 'com.google.android.gms:play-services-base:15.0.1'
-    compile 'com.google.android.gms:play-services-basement:15.0.0'
-    compile 'com.google.android.gms:play-services-tasks:15.0.0'
-
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'com.google.android.gms:play-services-safetynet:15.0.1'
+    implementation 'com.google.android.gms:play-services-base:15.0.1'
+    implementation 'com.google.android.gms:play-services-basement:15.0.1'
+    implementation 'com.google.android.gms:play-services-tasks:15.0.1'
     //PDF
-    compile 'com.github.barteksc:android-pdf-viewer:2.8.2'
-
-
+    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
     //Volley
-    compile 'com.android.volley:volley:1.1.0'
-
+    implementation 'com.android.volley:volley:1.1.0'
     //ROOM API
-    compile 'android.arch.persistence.room:runtime:1.1.0-beta2'
-    annotationProcessor "android.arch.persistence.room:compiler:1.1.0-beta2"
-
+    implementation 'android.arch.persistence.room:runtime:1.1.0'
+    annotationProcessor "android.arch.persistence.room:compiler:1.1.0"
     //Glide
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
     //Google translate
-    compile 'com.google.cloud:google-cloud-translate:1.31.0'
+    implementation 'com.google.cloud:google-cloud-translate:1.31.0'
+
 }

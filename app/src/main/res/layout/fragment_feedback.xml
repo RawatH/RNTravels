@@ -1,45 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:background="@drawable/pkg_bg"
-    android:minWidth="1000dp"
-    android:minHeight="250dp"
-    android:orientation="vertical">
+    android:background="@drawable/pkg_bg">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/travelid_input_layout"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".7"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/top_rounded_rect"
-        android:textColorHint="@color/accent">
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/regTravelId"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:hint="@string/leave_feedback"
-            android:inputType="phone"
-            android:paddingLeft="10dp"
-            android:textColor="@color/primary_text"
-            android:textColorHint="@color/secondary_text" />
-    </android.support.design.widget.TextInputLayout>
+            android:layout_height="0dp"
+            android:layout_weight=".9"
+            android:gravity="bottom">
 
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/travelid_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:background="@drawable/top_rounded_rect"
+                android:textColorHint="@color/accent">
 
-    <Button
-        android:id="@+id/feedback"
+                <EditText
+                    android:id="@+id/feedbackMsg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:hint="@string/leave_feedback"
+                    android:padding="10dp"
+                    android:textColor="@color/primary_text"
+                    android:textColorHint="@color/secondary_text" />
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/feedbackBtn"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".1"
+            android:layout_gravity="bottom"
+            android:layout_margin="10dp"
+            android:background="@color/primary_dark"
+            android:fontFamily="sans-serif-condensed"
+            android:text="@string/submit"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="20dp"
-        android:background="@color/primary_dark"
-        android:fontFamily="sans-serif-condensed"
-        android:text="@string/submit"
-        android:textAllCaps="false"
-        android:textColor="@color/white" />
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center">
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+    </LinearLayout>
 
-</LinearLayout>
+</FrameLayout>

@@ -40,7 +40,7 @@
     <string name="confirmPassword">Confirm Password</string>
     <string name="tour_contact_person">Tour Contact Person</string>
     <string name="cab_contact_person">Cab Contact Person</string>
-    <string name="leave_feedback">Write your feedback</string>
+    <string name="leave_feedback">Write your feedback...</string>
     <string name="boardingPass">Boarding Pass</string>
 
     <string-array name="drawer_list">

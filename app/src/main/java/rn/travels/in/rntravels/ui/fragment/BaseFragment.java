@@ -109,7 +109,7 @@ public class BaseFragment extends Fragment implements View.OnClickListener, Netw
     public void onErrorResponse(VolleyError error) {
         VolleyLog.d("err", "Error: " + error.getMessage());
         if(error instanceof NoConnectionError){
-            Util.t(ctx , "Internet connection off.");
+            Util.t(ctx , "Connection error while downloading..");
         }
         dismissProgress();
     }

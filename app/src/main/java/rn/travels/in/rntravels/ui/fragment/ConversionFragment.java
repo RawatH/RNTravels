@@ -1,20 +1,31 @@
 package rn.travels.in.rntravels.ui.fragment;
 
+import android.database.DataSetObserver;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
 
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import rn.travels.in.rntravels.R;
 import rn.travels.in.rntravels.models.ResponseVO;
@@ -29,11 +40,11 @@ import rn.travels.in.rntravels.util.Util;
 public class ConversionFragment extends BackFragment {
 
     private EditText conversionAmt;
-    private Spinner fromSpinner;
-    private Spinner toSpinner;
     private TextView result;
     private Button convertBtn;
     private String key;
+    private AutoCompleteTextView convertF;
+    private AutoCompleteTextView convertT;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,17 +55,40 @@ public class ConversionFragment extends BackFragment {
     }
 
     private void init(View rootView) {
+
+        convertF = rootView.findViewById(R.id.fromCurr);
+        convertT = rootView.findViewById(R.id.toCurr);
+
         conversionAmt = rootView.findViewById(R.id.conversionAmt);
-        fromSpinner = rootView.findViewById(R.id.fromCurr);
-        toSpinner = rootView.findViewById(R.id.toCurr);
         result = rootView.findViewById(R.id.convResult);
         convertBtn = rootView.findViewById(R.id.convert);
         convertBtn.setOnClickListener(this);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(ctx, android.R.layout.simple_spinner_item,Util.getAllCurrCodes());
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        fromSpinner.setAdapter(adapter);
-        toSpinner.setAdapter(adapter);
+        ArrayList<String> countryCodesList  = Util.getAllCurrCodes();
+
+        ArrayAdapter<String> adapterFrom = new ArrayAdapter<>(ctx, android.R.layout.simple_dropdown_item_1line, countryCodesList.toArray(new String[countryCodesList.size()]) );
+
+        convertF.setAdapter(adapterFrom);
+        convertF.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    convertF.showDropDown();
+                }
+            }
+        });
+
+        ArrayAdapter<String> adapterTo = new ArrayAdapter<>(ctx, android.R.layout.simple_dropdown_item_1line, countryCodesList.toArray(new String[countryCodesList.size()]) );
+
+        convertT.setAdapter(adapterTo);
+        convertT.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    convertT.showDropDown();
+                }
+            }
+        });
     }
 
     @Override
@@ -65,18 +99,22 @@ public class ConversionFragment extends BackFragment {
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        String fromVal = fromSpinner.getSelectedItem().toString();
-        String toVal = toSpinner.getSelectedItem().toString();
-        if(fromVal.equalsIgnoreCase(toVal)){
-            Util.t(ctx ,"Select diff values for conversion");
+        String fromVal = convertF.getText().toString();
+        String toVal = convertT.getText().toString();
+        if (fromVal.equalsIgnoreCase(toVal)) {
+            Util.t(ctx, "Select diff values for conversion");
+            return;
+        }
+        else if(TextUtils.isEmpty(fromVal) || TextUtils.isEmpty(toVal) ){
+            Util.t(ctx, "Please fill all conversion fields");
             return;
         }
 
-        this.key = fromVal+"_"+toVal;
-        String queryString = "?q="+this.key+"&compact=y";
+        this.key = fromVal + "_" + toVal;
+        String queryString = "?q=" + this.key + "&compact=y";
         new NRequestor.RequestBuilder(ctx)
                 .setReqType(Request.Method.GET)
-                .setUrl(Util.getUrlFor(NetworkConst.ReqTag.CONV)+queryString)
+                .setUrl(Util.getUrlFor(NetworkConst.ReqTag.CONV) + queryString)
                 .setListener(this)
                 .setReqVolleyType(NetworkConst.VolleyReq.STRING)
                 .setReqTag(NetworkConst.ReqTag.CONV)
@@ -92,9 +130,9 @@ public class ConversionFragment extends BackFragment {
         JSONObject responseJson = responseVO.getResponse();
         try {
             JSONObject convJson = responseJson.getJSONObject(this.key);
-            String toVal = toSpinner.getSelectedItem().toString();
+            String toVal = convertT.getText().toString();
             float value = Float.parseFloat(conversionAmt.getText().toString()) * Float.valueOf(convJson.getString("val"));
-            String val = toVal +" : "+value;
+            String val = toVal + " : " + value;
             this.result.setText(val);
         } catch (JSONException e) {
             e.printStackTrace();
