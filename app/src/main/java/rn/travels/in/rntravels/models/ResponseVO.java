@@ -39,6 +39,10 @@ public class ResponseVO {
         return requestTag;
     }
 
+    public void setRequestTag(int reqTag){
+        this.requestTag = reqTag;
+    }
+
     public JSONArray getResponseArr() {
         return responseArr;
     }

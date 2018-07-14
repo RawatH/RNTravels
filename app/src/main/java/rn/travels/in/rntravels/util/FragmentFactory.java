@@ -24,6 +24,7 @@ import rn.travels.in.rntravels.ui.fragment.RegisterFragment;
 import rn.travels.in.rntravels.ui.fragment.SplashFragment;
 import rn.travels.in.rntravels.ui.fragment.TicketFragment;
 import rn.travels.in.rntravels.ui.fragment.TourHelpContactFragment;
+import rn.travels.in.rntravels.ui.fragment.TranslateFragment;
 
 /**
  * Created by demo on 17/02/18.
@@ -111,6 +112,10 @@ public class FragmentFactory {
                 break;
             case Appconst.FragmentId.CONV_FRG:
                 fragment = new ConversionFragment();
+                fragment.setBackStackTag(Appconst.BSTag.CONV);
+                break;
+            case Appconst.FragmentId.TRANS:
+                fragment = new TranslateFragment();
                 fragment.setBackStackTag(Appconst.BSTag.CONV);
                 break;
             default:

@@ -109,9 +109,9 @@ public class BaseFragment extends Fragment implements View.OnClickListener, Netw
     public void onErrorResponse(VolleyError error) {
         VolleyLog.d("err", "Error: " + error.getMessage());
         if(error instanceof NoConnectionError){
-            Util.t(ctx , "Connection error while downloading..");
+            Util.t(ctx , "Network connection error.");
         }else{
-            Util.t(ctx , "PDF not uploaded.");
+            Util.t(ctx , "Something went wrong.");
         }
         dismissProgress();
     }

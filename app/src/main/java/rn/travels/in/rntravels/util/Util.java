@@ -165,6 +165,7 @@ public class Util {
             case R.drawable.ic_forex_rate:
                 return Appconst.FragmentId.CONV_FRG;
             case R.drawable.ic_g_translate:
+                return Appconst.FragmentId.TRANS;
             default:
                 return -1;
 

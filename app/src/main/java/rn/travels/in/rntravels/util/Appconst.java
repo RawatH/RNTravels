@@ -34,7 +34,8 @@ public class Appconst {
             FragmentId.PDF_FRG,
             FragmentId.LOGOUT,
             FragmentId.PDF_LIST,
-            FragmentId.CONV_FRG
+            FragmentId.CONV_FRG,
+            FragmentId.TRANS
     })
     public @interface FragmentId {
         int SPLASH = 0;
@@ -56,6 +57,7 @@ public class Appconst {
         int LOGOUT = 17;
         int PDF_LIST = 18;
         int CONV_FRG = 19;
+        int TRANS = 20;
     }
 
 
@@ -96,7 +98,8 @@ public class Appconst {
             BSTag.FEEDBACK,
             BSTag.PDF,
             BSTag.PDF_LIST,
-            BSTag.CONV
+            BSTag.CONV,
+            BSTag.TRANS
     })
     public @interface BSTag {
         String ROOT = "root";
@@ -112,6 +115,7 @@ public class Appconst {
         String PDF = "pdf";
         String PDF_LIST = "pdf_list";
         String CONV = "conv";
+        String TRANS = "trans";
     }
 
 

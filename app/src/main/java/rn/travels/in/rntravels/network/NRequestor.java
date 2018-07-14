@@ -72,7 +72,11 @@ public class NRequestor {
                         try {
                             switch (INSTANCE.reqTag) {
                                 case NetworkConst.ReqTag.CONV:
-                                    INSTANCE.listener.onSuccessResponse(new ResponseVO(new JSONObject(response)));
+                                case NetworkConst.ReqTag.TRANS_LANG:
+                                case NetworkConst.ReqTag.TRANS:
+                                    ResponseVO responseVO = new ResponseVO(new JSONObject(response));
+                                    responseVO.setRequestTag(INSTANCE.reqTag);
+                                    INSTANCE.listener.onSuccessResponse(responseVO);
                                     break;
                                 default:
                                     INSTANCE.listener.onSuccessResponse(new ResponseVO(new JSONObject(response), INSTANCE.reqTag));
