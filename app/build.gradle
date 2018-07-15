@@ -14,10 +14,10 @@ configurations {
 android {
     signingConfigs {
         config {
-            keyAlias 'key0'
-            keyPassword 'user@1234'
-            storeFile file('/Users/demo/Desktop/rn_cert')
-            storePassword 'user@1234'
+            keyAlias 'rn_travels'
+            keyPassword 'rn@1234'
+            storeFile file('/Users/demo/Desktop/RN/rn_cert')
+            storePassword 'rn@1234'
         }
     }
     compileSdkVersion 27
@@ -55,7 +55,7 @@ dependencies {
     implementation 'com.android.support:cardview-v7:27.1.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
     implementation 'com.google.android.gms:play-services-safetynet:15.0.1'
     implementation 'com.google.android.gms:play-services-base:15.0.1'
     implementation 'com.google.android.gms:play-services-basement:15.0.1'

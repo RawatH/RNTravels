@@ -12,7 +12,7 @@ import java.lang.annotation.RetentionPolicy;
 
 public class NetworkConst {
 
-    public static final String BASE_URL = "http://www.hashcode.co.in/restro/api";
+    public static final String BASE_URL = "http://qzipsolutions.com/travel/api";
     public static final String CONV_URL = "http://free.currencyconverterapi.com/api/v5/convert";
     public static final String TRANS_LANG_URL = "https://translation.googleapis.com/language/translate/v2/languages";
     public static final String TRANS_URL = "https://translation.googleapis.com/language/translate/v2";
