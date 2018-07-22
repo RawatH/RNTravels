@@ -4,12 +4,12 @@
     <item
         android:id="@+id/active"
         android:enabled="true"
-        android:title="@string/active"
+        android:title="@string/ongoing_past"
         app:showAsAction="always|withText" />
     <item
         android:id="@+id/past"
         android:enabled="true"
-        android:title="@string/past"
+        android:title="@string/upcoming"
         app:showAsAction="always|withText" />
     <item
         android:id="@+id/following"

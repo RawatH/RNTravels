@@ -34,6 +34,7 @@ public class PackageVO implements Serializable {
     private String travelDate;
     private String bannerImage;
     private String uploadJson;
+    private boolean isFollowingPkg;
 
     @Ignore
     private ArrayList<PdfVO> ticketsList;
@@ -124,6 +125,14 @@ public class PackageVO implements Serializable {
 
     public void setSubHeading(String subHeading) {
         this.subHeading = subHeading;
+    }
+
+    public boolean isFollowingPkg() {
+        return isFollowingPkg;
+    }
+
+    public void setFollowingPkg(boolean followingPkg) {
+        isFollowingPkg = followingPkg;
     }
 
     public ArrayList<PdfVO> getListByType(String type) {

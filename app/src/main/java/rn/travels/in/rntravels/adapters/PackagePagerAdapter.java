@@ -1,21 +1,31 @@
 package rn.travels.in.rntravels.adapters;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import rn.travels.in.rntravels.R;
 import rn.travels.in.rntravels.database.RNDatabase;
 import rn.travels.in.rntravels.models.PackageVO;
+import rn.travels.in.rntravels.models.UserVO;
+import rn.travels.in.rntravels.ui.activity.RootActivity;
 import rn.travels.in.rntravels.util.Appconst;
 import rn.travels.in.rntravels.util.Util;
 
@@ -58,25 +68,109 @@ public class PackagePagerAdapter extends PagerAdapter implements PackageAdapter.
 
         RecyclerView packageList = view.findViewById(R.id.catalogList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+        LinearLayout followingContainer = view.findViewById(R.id.followingContainer);
+        TextView followingText = view.findViewById(R.id.followingText);
+        Button followingBtn = view.findViewById(R.id.followingBtn);
         packageList.setLayoutManager(layoutManager);
         switch (position) {
             case Appconst.PackageType.RECENT:
-                this.packageList = (ArrayList<PackageVO>) RNDatabase.getInstance(context).getPackageDao().getAll();
+                this.packageList = Util.getPackageFor(Appconst.PackageType.RECENT, RNDatabase.getInstance(context));
                 break;
             case Appconst.PackageType.PAST:
-                this.packageList = new ArrayList<>();
+                this.packageList = Util.getPackageFor(Appconst.PackageType.PAST, RNDatabase.getInstance(context));
                 break;
             case Appconst.PackageType.FOLLOWING:
-                this.packageList = new ArrayList<>();
+                this.packageList = Util.getPackageFor(Appconst.PackageType.FOLLOWING, RNDatabase.getInstance(context));
                 break;
         }
+        //FOLLOWING UI
+        if (position == 2) {
+            followingContainer.setVisibility(View.VISIBLE);
+            if(RNDatabase.getInstance(context).getPackageDao().getFollowingPkg().size() == 0 ){
+                followingText.setText("Following nobody");
+                followingBtn.setText("Follow");
+                followingBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showFollowingDialog();
+                    }
+                });
+            }else {
+                followingText.setText("Following " + RNDatabase.getInstance(context).getUserDao().getFollowedUser().getUserEmail());
+                followingBtn.setText("Stop Following");
+                followingBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        RNDatabase.getInstance(context).getPackageDao().removeFollowingPkg();
+                        RNDatabase.getInstance(context).getUserDao().deleteFollowedUser();
+                        notifyDataSetChanged();
+                    }
+                });
+            }
+        } else {
+            followingContainer.setVisibility(View.GONE);
+        }
+
         if (this.packageList == null || this.packageList.size() == 0) {
-            view.findViewById(R.id.noPakageView).setVisibility(View.VISIBLE);
+            packageList.setVisibility(View.GONE);
         } else {
             packageList.setVisibility(View.VISIBLE);
             PackageAdapter adapter = new PackageAdapter(this.packageList, context, this);
             packageList.setAdapter(adapter);
         }
+
+    }
+
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
+    }
+
+
+    private void showFollowingDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = ((RootActivity) context).getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.follow_login, null);
+        dialogBuilder.setView(dialogView);
+
+        final EditText email = dialogView.findViewById(R.id.following_username);
+        final EditText password = dialogView.findViewById(R.id.following_password);
+
+        dialogBuilder.setTitle("Follow user");
+        dialogBuilder.setMessage("Following user credentials.");
+        dialogBuilder.setPositiveButton("Follow", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+
+                UserVO loggedUser = RNDatabase.getInstance(context).getUserDao().getLoggedUser();
+
+                if (TextUtils.isEmpty(email.getText().toString())) {
+                    Util.t(context, "Please enter email id.");
+                    return;
+                }
+
+                if (loggedUser.getUserEmail().trim().toLowerCase().equalsIgnoreCase(email.getText().toString().trim().toLowerCase())) {
+                    Util.t(context, "You can't follow yourself.");
+                    return;
+                }
+
+                if (TextUtils.isEmpty(password.getText().toString())) {
+                    Util.t(context, "Please enter password.");
+                    return;
+                }
+
+                listener.getFollowingPackages(email.getText().toString(), password.getText().toString());
+            }
+        });
+
+        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+
+            }
+        });
+
+        dialogBuilder.setIcon(R.mipmap.ic_launcher);
+        AlertDialog b = dialogBuilder.create();
+        b.show();
+
     }
 
     @Override
@@ -108,5 +202,6 @@ public class PackagePagerAdapter extends PagerAdapter implements PackageAdapter.
 
     public interface PackageSelectionListener {
         void onPackageSelected(PackageVO packageVO);
+        void getFollowingPackages(String userName, String password);
     }
 }

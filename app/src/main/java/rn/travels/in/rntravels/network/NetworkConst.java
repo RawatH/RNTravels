@@ -52,6 +52,7 @@ public class NetworkConst {
             ReqTag.REGISTER,
             ReqTag.RN_CONTACT_DETAIL,
             ReqTag.PKG_DETAIL,
+            ReqTag.FOLLOWING_PKG_DETAIL,
             ReqTag.PSWD_RESET,
             ReqTag.PROFILE,
             ReqTag.DOWNLOAD,
@@ -73,6 +74,7 @@ public class NetworkConst {
         int FEEDBACK = 8;
         int TRANS_LANG = 9;
         int TRANS = 10;
+        int FOLLOWING_PKG_DETAIL = 11;
     }
 
 

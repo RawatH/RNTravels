@@ -98,7 +98,7 @@ public class FeedbackFragment extends DialogFragment implements View.OnClickList
     public void onSuccessResponse(ResponseVO responseVO) {
         pb.setVisibility(View.GONE);
         if (responseVO.isResponseValid()) {
-            Util.t(getContext(), "Feeback submitted successfully.");
+            Util.t(getContext(), "Thank You for your feedback.");
         }
         dismissAllowingStateLoss();
 

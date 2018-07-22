@@ -242,6 +242,7 @@ public class LoginFragment extends NoToolbarFragment {
             case NetworkConst.ReqTag.LOGIN:
                 if (responseVO.isResponseValid()) {
                     loggingUserVO = new UserVO(responseVO.getResponse());
+                    loggingUserVO.setUserType(Appconst.UserType.LOGGED_USER);
                     if (db.getUserDao().findByName(loggingUserVO.getUserEmail()) == null) {
                         db.getUserDao().insert(loggingUserVO);
                     }

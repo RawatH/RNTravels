@@ -26,6 +26,7 @@ public class UserVO {
     private String userName;
     private String phoneNumber;
     private boolean isFBUser;
+    private int userType;
 
     public UserVO() {
     }
@@ -122,6 +123,14 @@ public class UserVO {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public int getUserType() {
+        return userType;
+    }
+
+    public void setUserType(int userType) {
+        this.userType = userType;
     }
 
     @Override

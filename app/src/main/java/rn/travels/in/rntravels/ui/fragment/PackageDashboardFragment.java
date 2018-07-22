@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.Request;
 import com.android.volley.VolleyError;
 
 import org.json.JSONArray;
@@ -96,7 +97,7 @@ public class PackageDashboardFragment extends DrawerFragment implements ViewPage
 
     private void renderPackage(String userId) {
         ArrayList<PackageVO> packageList = (ArrayList<PackageVO>) db.getPackageDao().getUserPackages(userId);
-        packagePagerAdapter = new PackagePagerAdapter(getContext(), packageList, this);
+        packagePagerAdapter = new PackagePagerAdapter(getActivity(), packageList, this);
         pager.setAdapter(packagePagerAdapter);
         pager.addOnPageChangeListener(this);
     }
@@ -106,6 +107,29 @@ public class PackageDashboardFragment extends DrawerFragment implements ViewPage
         return "My Travel Desk";
     }
 
+    @Override
+    public void getFollowingPackages(String userName, String password) {
+        JSONObject paramObj = new JSONObject();
+        try {
+            paramObj.put("email", userName);
+            paramObj.put("password", password);
+            new NRequestor.RequestBuilder(ctx)
+                    .setReqType(Request.Method.POST)
+                    .setUrl(Util.getUrlFor(NetworkConst.ReqTag.LOGIN))
+                    .setListener(this)
+                    .setReqVolleyType(NetworkConst.VolleyReq.STRING)
+                    .setReqParams(paramObj)
+                    .setReqTag(NetworkConst.ReqTag.LOGIN)
+                    .build()
+                    .sendRequest();
+            showProgress("Authenticating... ");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 
     @Override
     public void onPackageSelected(PackageVO packageVO) {
@@ -117,8 +141,38 @@ public class PackageDashboardFragment extends DrawerFragment implements ViewPage
     public void onSuccessResponse(ResponseVO responseVO) {
         dismissProgress();
         switch (responseVO.getRequestTag()) {
-            case NetworkConst.ReqTag.PKG_DETAIL:
 
+            case NetworkConst.ReqTag.LOGIN:
+                if (!responseVO.isResponseValid()) {
+                    Util.t(ctx, "User doesn't exists.");
+                    return;
+                }
+                showProgress("Fetching packages...");
+                UserVO followingUserVO = new UserVO(responseVO.getResponse());
+                followingUserVO.setUserType(Appconst.UserType.FOLLOWED_USER);
+                db.getUserDao().insert(followingUserVO);
+                JSONObject paramObj = new JSONObject();
+                try {
+                    paramObj.put("user_id", followingUserVO.getUserId());
+                    new NRequestor.RequestBuilder(ctx)
+                            .setReqType(Request.Method.POST)
+                            .setUrl(Util.getUrlFor(NetworkConst.ReqTag.PKG_DETAIL))
+                            .setListener(this)
+                            .setReqVolleyType(NetworkConst.VolleyReq.STRING)
+                            .setReqParams(paramObj)
+                            .setReqTag(NetworkConst.ReqTag.FOLLOWING_PKG_DETAIL)
+                            .build()
+                            .sendRequest();
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                break;
+            case NetworkConst.ReqTag.PKG_DETAIL:
+            case NetworkConst.ReqTag.FOLLOWING_PKG_DETAIL:
+                dismissProgress();
                 UserVO userVO = RNDatabase.getInstance(ctx).getUserDao().getLoggedUser();
                 PackageVO packageVO;
                 try {
@@ -136,6 +190,11 @@ public class PackageDashboardFragment extends DrawerFragment implements ViewPage
                         JSONArray arr = responseVO.getResponseArr();
                         for (int idx = 0; idx < arr.length(); idx++) {
                             packageVO = new PackageVO(userVO.getUserId(), (JSONObject) responseVO.getResponseArr().get(idx));
+                            if (responseVO.getRequestTag() == NetworkConst.ReqTag.FOLLOWING_PKG_DETAIL) {
+                                packageVO.setFollowingPkg(true);
+                            } else {
+                                packageVO.setFollowingPkg(false);
+                            }
                             PackageVO dbPkg = db.getPackageDao().getPkgById(packageVO.getPkgId());
                             if (dbPkg == null) {
                                 db.getPackageDao().insert(packageVO);
@@ -147,7 +206,11 @@ public class PackageDashboardFragment extends DrawerFragment implements ViewPage
                         }
                     }
 
-                    renderPackage(userVO.getUserId());
+                    if (responseVO.getRequestTag() == NetworkConst.ReqTag.FOLLOWING_PKG_DETAIL) {
+                        packagePagerAdapter.notifyDataSetChanged();
+                    } else {
+                        renderPackage(userVO.getUserId());
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();

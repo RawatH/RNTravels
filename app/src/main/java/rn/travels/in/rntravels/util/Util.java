@@ -11,6 +11,7 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.util.Base64;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
@@ -39,6 +40,7 @@ import java.util.Set;
 import java.util.StringTokenizer;
 
 import rn.travels.in.rntravels.R;
+import rn.travels.in.rntravels.database.RNDatabase;
 import rn.travels.in.rntravels.models.DayVO;
 import rn.travels.in.rntravels.models.DrawerItemVO;
 import rn.travels.in.rntravels.models.PackageVO;
@@ -354,5 +356,46 @@ public class Util {
         }
 
         return key;
+    }
+
+    public static ArrayList<PackageVO> getPackageFor(int pkgType, RNDatabase db) {
+
+        ArrayList<PackageVO> filteredList = new ArrayList<>();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        Date currentDate = new Date();
+        ArrayList<PackageVO> pkgList = (ArrayList<PackageVO>) db.getPackageDao().getAll();
+
+        for (PackageVO pkgVO : pkgList) {
+
+            try {
+                Date pkgDate = sdf.parse(pkgVO.getTravelDate());
+                switch (pkgType) {
+                    case Appconst.PackageType.RECENT:
+                        if (!pkgVO.isFollowingPkg() && (pkgDate.compareTo(currentDate) == 0 || pkgDate.compareTo(currentDate) > 0)) {
+                            filteredList.add(pkgVO);
+                        }
+                        break;
+                    case Appconst.PackageType.PAST:
+                        if (!pkgVO.isFollowingPkg() && pkgDate.compareTo(currentDate) < 0 ) {
+                            filteredList.add(pkgVO);
+                        }
+                        break;
+
+                    case Appconst.PackageType.FOLLOWING:
+
+                        if (pkgVO.isFollowingPkg() && (pkgDate.compareTo(currentDate) > 0 || pkgDate.compareTo(currentDate) == 0 ) ) {
+                            filteredList.add(pkgVO);
+                        }
+                        break;
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        return filteredList;
     }
 }

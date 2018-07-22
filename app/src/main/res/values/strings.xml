@@ -13,9 +13,9 @@
     <string name="sign_up"> Not a RN user?  Sign up</string>
     <string name="firstname">First Name </string>
     <string name="lastname">Last Name </string>
-    <string name="active">ACTIVE</string>
-    <string name="past">PAST</string>
-    <string name="following">FOLLOWING</string>
+    <string name="upcoming">Past</string>
+    <string name="ongoing_past">Active</string>
+    <string name="following">Following</string>
 
     <string name="rn_corporate_address">F-11, A/K-316, First Floor,\nMB Road, Lado Sarai,\nNew Delhi -110030, INDIA</string>
     <string name="itinerary">Trip Itinerary</string>

@@ -146,4 +146,15 @@ public class Appconst {
 
     }
 
+    @Retention(RetentionPolicy.SOURCE)
+    @IntDef({UserType.LOGGED_USER,
+            UserType.FOLLOWED_USER
+    })
+    public @interface UserType {
+
+        int LOGGED_USER = 0;
+        int FOLLOWED_USER = 1;
+
+    }
+
 }

@@ -18,6 +18,9 @@ public interface UserDao {
     @Query("SELECT * FROM USER LIMIT 1")
     UserVO getLoggedUser();
 
+    @Query("SELECT * FROM USER WHERE userType = 1")
+    UserVO getFollowedUser();
+
     @Query("SELECT * FROM USER WHERE userEmail LIKE :email  LIMIT 1")
     UserVO findByName(String email);
 
@@ -26,4 +29,7 @@ public interface UserDao {
 
     @Query("Delete FROM USER")
     void deleteUser();
+
+    @Query("Delete FROM USER WHERE userType = 1")
+    void deleteFollowedUser();
 }

@@ -26,6 +26,12 @@ public interface PackageDao {
     @Query("SELECT * FROM PACKAGE where pkgId =:pkgId")
     PackageVO getPkgById(String pkgId);
 
+    @Query("SELECT * FROM PACKAGE where isFollowingPkg = 1")
+    List<PackageVO> getFollowingPkg();
+
+    @Query("DELETE FROM PACKAGE where isFollowingPkg = 1")
+    void removeFollowingPkg();
+
     @Query("DELETE  FROM PACKAGE where pkgId =:pkgId")
     void deletePkgByPkgId(String pkgId);
 
