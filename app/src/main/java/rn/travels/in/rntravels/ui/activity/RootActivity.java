@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.facebook.login.LoginManager;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.io.File;
 
@@ -50,6 +51,7 @@ public class RootActivity extends AppCompatActivity implements BaseFragment.Frag
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.root_act);
+        FirebaseInstanceId.getInstance().getInstanceId();
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
         mDrawerLayout = findViewById(R.id.drawer_layout);
