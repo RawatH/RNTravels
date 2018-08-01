@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,12 +44,16 @@ public class PackageDashboardFragment extends DrawerFragment implements ViewPage
     private PackagePagerAdapter packagePagerAdapter;
     private BottomNavigationView bottomNavigationView;
     private View rootView;
+    private boolean isNotificationIntent;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (rootView == null) {
             View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
+            if (getArguments() != null) {
+                isNotificationIntent = getArguments().getBoolean("notificationIntent", false);
+            }
             init(view);
             rootView = view;
         }
@@ -82,7 +87,8 @@ public class PackageDashboardFragment extends DrawerFragment implements ViewPage
 
     private void loadPackage() {
         UserVO userVO = db.getUserDao().getLoggedUser();
-        if (Util.hasConnectivity(ctx)) {
+
+        if (Util.hasConnectivity(ctx) && isNotificationIntent) {
             NRequestor nRequestor = NWReqUtility.getPackageReq(ctx, this, userVO.getUserId());
 
             if (nRequestor != null) {
@@ -131,6 +137,32 @@ public class PackageDashboardFragment extends DrawerFragment implements ViewPage
 
     }
 
+
+    private String pkgIdToDelete;
+
+    public void deletePackage(String packageId) {
+
+        JSONObject paramObj = new JSONObject();
+        try {
+            pkgIdToDelete = packageId;
+            paramObj.put("pkg_id", packageId);
+            paramObj.put("usr_id", RNDatabase.getInstance(ctx).getUserDao().getLoggedUser().getUserId());
+            showProgress("Deleting package. ");
+            new NRequestor.RequestBuilder(ctx)
+                    .setReqType(Request.Method.POST)
+                    .setUrl(Util.getUrlFor(NetworkConst.ReqTag.DEL_PKG))
+                    .setListener(this)
+                    .setReqVolleyType(NetworkConst.VolleyReq.STRING)
+                    .setReqParams(paramObj)
+                    .setReqTag(NetworkConst.ReqTag.DEL_PKG)
+                    .build()
+                    .sendRequest();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void onPackageSelected(PackageVO packageVO) {
         PackageManager.getInstance().setSelectedPackage(packageVO);
@@ -142,6 +174,14 @@ public class PackageDashboardFragment extends DrawerFragment implements ViewPage
         dismissProgress();
         switch (responseVO.getRequestTag()) {
 
+            case NetworkConst.ReqTag.DEL_PKG:
+                RNDatabase.getInstance(ctx).getPackageDao().deletePkgByPkgId(pkgIdToDelete);
+                File fileToDelete = new File(ctx.getFilesDir() + File.separator +
+                        RNDatabase.getInstance(ctx).getUserDao().getLoggedUser().getUserId() +
+                        File.separator + pkgIdToDelete);
+                fileToDelete.delete();
+                packagePagerAdapter.notifyDataSetChanged();
+                break;
             case NetworkConst.ReqTag.LOGIN:
                 if (!responseVO.isResponseValid()) {
                     Util.t(ctx, "User doesn't exists.");
@@ -223,6 +263,7 @@ public class PackageDashboardFragment extends DrawerFragment implements ViewPage
     @Override
     public void onErrorResponse(VolleyError error) {
         super.onErrorResponse(error);
+        dismissProgress();
     }
 
     //Page selection listener

@@ -6,9 +6,11 @@ import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -90,8 +92,38 @@ public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 communicator.onPackageSelected(packageVO);
             }
         });
+
+
+        if(packageVO.isFollowingPkg()){
+            pkgViewHolder.getDelPackage().setVisibility(View.GONE);
+        }else {
+            pkgViewHolder.getDelPackage().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    deletePackage(packageVO.getPkgId(), v);
+                }
+            });
+        }
     }
 
+
+    private void deletePackage(final String pkgId , View view){
+        //Creating the instance of PopupMenu
+        PopupMenu popup = new PopupMenu(context, view);
+        //Inflating the Popup using xml file
+        popup.getMenuInflater().inflate(R.menu.delete_menu, popup.getMenu());
+
+        //registering popup with OnMenuItemClickListener
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item) {
+                communicator.deletePackage(pkgId);
+                return true;
+            }
+        });
+
+        popup.show();//showing popup menu
+
+    }
 
     @Override
     public int getItemCount() {
@@ -103,12 +135,14 @@ public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private ImageView pkgBanner;
         private TextView pkgNameView;
         private TextView pkgSubHeading;
+        private ImageView delPackage;
 
         public PkgViewHolder(View view) {
             super(view);
             pkgBanner = view.findViewById(R.id.packageBanner);
             pkgNameView = view.findViewById(R.id.packageName);
             pkgSubHeading = view.findViewById(R.id.packageDate);
+            delPackage = view.findViewById(R.id.deletePkg);
         }
 
         public ImageView getPkgBanner() {
@@ -122,9 +156,15 @@ public class PackageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         public TextView getPkgSubHeading() {
             return pkgSubHeading;
         }
+
+        public ImageView getDelPackage() {
+            return delPackage;
+        }
     }
 
     public interface PagerCommunicator {
         void onPackageSelected(PackageVO packageVO);
+        void deletePackage(String packageId);
+
     }
 }

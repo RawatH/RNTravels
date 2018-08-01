@@ -68,7 +68,7 @@
     import com.facebook.appevents.AppEventsLogger;-->
 
     <string name="already_reg">This email account is already associated with one of the registered account with Us, Please use another email account or contact us.</string>
-
+    <string name="forgotPassword">Forgot password</string>
 
 
 </resources>

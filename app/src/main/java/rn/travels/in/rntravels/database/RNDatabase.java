@@ -8,8 +8,10 @@ import android.arch.persistence.room.migration.Migration;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import rn.travels.in.rntravels.database.dao.NotificationDao;
 import rn.travels.in.rntravels.database.dao.PackageDao;
 import rn.travels.in.rntravels.database.dao.UserDao;
+import rn.travels.in.rntravels.models.NotificationVO;
 import rn.travels.in.rntravels.models.PackageVO;
 import rn.travels.in.rntravels.models.UserVO;
 
@@ -17,7 +19,7 @@ import rn.travels.in.rntravels.models.UserVO;
  * Created by demo on 22/04/18.
  */
 
-@Database(entities = {UserVO.class, PackageVO.class}, version = 3, exportSchema = false)
+@Database(entities = {UserVO.class, PackageVO.class , NotificationVO.class}, version = 3, exportSchema = false)
 public abstract class RNDatabase extends RoomDatabase {
     private static final String DB_NAME = "rnDb.db";
     private static volatile RNDatabase instance;
@@ -51,4 +53,6 @@ public abstract class RNDatabase extends RoomDatabase {
     public abstract UserDao getUserDao();
 
     public abstract PackageDao getPackageDao();
+
+    public abstract NotificationDao getNotificationDao();
 }

@@ -25,7 +25,9 @@ public class NetworkConst {
             Endpoints.LOGIN,
             Endpoints.PROFILE,
             Endpoints.CONVERT,
-            Endpoints.FEEDBACK
+            Endpoints.FEEDBACK,
+            Endpoints.DEL_PKG,
+            Endpoints.FORGET_PASSWORD
     })
     public @interface Endpoints {
         String RN_CONTACT_DETAIL = "/getRnContactDetails";
@@ -36,6 +38,8 @@ public class NetworkConst {
         String PROFILE = "/getClientDetails";
         String CONVERT = "/convert";
         String FEEDBACK = "/addFeedBack";
+        String DEL_PKG = "/deletePackage";
+        String FORGET_PASSWORD = "/sendEmail";
     }
 
     @Retention(RetentionPolicy.SOURCE)
@@ -59,7 +63,9 @@ public class NetworkConst {
             ReqTag.CONV,
             ReqTag.FEEDBACK,
             ReqTag.TRANS_LANG,
-            ReqTag.TRANS
+            ReqTag.TRANS,
+            ReqTag.DEL_PKG,
+            ReqTag.FORGET_PASSWORD
     })
     public @interface ReqTag {
 
@@ -75,6 +81,8 @@ public class NetworkConst {
         int TRANS_LANG = 9;
         int TRANS = 10;
         int FOLLOWING_PKG_DETAIL = 11;
+        int DEL_PKG = 12;
+        int FORGET_PASSWORD = 13;
     }
 
 
@@ -86,7 +94,6 @@ public class NetworkConst {
 
         int STRING = 0;
         int BYTE = 1;
-
     }
 
 }

@@ -11,12 +11,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -38,6 +41,7 @@ public class PackagePagerAdapter extends PagerAdapter implements PackageAdapter.
     private ArrayList<PackageVO> packageList;
     private ArrayList<String> headerList;
     private PackageSelectionListener listener;
+    private RecyclerView.Adapter deletingAdapter;
 
     public PackagePagerAdapter(Context context, ArrayList<PackageVO> dataList, PackageSelectionListener listener) {
         this.context = context;
@@ -64,14 +68,14 @@ public class PackagePagerAdapter extends PagerAdapter implements PackageAdapter.
         return view;
     }
 
-    private void init(View view, int position) {
+    private void init(View view, final int position) {
 
-        RecyclerView packageList = view.findViewById(R.id.catalogList);
+        final RecyclerView list = view.findViewById(R.id.catalogList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         LinearLayout followingContainer = view.findViewById(R.id.followingContainer);
         TextView followingText = view.findViewById(R.id.followingText);
         Button followingBtn = view.findViewById(R.id.followingBtn);
-        packageList.setLayoutManager(layoutManager);
+        list.setLayoutManager(layoutManager);
         switch (position) {
             case Appconst.PackageType.RECENT:
                 this.packageList = Util.getPackageFor(Appconst.PackageType.RECENT, RNDatabase.getInstance(context));
@@ -83,10 +87,11 @@ public class PackagePagerAdapter extends PagerAdapter implements PackageAdapter.
                 this.packageList = Util.getPackageFor(Appconst.PackageType.FOLLOWING, RNDatabase.getInstance(context));
                 break;
         }
+
         //FOLLOWING UI
         if (position == 2) {
             followingContainer.setVisibility(View.VISIBLE);
-            if(RNDatabase.getInstance(context).getPackageDao().getFollowingPkg().size() == 0 ){
+            if (RNDatabase.getInstance(context).getPackageDao().getFollowingPkg().size() == 0) {
                 followingText.setText("Following nobody");
                 followingBtn.setText("Follow");
                 followingBtn.setOnClickListener(new View.OnClickListener() {
@@ -95,7 +100,7 @@ public class PackagePagerAdapter extends PagerAdapter implements PackageAdapter.
                         showFollowingDialog();
                     }
                 });
-            }else {
+            } else {
                 followingText.setText("Following " + RNDatabase.getInstance(context).getUserDao().getFollowedUser().getUserEmail());
                 followingBtn.setText("Stop Following");
                 followingBtn.setOnClickListener(new View.OnClickListener() {
@@ -112,11 +117,11 @@ public class PackagePagerAdapter extends PagerAdapter implements PackageAdapter.
         }
 
         if (this.packageList == null || this.packageList.size() == 0) {
-            packageList.setVisibility(View.GONE);
+            list.setVisibility(View.GONE);
         } else {
-            packageList.setVisibility(View.VISIBLE);
+            list.setVisibility(View.VISIBLE);
             PackageAdapter adapter = new PackageAdapter(this.packageList, context, this);
-            packageList.setAdapter(adapter);
+            list.setAdapter(adapter);
         }
 
     }
@@ -195,13 +200,21 @@ public class PackagePagerAdapter extends PagerAdapter implements PackageAdapter.
         return title;
     }
 
+    public void deletePackage(String packageId) {
+        listener.deletePackage(packageId);
+    }
+
     @Override
     public void onPackageSelected(PackageVO packageVO) {
         listener.onPackageSelected(packageVO);
     }
 
+
     public interface PackageSelectionListener {
         void onPackageSelected(PackageVO packageVO);
+
         void getFollowingPackages(String userName, String password);
+
+        void deletePackage(String packageId);
     }
 }

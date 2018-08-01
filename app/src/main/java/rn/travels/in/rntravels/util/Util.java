@@ -2,6 +2,7 @@ package rn.travels.in.rntravels.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -82,27 +83,25 @@ public class Util {
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-    public static ArrayList<String> getAllCurrCodes()
-    {
+    public static ArrayList<String> getAllCurrCodes() {
         Set<Currency> toret = new HashSet<Currency>();
         Locale[] locs = Locale.getAvailableLocales();
 
-        for(Locale loc : locs) {
+        for (Locale loc : locs) {
             try {
-                Currency currency = Currency.getInstance( loc );
+                Currency currency = Currency.getInstance(loc);
 
-                if ( currency != null ) {
-                    toret.add( currency );
+                if (currency != null) {
+                    toret.add(currency);
                 }
-            } catch(Exception exc)
-            {
+            } catch (Exception exc) {
                 // Locale not found
             }
         }
 
         ArrayList<String> currList = new ArrayList<>();
         Iterator<Currency> itr = toret.iterator();
-        while (itr.hasNext()){
+        while (itr.hasNext()) {
             Currency curr = itr.next();
             currList.add(curr.getCurrencyCode());
         }
@@ -216,6 +215,12 @@ public class Util {
             case NetworkConst.ReqTag.FEEDBACK:
                 url += NetworkConst.Endpoints.FEEDBACK;
                 break;
+            case NetworkConst.ReqTag.DEL_PKG:
+                url += NetworkConst.Endpoints.DEL_PKG;
+                break;
+            case NetworkConst.ReqTag.FORGET_PASSWORD:
+                url += NetworkConst.Endpoints.FORGET_PASSWORD;
+                break;
 
         }
 
@@ -286,7 +291,7 @@ public class Util {
         }
     }
 
-    public static void createUserRootFolder(File file){
+    public static void createUserRootFolder(File file) {
         if (!file.exists()) {
             file.mkdir();
         }
@@ -299,7 +304,7 @@ public class Util {
 
 
     private static void eraseStructure(File rootFile) {
-        if(rootFile.isDirectory()) {
+        if (rootFile.isDirectory()) {
             for (File child : rootFile.listFiles()) {
                 eraseStructure(child);
             }
@@ -309,22 +314,22 @@ public class Util {
 
 
     public static void deleteUserData(File f) {
-        if(f.exists()) {
+        if (f.exists()) {
             eraseStructure(f);
         }
     }
 
     public static ArrayList<String> getDaySnippet(String itineary_details) {
         ArrayList<String> snippetList = new ArrayList<>();
-        StringTokenizer st = new StringTokenizer(itineary_details , "@@@");
-        while (st.hasMoreTokens()){
+        StringTokenizer st = new StringTokenizer(itineary_details, "@@@");
+        while (st.hasMoreTokens()) {
             snippetList.add(st.nextToken());
         }
         return snippetList;
     }
 
-    public static boolean hasConnectivity(Context context){
-        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+    public static boolean hasConnectivity(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
@@ -378,14 +383,14 @@ public class Util {
                         }
                         break;
                     case Appconst.PackageType.PAST:
-                        if (!pkgVO.isFollowingPkg() && pkgDate.compareTo(currentDate) < 0 ) {
+                        if (!pkgVO.isFollowingPkg() && pkgDate.compareTo(currentDate) < 0) {
                             filteredList.add(pkgVO);
                         }
                         break;
 
                     case Appconst.PackageType.FOLLOWING:
 
-                        if (pkgVO.isFollowingPkg() && (pkgDate.compareTo(currentDate) > 0 || pkgDate.compareTo(currentDate) == 0 ) ) {
+                        if (pkgVO.isFollowingPkg() && (pkgDate.compareTo(currentDate) > 0 || pkgDate.compareTo(currentDate) == 0)) {
                             filteredList.add(pkgVO);
                         }
                         break;
@@ -397,5 +402,26 @@ public class Util {
         }
 
         return filteredList;
+    }
+
+    public static void initNotificationSetting(Context context){
+        SharedPreferences pref = context.getSharedPreferences("notif_pref", 0);
+        boolean val = pref.getBoolean("isNotifEnabled",true);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putBoolean("isNotifEnabled", val);
+        editor.commit();
+    }
+
+    public static boolean isNotificationEnabled(Context context){
+        SharedPreferences pref = context.getSharedPreferences("notif_pref", 0);
+        return pref.getBoolean("isNotifEnabled",true);
+    }
+
+    public static void updateNotifSetting(Context context , boolean val){
+        SharedPreferences pref = context.getSharedPreferences("notif_pref", 0);
+        pref.getBoolean("isNotifEnabled",true);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putBoolean("isNotifEnabled", val);
+        editor.commit();
     }
 }

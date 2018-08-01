@@ -3,6 +3,8 @@ package rn.travels.in.rntravels.util;
 import android.support.annotation.IntDef;
 import android.support.annotation.StringDef;
 
+import com.facebook.AccessToken;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.Currency;
@@ -12,6 +14,8 @@ import java.util.Currency;
  */
 
 public class Appconst {
+
+    public static AccessToken FB_TOKEN;
 
     //FRAGMENTS TAG
 
@@ -155,6 +159,13 @@ public class Appconst {
         int LOGGED_USER = 0;
         int FOLLOWED_USER = 1;
 
+    }
+
+    @Retention(RetentionPolicy.SOURCE)
+    @StringDef({MessageEvent.NOTIFICATION_RECEIVED
+    })
+    public @interface MessageEvent {
+        String NOTIFICATION_RECEIVED = "notification";
     }
 
 }

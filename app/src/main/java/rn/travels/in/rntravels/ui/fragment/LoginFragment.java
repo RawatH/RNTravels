@@ -1,9 +1,12 @@
 package rn.travels.in.rntravels.ui.fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,11 +34,13 @@ import org.json.JSONObject;
 import java.util.Arrays;
 
 import rn.travels.in.rntravels.R;
+import rn.travels.in.rntravels.database.RNDatabase;
 import rn.travels.in.rntravels.models.PackageVO;
 import rn.travels.in.rntravels.models.ResponseVO;
 import rn.travels.in.rntravels.models.UserVO;
 import rn.travels.in.rntravels.network.NRequestor;
 import rn.travels.in.rntravels.network.NetworkConst;
+import rn.travels.in.rntravels.ui.activity.RootActivity;
 import rn.travels.in.rntravels.util.Appconst;
 import rn.travels.in.rntravels.util.NWReqUtility;
 import rn.travels.in.rntravels.util.Util;
@@ -49,6 +54,7 @@ public class LoginFragment extends NoToolbarFragment {
     private FloatingActionButton loginBtn;
     private LoginButton fbLoginButton;
     private TextView signupBtn;
+    private TextView forgotPassword;
     private EditText userName;
     private EditText password;
     private UserVO loggingUserVO;
@@ -59,8 +65,7 @@ public class LoginFragment extends NoToolbarFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-
-        boolean loggedIn = AccessToken.getCurrentAccessToken() == null;
+//        boolean loggedIn = AccessToken.getCurrentAccessToken() == null;
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         init(view);
         return view;
@@ -68,6 +73,8 @@ public class LoginFragment extends NoToolbarFragment {
 
     private void init(View view) {
 
+        forgotPassword = view.findViewById(R.id.forgotPassword);
+        forgotPassword.setOnClickListener(this);
         userName = view.findViewById(R.id.username);
         password = view.findViewById(R.id.password);
 
@@ -109,6 +116,7 @@ public class LoginFragment extends NoToolbarFragment {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         // App code
+                        Appconst.FB_TOKEN = loginResult.getAccessToken();
                         Log.d("login_fb", "LoginManager login result");
                         GraphRequest request = GraphRequest.newMeRequest(
                                 loginResult.getAccessToken(),
@@ -140,8 +148,8 @@ public class LoginFragment extends NoToolbarFragment {
                     public void onError(FacebookException exception) {
                         // App code
                         Log.d("login_fb", "LoginManager exception");
-                        if(exception.getMessage().startsWith("CONNECTION_FAILURE")){
-                            Util.t(ctx , "Internet connection off.");
+                        if (exception.getMessage().startsWith("CONNECTION_FAILURE")) {
+                            Util.t(ctx, "Internet connection off.");
                         }
                     }
                 });
@@ -202,6 +210,58 @@ public class LoginFragment extends NoToolbarFragment {
     public void onClick(View v) {
 
         switch (v.getId()) {
+            case R.id.forgotPassword:
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ctx);
+                LayoutInflater inflater = ((RootActivity) ctx).getLayoutInflater();
+                final View dialogView = inflater.inflate(R.layout.request_password, null);
+                dialogBuilder.setView(dialogView);
+                final EditText email = dialogView.findViewById(R.id.req_email);
+
+                dialogBuilder.setTitle("Request password");
+                dialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+
+                        UserVO loggedUser = RNDatabase.getInstance(ctx).getUserDao().getLoggedUser();
+
+                        if (TextUtils.isEmpty(email.getText().toString())) {
+                            Util.t(ctx, "Please enter email id.");
+                            return;
+                        }
+
+                        JSONObject paramObj = new JSONObject();
+                        try {
+                            paramObj.put("email", userName.getText().toString().trim());
+                            paramObj.put("user_id", "");
+                            new NRequestor.RequestBuilder(ctx)
+                                    .setReqType(Request.Method.POST)
+                                    .setUrl(Util.getUrlFor(NetworkConst.ReqTag.FORGET_PASSWORD))
+                                    .setListener(LoginFragment.this)
+                                    .setReqVolleyType(NetworkConst.VolleyReq.STRING)
+                                    .setReqParams(paramObj)
+                                    .setReqTag(NetworkConst.ReqTag.FORGET_PASSWORD)
+                                    .build()
+                                    .sendRequest();
+                            showProgress("Requesting password... ");
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
+
+                dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+
+                    }
+                });
+
+                dialogBuilder.setIcon(R.mipmap.ic_launcher);
+                AlertDialog b = dialogBuilder.create();
+                b.show();
+
+                break;
+
             case R.id.login:
                 if (validateData()) {
                     JSONObject paramObj = new JSONObject();

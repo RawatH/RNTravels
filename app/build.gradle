@@ -45,6 +45,8 @@ android {
 
 dependencies {
     implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
+    implementation 'com.facebook.android:facebook-share:[4,5)'
+
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.intellij:annotations:+@jar'
     implementation 'com.android.support:appcompat-v7:27.1.1'
@@ -65,15 +67,17 @@ dependencies {
     //Volley
     implementation 'com.android.volley:volley:1.1.0'
     //ROOM API
-    implementation 'android.arch.persistence.room:runtime:1.1.0'
-    annotationProcessor "android.arch.persistence.room:compiler:1.1.0"
+    implementation 'android.arch.persistence.room:runtime:1.1.1'
+    annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
     //Glide
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     //Google translate
-    implementation 'com.google.cloud:google-cloud-translate:1.31.0'
+    implementation 'com.google.cloud:google-cloud-translate:1.35.0'
 
     implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation 'com.google.firebase:firebase-messaging:17.1.0'
+
+    implementation 'org.greenrobot:eventbus:3.1.1'
 }
 
 // ADD THIS AT THE BOTTOM
