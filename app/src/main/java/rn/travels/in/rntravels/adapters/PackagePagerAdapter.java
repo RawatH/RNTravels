@@ -41,7 +41,6 @@ public class PackagePagerAdapter extends PagerAdapter implements PackageAdapter.
     private ArrayList<PackageVO> packageList;
     private ArrayList<String> headerList;
     private PackageSelectionListener listener;
-    private RecyclerView.Adapter deletingAdapter;
 
     public PackagePagerAdapter(Context context, ArrayList<PackageVO> dataList, PackageSelectionListener listener) {
         this.context = context;

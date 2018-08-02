@@ -30,7 +30,7 @@ public class FCMReceiver extends FirebaseMessagingService {
     @Override
     public void onNewToken(String s) {
         super.onNewToken(s);
-        Log.d(TAG, "Token: " + s);
+        Log.d("Token",  s);
         //TODO : SEND TOKEN TO APP SERVER
     }
 
@@ -41,18 +41,20 @@ public class FCMReceiver extends FirebaseMessagingService {
             NotificationVO notificationVO = RNDatabase.getInstance(getBaseContext()).getNotificationDao().getNotification();
             RNDatabase.getInstance(getBaseContext()).getNotificationDao().updateCount(notificationVO.getCount() + 1);
             EventBus.getDefault().post(new MessageEvent(Appconst.MessageEvent.NOTIFICATION_RECEIVED));
-            createNotification(remoteMessage);
+            try {
+                createNotification(remoteMessage);
+            }catch (NullPointerException npe){
+
+            }
         }
     }
 
-    private void createNotification(RemoteMessage remoteMessage) {
+    private void createNotification(RemoteMessage remoteMessage)throws NullPointerException {
         createNotificationChannel();
 
         // Create an explicit intent for an Activity in your app
-        Intent intent = new Intent(this, RootActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        intent.putExtra("notification", true);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, Util.getNotificationIntent(this), 0);
 
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)

@@ -90,12 +90,9 @@ public class RootActivity extends AppCompatActivity implements View.OnClickListe
         loadFragment(Appconst.FragmentId.SPLASH, null, null);
 
 
-        final boolean intentViaNotification = getIntent().getBooleanExtra("notification", false);
-        if (intentViaNotification) {
-            //TODO : Reset notification count
-            RNDatabase.getInstance(this).getNotificationDao().clearNotificationCount();
-            cancelNotification();
-        }
+        //TODO : Reset notification count
+        RNDatabase.getInstance(this).getNotificationDao().clearNotificationCount();
+        cancelNotification();
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -105,7 +102,6 @@ public class RootActivity extends AppCompatActivity implements View.OnClickListe
                     loadFragment(Appconst.FragmentId.LOGIN, null, null);
                 } else {
                     Bundle bundle = new Bundle();
-                    bundle.putBoolean("notificationIntent",intentViaNotification);
                     loadFragment(Appconst.FragmentId.DASHBOARD, bundle, null);
                 }
             }
@@ -313,10 +309,8 @@ public class RootActivity extends AppCompatActivity implements View.OnClickListe
                 if (notificationCounter.getVisibility() == View.VISIBLE) {
                     RNDatabase.getInstance(this).getNotificationDao().clearNotificationCount();
                     updateNoticationUI();
-                    Intent intent = new Intent(this, RootActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    intent.putExtra("notification", true);
-                    startActivity(intent);
+
+                    startActivity(Util.getNotificationIntent(this));
                     finish();
                 }
                 break;
@@ -324,7 +318,6 @@ public class RootActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void cancelNotification() {
-
         NotificationManager nMgr = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         nMgr.cancel(1);
     }

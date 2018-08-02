@@ -44,16 +44,12 @@ public class PackageDashboardFragment extends DrawerFragment implements ViewPage
     private PackagePagerAdapter packagePagerAdapter;
     private BottomNavigationView bottomNavigationView;
     private View rootView;
-    private boolean isNotificationIntent;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (rootView == null) {
             View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
-            if (getArguments() != null) {
-                isNotificationIntent = getArguments().getBoolean("notificationIntent", false);
-            }
             init(view);
             rootView = view;
         }
@@ -88,7 +84,7 @@ public class PackageDashboardFragment extends DrawerFragment implements ViewPage
     private void loadPackage() {
         UserVO userVO = db.getUserDao().getLoggedUser();
 
-        if (Util.hasConnectivity(ctx) && isNotificationIntent) {
+        if (Util.hasConnectivity(ctx)) {
             NRequestor nRequestor = NWReqUtility.getPackageReq(ctx, this, userVO.getUserId());
 
             if (nRequestor != null) {

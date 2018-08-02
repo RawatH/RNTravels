@@ -2,6 +2,7 @@ package rn.travels.in.rntravels.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -46,6 +47,7 @@ import rn.travels.in.rntravels.models.DayVO;
 import rn.travels.in.rntravels.models.DrawerItemVO;
 import rn.travels.in.rntravels.models.PackageVO;
 import rn.travels.in.rntravels.network.NetworkConst;
+import rn.travels.in.rntravels.ui.activity.RootActivity;
 
 /**
  * Created by demo on 16/02/18.
@@ -423,5 +425,12 @@ public class Util {
         SharedPreferences.Editor editor = pref.edit();
         editor.putBoolean("isNotifEnabled", val);
         editor.commit();
+    }
+
+    public static Intent getNotificationIntent(Context context){
+        Intent intent = new Intent(context, RootActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.putExtra("notification", true);
+        return intent;
     }
 }
