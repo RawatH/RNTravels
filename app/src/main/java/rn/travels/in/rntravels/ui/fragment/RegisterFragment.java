@@ -83,6 +83,7 @@ public class RegisterFragment extends BaseFragment {
                         paramObj.put("last_name", lastName.getText().toString().trim());
 
                         paramObj.put("fb_id", "");
+                        paramObj.put("fcm_key", db.getPushDao().getPushSetting().getPushRegToken());
                         paramObj.put("number", phonenumber.getText().toString().trim());
                         paramObj.put("password", password.getText().toString().trim());
                         paramObj.put("user_name", userName.getText().toString().trim());

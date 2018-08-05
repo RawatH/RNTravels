@@ -170,6 +170,7 @@ public class LoginFragment extends NoToolbarFragment {
             paramObj.put("last_name", responseObj.optString("last_name"));
             paramObj.put("user_name", responseObj.optString("name"));
             paramObj.put("email", responseObj.optString("email"));
+            paramObj.put("fcm_key", db.getPushDao().getPushSetting().getPushRegToken());
 
             loggingUserVO = new UserVO();
             loggingUserVO.setFbId(paramObj.optString("fb_id"));

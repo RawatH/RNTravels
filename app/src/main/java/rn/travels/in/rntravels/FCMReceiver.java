@@ -17,6 +17,7 @@ import org.greenrobot.eventbus.EventBus;
 import rn.travels.in.rntravels.database.RNDatabase;
 import rn.travels.in.rntravels.models.MessageEvent;
 import rn.travels.in.rntravels.models.NotificationVO;
+import rn.travels.in.rntravels.models.PushSettingVO;
 import rn.travels.in.rntravels.ui.activity.RootActivity;
 import rn.travels.in.rntravels.util.Appconst;
 import rn.travels.in.rntravels.util.Util;
@@ -31,7 +32,14 @@ public class FCMReceiver extends FirebaseMessagingService {
     public void onNewToken(String s) {
         super.onNewToken(s);
         Log.d("Token",  s);
-        //TODO : SEND TOKEN TO APP SERVER
+
+        PushSettingVO pushSettingVO = RNDatabase.getInstance(getApplicationContext()).getPushDao().getPushSetting();
+        if (pushSettingVO == null) {
+            RNDatabase.getInstance(getApplicationContext()).getPushDao().insert(new PushSettingVO(s));
+        } else {
+            RNDatabase.getInstance(getApplicationContext()).getPushDao().update(new PushSettingVO(s));
+        }
+
     }
 
     @Override
