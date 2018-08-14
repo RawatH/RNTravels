@@ -3,6 +3,7 @@ package rn.travels.in.rntravels.ui.fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import rn.travels.in.rntravels.R;
 import rn.travels.in.rntravels.models.ResponseVO;
@@ -135,7 +137,12 @@ public class TranslateFragment extends BackFragment {
                     ArrayList<String> langList = new ArrayList<>();
                     for (int i = 0; i < langArr.length(); i++) {
                         JSONObject langObj = langArr.getJSONObject(i);
-                        langList.add(langObj.getString("language"));
+                        String langCode = langObj.getString("language");
+
+                        Locale loc = new Locale(langCode);
+                        String name = loc.getDisplayLanguage();
+//                        Log.d("code" , +"---"+langObj.getString("language"));
+                        langList.add(name);
                     }
                     setLangAapters(langList);
                 } catch (Exception e) {
