@@ -23,4 +23,6 @@ public interface PushSettingDao {
     @Update
     public void update(PushSettingVO pushSettingVO);
 
+    @Query("DELETE  FROM PUSH")
+    void clearPushSetting();
 }

@@ -231,7 +231,7 @@ public class LoginFragment extends NoToolbarFragment {
 
                         JSONObject paramObj = new JSONObject();
                         try {
-                            paramObj.put("email", userName.getText().toString().trim());
+                            paramObj.put("email", email.getText().toString().trim());
                             paramObj.put("user_id", "");
                             new NRequestor.RequestBuilder(ctx)
                                     .setReqType(Request.Method.POST)

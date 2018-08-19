@@ -2,6 +2,7 @@ package rn.travels.in.rntravels.ui.fragment;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.util.Pair;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import rn.travels.in.rntravels.R;
+import rn.travels.in.rntravels.adapters.TranslateAdapter;
 import rn.travels.in.rntravels.models.ResponseVO;
 import rn.travels.in.rntravels.network.NRequestor;
 import rn.travels.in.rntravels.network.NetworkConst;
@@ -66,9 +68,9 @@ public class TranslateFragment extends BackFragment {
         handler.post(LangRunnable);
     }
 
-    private void setLangAapters(ArrayList<String> list) {
-        ArrayAdapter<String> translateTo = new ArrayAdapter<>(ctx, android.R.layout.simple_dropdown_item_1line, list.toArray(new String[list.size()]));
-        ArrayAdapter<String> translateFrom = new ArrayAdapter<>(ctx, android.R.layout.simple_dropdown_item_1line, list.toArray(new String[list.size()]));
+    private void setLangAapters(ArrayList<Pair<String,String>> list) {
+        TranslateAdapter translateTo = new TranslateAdapter(ctx,R.layout.translate_row_layout,list);
+        TranslateAdapter translateFrom = new TranslateAdapter(ctx,R.layout.translate_row_layout,list);
 
         transFrom.setAdapter(translateFrom);
         transFrom.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -132,9 +134,10 @@ public class TranslateFragment extends BackFragment {
 
             case NetworkConst.ReqTag.TRANS_LANG:
                 try {
+                    ArrayList<Pair<String,String>> transList= new ArrayList<>();
                     JSONObject dataJSON = resultJSON.getJSONObject("data");
                     JSONArray langArr = dataJSON.getJSONArray("languages");
-                    ArrayList<String> langList = new ArrayList<>();
+
                     for (int i = 0; i < langArr.length(); i++) {
                         JSONObject langObj = langArr.getJSONObject(i);
                         String langCode = langObj.getString("language");
@@ -142,9 +145,12 @@ public class TranslateFragment extends BackFragment {
                         Locale loc = new Locale(langCode);
                         String name = loc.getDisplayLanguage();
 //                        Log.d("code" , +"---"+langObj.getString("language"));
-                        langList.add(name);
+
+                        transList.add(new Pair<String, String>(loc.getDisplayLanguage(), langCode));
+
+
                     }
-                    setLangAapters(langList);
+                    setLangAapters(transList);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

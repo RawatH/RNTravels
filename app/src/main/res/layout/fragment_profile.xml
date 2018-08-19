@@ -62,6 +62,20 @@
             android:id="@+id/profileTravleId"
             style="@style/rn_help_value_style" />
 
+        <TextView
+            android:id="@+id/viewPassport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="top|center"
+            android:gravity="center"
+            android:padding="5dp"
+            android:autoLink="email"
+            android:fontFamily="sans-serif"
+            android:text="@string/viewPassport"
+            android:textColor="@color/com_facebook_blue"
+            android:textSize="15sp" />
+
 
     </LinearLayout>
 

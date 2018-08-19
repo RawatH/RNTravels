@@ -54,7 +54,11 @@ public class PDFFragment extends BackFragment {
         this.pdf = (PdfVO) bundle.getSerializable("obj");
         this.pdfFile = pdf.getFileUrl();
         UserVO userVO = RNDatabase.getInstance(ctx).getUserDao().getLoggedUser();
-        this.filePath = ctx.getFilesDir() + File.separator + userVO.getUserId() + File.separator + PackageManager.getInstance().getSelectedPackage().getPkgId() + File.separator + pdf.getFileType();
+        if(bundle.getBoolean("isPassport",false)){
+            this.filePath = ctx.getFilesDir() + File.separator + userVO.getUserId();
+        }else {
+            this.filePath = ctx.getFilesDir() + File.separator + userVO.getUserId() + File.separator + PackageManager.getInstance().getSelectedPackage().getPkgId() + File.separator + pdf.getFileType();
+        }
         this.fileName = pdfFile.substring(pdfFile.lastIndexOf("/") + 1, pdfFile.length());
         if (Util.doesFileExists(filePath + File.separator + fileName)) {
             openPdf();

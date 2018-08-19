@@ -15,11 +15,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+
 import rn.travels.in.rntravels.R;
+import rn.travels.in.rntravels.models.PdfVO;
 import rn.travels.in.rntravels.models.ResponseVO;
 import rn.travels.in.rntravels.models.UserVO;
 import rn.travels.in.rntravels.network.NRequestor;
 import rn.travels.in.rntravels.network.NetworkConst;
+import rn.travels.in.rntravels.util.Appconst;
 import rn.travels.in.rntravels.util.Util;
 
 /**
@@ -33,6 +37,7 @@ public class ProfileFragment extends BackFragment {
     private TextView email;
     private TextView travelId;
     private UserVO userVO;
+    private TextView passportView;
 
     @Nullable
     @Override
@@ -48,12 +53,31 @@ public class ProfileFragment extends BackFragment {
         userName = view.findViewById(R.id.profileUserName);
         email = view.findViewById(R.id.profileEmail);
         travelId = view.findViewById(R.id.profileTravleId);
+        passportView = view.findViewById(R.id.viewPassport);
+        passportView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(userVO.getPassportUrl() != null){
+                    //TODO LOAD PASSPORT PDF
+                    PdfVO pdf = new PdfVO(userVO.getPassportUrl());
+                    Bundle bundle = new Bundle();
+                    bundle.putString("title", "Passport");
+                    bundle.putSerializable("obj" , pdf);
+                    bundle.putBoolean("isPassport",true);
+                    activity.loadFragment(Appconst.FragmentId.PDF_FRG, bundle, null);
+                }
+            }
+        });
         loadProfile();
 
     }
 
     private void loadProfile() {
         this.userVO = db.getUserDao().getLoggedUser();
+        File userFolder = new File(ctx.getFilesDir()+File.separator+this.userVO.getUserId());
+        if(!userFolder.exists()){
+            userFolder.mkdir();
+        }
         firstName.setText(userVO.getFirstName());
         lastName.setText(userVO.getLastName());
         userName.setText(userVO.getUserName());

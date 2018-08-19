@@ -3,6 +3,8 @@ package rn.travels.in.rntravels.models;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import com.github.barteksc.pdfviewer.PDFView;
+
 import org.json.JSONObject;
 
 import java.io.Serializable;
@@ -23,6 +25,9 @@ public class PdfVO implements Serializable {
     private String pkgId;
 
 
+    public PdfVO(String fileUrl){
+        this.fileUrl = fileUrl;
+    }
     public PdfVO(JSONObject json) {
         this.pkgId = json.optString("pkg_id");
         this.fileTitle = json.optString("title");

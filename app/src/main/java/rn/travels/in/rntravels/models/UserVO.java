@@ -27,6 +27,7 @@ public class UserVO {
     private String phoneNumber;
     private boolean isFBUser;
     private int userType;
+    private String passportUrl;
 
     public UserVO() {
     }
@@ -41,9 +42,17 @@ public class UserVO {
         this.userCred = json.optString("pass_word");
         this.travelId = json.optString("travel_id");
         this.userName = json.optString("user_name");
+        this.passportUrl = json.optString("passport_img");
         setFBUser(isFBUser());
     }
 
+    public String getPassportUrl() {
+        return passportUrl;
+    }
+
+    public void setPassportUrl(String passportUrl) {
+        this.passportUrl = passportUrl;
+    }
 
     public boolean isFBUser() {
         return !this.fbId.equals("null");

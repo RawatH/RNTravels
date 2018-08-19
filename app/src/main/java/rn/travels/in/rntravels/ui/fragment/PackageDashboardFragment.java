@@ -26,6 +26,7 @@ import rn.travels.in.rntravels.R;
 import rn.travels.in.rntravels.adapters.PackagePagerAdapter;
 import rn.travels.in.rntravels.database.RNDatabase;
 import rn.travels.in.rntravels.models.PackageVO;
+import rn.travels.in.rntravels.models.PushSettingVO;
 import rn.travels.in.rntravels.models.ResponseVO;
 import rn.travels.in.rntravels.models.UserVO;
 import rn.travels.in.rntravels.network.NRequestor;
@@ -44,6 +45,7 @@ public class PackageDashboardFragment extends DrawerFragment implements ViewPage
     private PackagePagerAdapter packagePagerAdapter;
     private BottomNavigationView bottomNavigationView;
     private View rootView;
+    private String pkgIdToDelete;
 
     @Nullable
     @Override
@@ -78,7 +80,36 @@ public class PackageDashboardFragment extends DrawerFragment implements ViewPage
                     }
                 });
         pager = view.findViewById(R.id.pkgPager);
-        loadPackage();
+        updateToken();
+
+    }
+
+    private void updateToken() {
+        if (Util.hasConnectivity(ctx)) {
+            showProgress("Initializing...");
+            UserVO userVO = db.getUserDao().getLoggedUser();
+            PushSettingVO pushSettingVO = db.getPushDao().getPushSetting();
+
+            JSONObject paramObj = new JSONObject();
+            try {
+                paramObj.put("email", userVO.getUserId());
+                paramObj.put("fcm_key", pushSettingVO.getPushRegToken());
+                new NRequestor.RequestBuilder(ctx)
+                        .setReqType(Request.Method.POST)
+                        .setUrl(Util.getUrlFor(NetworkConst.ReqTag.UPDATE_FCM_KEY))
+                        .setListener(this)
+                        .setReqVolleyType(NetworkConst.VolleyReq.STRING)
+                        .setReqParams(paramObj)
+                        .setReqTag(NetworkConst.ReqTag.UPDATE_FCM_KEY)
+                        .build()
+                        .sendRequest();
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        } else {
+            loadPackage();
+        }
     }
 
     private void loadPackage() {
@@ -89,7 +120,7 @@ public class PackageDashboardFragment extends DrawerFragment implements ViewPage
 
             if (nRequestor != null) {
                 nRequestor.sendRequest();
-                showProgress("Loading package...");
+                showProgress("Loading packages...");
             }
         } else {
             renderPackage(userVO.getUserId());
@@ -134,8 +165,6 @@ public class PackageDashboardFragment extends DrawerFragment implements ViewPage
     }
 
 
-    private String pkgIdToDelete;
-
     public void deletePackage(String packageId) {
 
         JSONObject paramObj = new JSONObject();
@@ -170,6 +199,9 @@ public class PackageDashboardFragment extends DrawerFragment implements ViewPage
         dismissProgress();
         switch (responseVO.getRequestTag()) {
 
+            case NetworkConst.ReqTag.UPDATE_FCM_KEY:
+                loadPackage();
+                break;
             case NetworkConst.ReqTag.DEL_PKG:
                 RNDatabase.getInstance(ctx).getPackageDao().deletePkgByPkgId(pkgIdToDelete);
                 File fileToDelete = new File(ctx.getFilesDir() + File.separator +
@@ -187,6 +219,7 @@ public class PackageDashboardFragment extends DrawerFragment implements ViewPage
                 UserVO followingUserVO = new UserVO(responseVO.getResponse());
                 followingUserVO.setUserType(Appconst.UserType.FOLLOWED_USER);
                 db.getUserDao().insert(followingUserVO);
+
                 JSONObject paramObj = new JSONObject();
                 try {
                     paramObj.put("user_id", followingUserVO.getUserId());
@@ -220,7 +253,9 @@ public class PackageDashboardFragment extends DrawerFragment implements ViewPage
 //                    //Clear old packages
 //                    Util.deleteUserData(file);
                         //Create new structure
-                        Util.createUserRootFolder(file);
+                        if (!file.exists()) {
+                            Util.createUserRootFolder(file);
+                        }
 
                         //Push new packages in DB
                         JSONArray arr = responseVO.getResponseArr();
@@ -260,6 +295,7 @@ public class PackageDashboardFragment extends DrawerFragment implements ViewPage
     public void onErrorResponse(VolleyError error) {
         super.onErrorResponse(error);
         dismissProgress();
+
     }
 
     //Page selection listener

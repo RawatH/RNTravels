@@ -223,6 +223,9 @@ public class Util {
             case NetworkConst.ReqTag.FORGET_PASSWORD:
                 url += NetworkConst.Endpoints.FORGET_PASSWORD;
                 break;
+            case NetworkConst.ReqTag.UPDATE_FCM_KEY:
+                url += NetworkConst.Endpoints.UPDATE_NOTIFICATION_KEY;
+                break;
 
         }
 
@@ -406,28 +409,28 @@ public class Util {
         return filteredList;
     }
 
-    public static void initNotificationSetting(Context context){
+    public static void initNotificationSetting(Context context) {
         SharedPreferences pref = context.getSharedPreferences("notif_pref", 0);
-        boolean val = pref.getBoolean("isNotifEnabled",true);
+        boolean val = pref.getBoolean("isNotifEnabled", true);
         SharedPreferences.Editor editor = pref.edit();
         editor.putBoolean("isNotifEnabled", val);
         editor.commit();
     }
 
-    public static boolean isNotificationEnabled(Context context){
+    public static boolean isNotificationEnabled(Context context) {
         SharedPreferences pref = context.getSharedPreferences("notif_pref", 0);
-        return pref.getBoolean("isNotifEnabled",true);
+        return pref.getBoolean("isNotifEnabled", true);
     }
 
-    public static void updateNotifSetting(Context context , boolean val){
+    public static void updateNotifSetting(Context context, boolean val) {
         SharedPreferences pref = context.getSharedPreferences("notif_pref", 0);
-        pref.getBoolean("isNotifEnabled",true);
+        pref.getBoolean("isNotifEnabled", true);
         SharedPreferences.Editor editor = pref.edit();
         editor.putBoolean("isNotifEnabled", val);
         editor.commit();
     }
 
-    public static Intent getNotificationIntent(Context context){
+    public static Intent getNotificationIntent(Context context) {
         Intent intent = new Intent(context, RootActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra("notification", true);
