@@ -2,6 +2,7 @@ package rn.travels.in.rntravels.ui.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,32 +49,38 @@ public class ProfileFragment extends BackFragment {
     }
 
     private void init(View view) {
+        this.userVO = db.getUserDao().getLoggedUser();
         firstName = view.findViewById(R.id.profileFirstName);
         lastName = view.findViewById(R.id.profileLastName);
         userName = view.findViewById(R.id.profileUserName);
         email = view.findViewById(R.id.profileEmail);
         travelId = view.findViewById(R.id.profileTravleId);
         passportView = view.findViewById(R.id.viewPassport);
-        passportView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(userVO.getPassportUrl() != null){
-                    //TODO LOAD PASSPORT PDF
-                    PdfVO pdf = new PdfVO(userVO.getPassportUrl());
-                    Bundle bundle = new Bundle();
-                    bundle.putString("title", "Passport");
-                    bundle.putSerializable("obj" , pdf);
-                    bundle.putBoolean("isPassport",true);
-                    activity.loadFragment(Appconst.FragmentId.PDF_FRG, bundle, null);
+        if(userVO.getPassportUrl() == null || userVO.getPassportUrl().equals("null")){
+            passportView.setVisibility(View.GONE);
+        }else {
+
+            passportView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (userVO.getPassportUrl() != null || !TextUtils.isEmpty(userVO.getPassportUrl())) {
+                        //TODO LOAD PASSPORT PDF
+                        PdfVO pdf = new PdfVO(userVO.getPassportUrl());
+                        Bundle bundle = new Bundle();
+                        bundle.putString("title", "Passport");
+                        bundle.putSerializable("obj", pdf);
+                        bundle.putBoolean("isPassport", true);
+                        activity.loadFragment(Appconst.FragmentId.PDF_FRG, bundle, null);
+                    }
                 }
-            }
-        });
+            });
+        }
         loadProfile();
 
     }
 
     private void loadProfile() {
-        this.userVO = db.getUserDao().getLoggedUser();
+
         File userFolder = new File(ctx.getFilesDir()+File.separator+this.userVO.getUserId());
         if(!userFolder.exists()){
             userFolder.mkdir();
