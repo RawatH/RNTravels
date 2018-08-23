@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -34,7 +35,7 @@ import rn.travels.in.rntravels.util.Util;
  * Created by demo on 14/07/18.
  */
 
-public class TranslateFragment extends BackFragment {
+public class TranslateFragment extends BackFragment  {
 
     private AutoCompleteTextView transFrom;
     private AutoCompleteTextView transTo;
@@ -69,7 +70,7 @@ public class TranslateFragment extends BackFragment {
     }
 
     private void setLangAapters(ArrayList<Pair<String,String>> list) {
-        TranslateAdapter translateTo = new TranslateAdapter(ctx,R.layout.translate_row_layout,list);
+        final TranslateAdapter translateTo = new TranslateAdapter(ctx,R.layout.translate_row_layout,list);
         TranslateAdapter translateFrom = new TranslateAdapter(ctx,R.layout.translate_row_layout,list);
 
         transFrom.setAdapter(translateFrom);
@@ -89,6 +90,22 @@ public class TranslateFragment extends BackFragment {
                 if (hasFocus) {
                     transTo.showDropDown();
                 }
+            }
+        });
+
+        transFrom.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Pair<String,String> valPair = ((TranslateAdapter)transFrom.getAdapter()).getItem(position);
+                transFrom.setText(valPair.second);
+            }
+        });
+
+        transTo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Pair<String,String> valPair = ((TranslateAdapter)transTo.getAdapter()).getItem(position);
+                transTo.setText(valPair.second);
             }
         });
 

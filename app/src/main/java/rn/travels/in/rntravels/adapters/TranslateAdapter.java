@@ -22,7 +22,6 @@ import rn.travels.in.rntravels.R;
 
 public class TranslateAdapter extends ArrayAdapter {
     private ArrayList<Pair<String, String>> dataList;
-    private Context mContext;
     private int itemLayout;
 
     private ListFilter listFilter = new ListFilter();
@@ -31,7 +30,6 @@ public class TranslateAdapter extends ArrayAdapter {
     public TranslateAdapter(Context context, int resource, ArrayList<Pair<String, String>> dataList) {
         super(context, resource, dataList);
         this.dataList = dataList;
-        mContext = context;
         itemLayout = resource;
     }
 
@@ -43,7 +41,6 @@ public class TranslateAdapter extends ArrayAdapter {
 
     @Override
     public Pair<String, String> getItem(int position) {
-
         return dataList.get(position);
     }
 

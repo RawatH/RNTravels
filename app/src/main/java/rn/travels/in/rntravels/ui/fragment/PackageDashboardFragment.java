@@ -85,14 +85,15 @@ public class PackageDashboardFragment extends DrawerFragment implements ViewPage
     }
 
     private void updateToken() {
-        if (Util.hasConnectivity(ctx)) {
+        PushSettingVO pushSettingVO = db.getPushDao().getPushSetting();
+        if (Util.hasConnectivity(ctx) && pushSettingVO != null) {
             showProgress("Initializing...");
             UserVO userVO = db.getUserDao().getLoggedUser();
-            PushSettingVO pushSettingVO = db.getPushDao().getPushSetting();
+
 
             JSONObject paramObj = new JSONObject();
             try {
-                paramObj.put("email", userVO.getUserId());
+                paramObj.put("email", userVO.getUserEmail());
                 paramObj.put("fcm_key", pushSettingVO.getPushRegToken());
                 new NRequestor.RequestBuilder(ctx)
                         .setReqType(Request.Method.POST)
