@@ -374,28 +374,29 @@ public class Util {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-        Date currentDate = new Date();
         ArrayList<PackageVO> pkgList = (ArrayList<PackageVO>) db.getPackageDao().getAll();
 
         for (PackageVO pkgVO : pkgList) {
 
             try {
-                Date pkgDate = sdf.parse(pkgVO.getTravelDate());
+                Date dt = new Date();
+                Date currentDate = sdf.parse(sdf.format(dt));
+                Date endDate = sdf.parse(pkgVO.getTravelEndDate());
                 switch (pkgType) {
                     case Appconst.PackageType.RECENT:
-                        if (!pkgVO.isFollowingPkg() && (pkgDate.compareTo(currentDate) == 0 || pkgDate.compareTo(currentDate) > 0)) {
+                        if (!pkgVO.isFollowingPkg() && (currentDate.compareTo(endDate) == 0 || currentDate.compareTo(endDate) < 0)) {
                             filteredList.add(pkgVO);
                         }
                         break;
                     case Appconst.PackageType.PAST:
-                        if (!pkgVO.isFollowingPkg() && pkgDate.compareTo(currentDate) < 0) {
+                        if (!pkgVO.isFollowingPkg() && currentDate.compareTo(endDate) > 0) {
                             filteredList.add(pkgVO);
                         }
                         break;
 
                     case Appconst.PackageType.FOLLOWING:
 
-                        if (pkgVO.isFollowingPkg() && (pkgDate.compareTo(currentDate) > 0 || pkgDate.compareTo(currentDate) == 0)) {
+                        if (pkgVO.isFollowingPkg() && (currentDate.compareTo(endDate) > 0 || currentDate.compareTo(endDate) == 0)) {
                             filteredList.add(pkgVO);
                         }
                         break;

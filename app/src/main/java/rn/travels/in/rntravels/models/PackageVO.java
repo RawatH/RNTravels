@@ -12,7 +12,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import rn.travels.in.rntravels.util.Appconst;
 import rn.travels.in.rntravels.util.Util;
@@ -32,6 +36,7 @@ public class PackageVO implements Serializable {
     private String heading;
     private String subHeading;
     private String travelDate;
+    private String travelEndDate;
     private String bannerImage;
     private String uploadJson;
     private boolean isFollowingPkg;
@@ -56,8 +61,34 @@ public class PackageVO implements Serializable {
         this.heading = jsonObject.optString("pack_name");
         this.subHeading = jsonObject.optString("pack_detail");
         this.travelDate = jsonObject.optString("travel_dt");
+        this.travelEndDate = jsonObject.optString("travel_end_dt");
         this.bannerImage = jsonObject.optString("bannery_img");
         this.uploadJson = jsonObject.optString("uploads");
+    }
+
+    public String getTravelEndDate() {
+
+        if (travelEndDate == null || travelEndDate == "0000-00-00") {
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+                Date travelEndDate = sdf.parse(getTravelDate());
+
+
+                Calendar c = Calendar.getInstance();
+                c.setTime(travelEndDate);
+                c.add(Calendar.DATE, Integer.parseInt(getItinerary().getNumOfDays())+1);
+                travelEndDate.setTime(c.getTimeInMillis());
+                return travelEndDate.toString();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return travelEndDate;
+    }
+
+    public void setTravelEndDate(String travelEndDate) {
+        this.travelEndDate = travelEndDate;
     }
 
     public String getUploadJson() {
