@@ -1,11 +1,13 @@
 package rn.travels.in.rntravels.ui.fragment;
 
+import android.database.sqlite.SQLiteConstraintException;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -269,10 +271,18 @@ public class PackageDashboardFragment extends DrawerFragment implements ViewPage
                             }
                             PackageVO dbPkg = db.getPackageDao().getPkgById(packageVO.getPkgId());
                             if (dbPkg == null) {
-                                db.getPackageDao().insert(packageVO);
+
+                                try {
+                                    db.getPackageDao().insert(packageVO);
+                                }catch (SQLiteConstraintException e){
+                                    db.getPackageDao().deletePkgByPkgId(packageVO.getPkgId());
+                                    Log.d("db","Updated---"+packageVO.toString());
+                                    db.getPackageDao().insert(packageVO);
+                                }
                                 Util.createFileStructure(file.getPath() + File.separator + packageVO.getPkgId());
                             } else {
                                 //TODO : Update only if update is received
+                                db.getPackageDao().update(packageVO);
                             }
 
                         }

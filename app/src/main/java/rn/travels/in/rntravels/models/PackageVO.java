@@ -68,7 +68,7 @@ public class PackageVO implements Serializable {
 
     public String getTravelEndDate() {
 
-        if (travelEndDate == null || travelEndDate == "0000-00-00") {
+        if (travelEndDate == null || travelEndDate.equalsIgnoreCase("0000-00-00")) {
             try {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -77,9 +77,10 @@ public class PackageVO implements Serializable {
 
                 Calendar c = Calendar.getInstance();
                 c.setTime(travelEndDate);
-                c.add(Calendar.DATE, Integer.parseInt(getItinerary().getNumOfDays())+1);
+                c.add(Calendar.DATE, 10);
                 travelEndDate.setTime(c.getTimeInMillis());
-                return travelEndDate.toString();
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                return formatter.format(c.getTime());
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -246,4 +247,23 @@ public class PackageVO implements Serializable {
 
     }
 
+    @Override
+    public String toString() {
+        return "PackageVO{" +
+                "pkgId='" + pkgId + '\'' +
+                ", userId='" + userId + '\'' +
+                ", pkgJson='" + pkgJson + '\'' +
+                ", heading='" + heading + '\'' +
+                ", subHeading='" + subHeading + '\'' +
+                ", travelDate='" + travelDate + '\'' +
+                ", travelEndDate='" + travelEndDate + '\'' +
+                ", bannerImage='" + bannerImage + '\'' +
+                ", uploadJson='" + uploadJson + '\'' +
+                ", isFollowingPkg=" + isFollowingPkg +
+                ", ticketsList=" + ticketsList +
+                ", voucherList=" + voucherList +
+                ", boardingPassList=" + boardingPassList +
+                ", dayList=" + dayList +
+                '}';
+    }
 }

@@ -384,12 +384,12 @@ public class Util {
                 Date endDate = sdf.parse(pkgVO.getTravelEndDate());
                 switch (pkgType) {
                     case Appconst.PackageType.RECENT:
-                        if (!pkgVO.isFollowingPkg() && (currentDate.compareTo(endDate) == 0 || currentDate.compareTo(endDate) < 0)) {
+                        if (!pkgVO.isFollowingPkg() && (currentDate.compareTo(endDate) == 0 || endDate.compareTo(currentDate) > 0)) {
                             filteredList.add(pkgVO);
                         }
                         break;
                     case Appconst.PackageType.PAST:
-                        if (!pkgVO.isFollowingPkg() && currentDate.compareTo(endDate) > 0) {
+                        if (!pkgVO.isFollowingPkg() && endDate.compareTo(currentDate) < 0) {
                             filteredList.add(pkgVO);
                         }
                         break;
